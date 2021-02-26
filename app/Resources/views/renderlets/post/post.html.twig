@@ -1,0 +1,7 @@
+
+{% for post in posts %}
+    <h3>{{post.getTitle}}</h3>
+    {{post.content|raw}}
+    <img src="{{post.getFeaturedImage}}" />
+    {#{dump(post.getCategory[0].getColor)}#}
+{% endfor %}

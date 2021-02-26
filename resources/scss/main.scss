@@ -1,0 +1,38 @@
+// importing abstracts
+@import "abstracts/variables";
+@import "abstracts/mixins";
+
+// importing base
+@import "base/reset";
+@import "base/typography";
+
+
+.main-content {
+    padding: 10px;
+}
+nav {
+    background-color: rgb(177, 177, 177);
+    text-align: center;
+}
+ul {
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 10px;
+}
+a {
+    color: black;
+}
+.gallery {
+    padding: 10px 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+footer {
+    background-color: rgb(77, 77, 77);
+    color: white;
+    padding: 10px;
+    text-align: center;
+}

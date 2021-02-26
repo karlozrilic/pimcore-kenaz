@@ -1,0 +1,13 @@
+display gallery here
+{#{dump(gallery)}#}
+<div class="gallery">
+{% for el in gallery.gallery.items %}
+    {{ el.image.getThumbnail('thumbnails').getHtml() | raw }}
+    {#{el.image.filename}#}
+{% endfor %}
+</div>
+{#{image|raw}#}
+<div>
+This device:
+{{ pimcore_device() }}
+</div>

@@ -1,0 +1,4 @@
+{% for conf in configuration %}
+    <p>English: {{conf.getLogin('en')}}</p>
+    <p>French: {{conf.getLogin('fr')}}</p>
+{% endfor %}

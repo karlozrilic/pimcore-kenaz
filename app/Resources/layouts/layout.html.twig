@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/icons/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/icons/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/icons/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/static/icons/favicon/site.webmanifest">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+    {% if pimcore_head_title().count() == 0 %}
+        {% if document and document.getTitle() is not empty %}
+            {% do pimcore_head_title().set(document.getTitle()) %}
+        {% endif %}
+    {% endif %}
+
+    {% if document.getDescription() is not empty %}
+        {% do pimcore_head_meta().setDescription(document.getDescription()) %}
+    {% endif %}
+
+    {% block layout_head_meta deferred %}
+    {{ pimcore_head_title() }}
+    {{ pimcore_head_meta() }}
+
+    {% if pimcore_placeholder('canonical').count() %}
+        <link rel="canonical" href="{{ pimcore_placeholder('canonical') }}"/>
+    {% endif %}
+    {% endblock %}
+
+    {% block head_stylesheets deferred %}
+    {{ pimcore_head_link() }}
+    {% endblock %}
+</head>
+<body>
+{% block content %}
+{% endblock %}
+
+{{ pimcore_inc(document.getProperty('cookieBar')) }}
+
+{% do pimcore_head_script().captureStart %}
+var language = '{{ get_default_language() }}';
+{% do pimcore_head_script().captureEnd %}
+{% do pimcore_head_script().appendFile(asset('static/js/main.js')) %}
+{% block headscripts deferred %}
+{{ pimcore_head_script() }}
+{% endblock %}
+</body>
+</html>
