@@ -33,7 +33,7 @@ class NewsRepository
         $newsListing = new Listing();
         $newsListing->setCondition('category like ? AND publishDate < ? AND o_classId = ("post")', ['%' . $id . '%', $today]);
         $newsListing->setOrderKey("publishDate");
-        $newsListing->setOrder("publishDate");
+        $newsListing->setOrder("desc");
         $newsListing->setLimit($limit);
 
         return $newsListing->getObjects();

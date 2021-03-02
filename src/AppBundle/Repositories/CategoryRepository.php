@@ -41,4 +41,12 @@ class CategoryRepository
 
         return $paginator;
     }
+
+    public function getCategoryName($categoryId) {
+        $category = new Listing();
+        $category->addConditionParam('oo_id = ?', [$categoryId]);
+
+        return $category->getObjects();
+    }
+
 }

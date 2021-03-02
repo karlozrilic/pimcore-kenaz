@@ -1,1 +1,20 @@
-news Carousel list
+<div class="news-carousel">
+    <div class="main-article-top">
+        <h1>News Carousel</h1>
+        <div class="arrows">
+            <img class="a-left control-c prev slick-prev" id="news-carousel-prev" src="/static/img/icons/prevArrowNewsCarousel.png" alt="Previous arrow" />
+            <img class="a-left control-c next slick-next" id="news-carousel-next" src="/static/img/icons/nextArrowNewsCarousel.png" alt="Next arrow" />
+        </div>
+    </div>
+    <div class="articles news-carousel-slider">
+        {% for post in news %}
+        <a class="medium-article" href="/single">
+            <img class="carousel-article-image" src="{{ post.getFeaturedImage }}" alt="Article image" />
+            <div class="article-date-and-views">
+                <p>{{ post.getPublishDate|date("F d, Y") }}</p>
+            </div>
+            <p class="article-title">{{ post.getTitle }}</p>
+        </a>
+        {% endfor %}
+    </div>
+</div>

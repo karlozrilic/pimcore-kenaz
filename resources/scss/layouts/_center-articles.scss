@@ -1,0 +1,134 @@
+.center-articles {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    .main-articles {
+        max-width: 625px;
+        margin: 15px 18px 0 0;
+        .news {
+            @include mainArticles($lightBlue);
+            margin-bottom: 17px;
+        }
+        .sport {
+            @include mainArticles($green);
+            margin-bottom: 17px;
+        }
+        .business {
+            @include mainArticles($red);
+        }
+        .news-carousel {
+            @include mainArticles($yellow);
+            margin-bottom: 17px;
+        }
+        .main-article-top {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            h1 {
+                font-family: "Bitter";
+                font-weight: bold;
+                font-size: $titleFontSize;
+                line-height: 29px;
+                color: $articleTextColor;
+                padding-bottom: 15px;
+            }
+            a {
+                font-family: "Varela Round";
+                color: $darkBlue;
+                border-bottom: 2px solid $darkBlueAlpha;
+                padding: 0;
+                margin: 0;
+                height: fit-content;
+                &:hover {
+                    opacity: 0.8;
+                }
+            }
+            .arrows {
+                img {
+                    margin: 7px;
+                    cursor: pointer;
+                }
+            }
+        }
+        .articles {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            &.wrap {
+                flex-wrap: wrap;
+            }
+            .medium-article {
+                width: 100%;
+                margin: 5px;
+                cursor: pointer;
+                display: flex;
+                flex-direction: column;
+                &:hover {
+                    opacity: 0.85;
+                }
+                img {
+                    width: auto;
+                    height: 128px;
+                    object-fit: cover;
+                    &.carousel-article-image {
+                        height: 150px;
+                    }
+                }
+                .article-date-and-views {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    padding: 5px 0;
+                    p {
+                        font-family: "Varela Round";
+                        font-size: $smallFontSize;
+                        color: $darkGrey;
+                    }
+                }
+                .article-title {
+                    font-weight: bold;
+                    font-size: $standardFontSize;
+                    color: $articleTextColor;
+                }
+            }
+            .small-article {
+                width: 48%;
+                margin: 5px;
+                display: flex;
+                flex-direction: row;
+                padding: 5px 0;
+                cursor: pointer;
+                &:hover {
+                    opacity: 0.85;
+                }
+                img {
+                    width: 120px;
+                    height: auto;
+                    object-fit: cover;
+                }
+                .article-side {
+                    display: flex;
+                    flex-direction: column;
+                    padding-left: 10px;
+                    .article-date-and-views {
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-between;
+                        padding: 5px 0;
+                        p {
+                            font-family: "Varela Round";
+                            font-size: $smallFontSize;
+                            color: $darkGrey;
+                        }
+                    }
+                    .article-title {
+                        font-weight: bold;
+                        font-size: $standardFontSize;
+                        line-height: 16px;
+                        color: $articleTextColor;
+                    }
+                }
+            }
+        }
+    }
+}
