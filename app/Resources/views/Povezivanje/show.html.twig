@@ -1,5 +1,6 @@
 {% extends 'layout.html.twig' %}
 {% block content %}
+
     Povezano
     <h2>{{ pimcore_input("headline") }}</h2>
     <br>
@@ -8,6 +9,6 @@
         {{array|map(el => el)|join(', ')}}
     </div>
     <br>
-    {{ pimcore_areablock("areablock")}}
+    {{ pimcore_areablock("povezivanje-areablock")}}
     {{ pimcore_snippet("snippet", {"width": 250, "height": 100}) }}
 {% endblock %}

@@ -1,4 +1,7 @@
 {
-    "/static/js/app.js": "/static/js/app.js?id=dae4328e66e401b6bb55",
-    "/static/css/main.css": "/static/css/main.css?id=0cb60f010fd7ad5a86c0"
+    "/static/js/main.js": "/static/js/main.js?id=f1bc417d3dcd70aeb258",
+    "/static/css/main.css": "/static/css/main.css?id=1d778f2747604266a9b8",
+    "/static/img/logo-white.png": "/static/img/logo-white.png?id=07c74e39c766db5ab7fd",
+    "/static/img/logo.svg": "/static/img/logo.svg?id=4a41b544e7b5f188add4",
+    "/static/img/search.png": "/static/img/search.png?id=76131286476c3da57d7b"
 }

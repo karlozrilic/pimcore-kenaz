@@ -1,4 +1,34 @@
 {% extends 'layout.html.twig' %}
 {% block content %}
-{{ pimcore_areablock("mainBlock") }}
+<div class="main-content">
+    {{ pimcore_areablock("bannerBig", {
+        "allowed": ["random-banner"]
+    }) }}
+    {{ pimcore_areablock("articleSlider", {
+        "allowed": ["article-slider"]
+    }) }}
+    <div class="center-articles">
+        <div class="main-articles">
+            {{ pimcore_areablock("newsArticles", {
+                "allowed": ["news"]
+            }) }}
+            {{ pimcore_areablock("sportArticles", {
+                "allowed": ["news"]
+            }) }}
+            {{ pimcore_areablock("bannerMedium1", {
+                "allowed": ["random-banner"]
+            }) }}
+            {{ pimcore_areablock("businessArticles", {
+                "allowed": ["news"]
+            }) }}
+            {{ pimcore_areablock("bannerMedium2", {
+                "allowed": ["random-banner"]
+            }) }}
+            {{ pimcore_areablock("news-carousel", {
+                "allowed": ["news-carousel"]
+            }) }}
+        </div>
+        <div></div>
+    </div>
+</div>
 {% endblock %}

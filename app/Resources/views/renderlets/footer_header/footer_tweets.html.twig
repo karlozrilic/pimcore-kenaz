@@ -1,0 +1,11 @@
+{% for tweet in tweets %}
+    <div class="footer-tweet">
+        <div class="footer-tweet-acc">
+            <img src="/static/img/social/twitterBird.png" alt="Twitter" />
+            <a href="#">{{tweet.getUsername}} @{{tweet.getUserTag}}</a>
+        </div>
+        <div class="footer-tweet-post">
+            {{tweet.getTweetContent}}
+        </div>
+    </div>
+{% endfor %}

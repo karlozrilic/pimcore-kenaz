@@ -1,1 +1,39 @@
-{{ pimcore_areablock("header-areablock")}}
+{% extends 'layout.html.twig' %}
+{% block head %}
+    {% if view.editmode %}
+        {{parent()}}
+    {% endif %}
+{% endblock %}
+{% block navigation %}
+<header>
+    <div class="top-navigation">
+        <div class="top-navigation-content">
+            <div class="top-navigation-brand">
+                <div class="top-logo">
+                    <img src="/static/img/logo-white.png" alt="Logo" />
+                </div>
+                <h1>Kenaz</h1>
+            </div>
+            <div class="top-navigation-links">
+                <ul>
+                    <li><a href="/category">Media</a></li>
+                    <li><a href="/category">Marketing</a></li>
+                    <li><a href="/category">Contact</a></li>
+                </ul>
+                <button class="top-navigation-search"><img src="/static/img/search.png" alt="Search" /></button>
+            </div>
+        </div>
+    </div>
+    <div class="lower-navigation">
+        <div class="lower-navigation-content">
+            {{ pimcore_areablock("header-areablock") }}
+        </div>
+    </div>
+</header>
+{% endblock %}
+{% block content %}
+{% endblock %}
+{% block footer %}
+{% endblock %}
+{% block headscripts deferred %}
+{% endblock %}

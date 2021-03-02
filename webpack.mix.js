@@ -3,13 +3,18 @@ require('laravel-mix-purgecss');
 
 mix.setPublicPath('./web')
 
+mix.copy(
+	'resources/img',
+	'web/static/img'
+)
+
 mix.sass(
 	'resources/scss/main.scss',
 	'web/static/css'
 );
 mix.js(
 	'resources/js/main.js',
-	'web/static/js/app.js'
+	'web/static/js/main.js'
 );
 
 mix.version();

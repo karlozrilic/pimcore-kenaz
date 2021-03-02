@@ -1,0 +1,224 @@
+.footer-title {
+    font-weight: bold;
+    font-size: $titleFontSize;
+    color: $lighterGrey;
+}
+
+footer {
+    width: 100%;
+    border-top: 23px solid $purple;
+    background-color: $darkBackgroud;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px 0;
+    .footer-container {
+        max-width: $maxWidth;
+        .top-footer {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            .footer-title {
+                padding-bottom: 10px;
+            }
+        }
+        .mid-footer {
+            display: flex;
+            flex-direction: row;
+            margin-top: 50px;
+            .footer-title {
+                padding-bottom: 25px;
+            }
+        }
+    }
+}
+
+.footer-element {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0 10px;
+    .logo {
+        color: $logoBLue;
+        display: flex;
+        flex-direction: row;
+        font-size: 29.623px;
+        img {
+            padding-right: 18px;
+        }
+    }
+    .text {
+        color: $darkGrey;
+        padding: 23px 0;
+    }
+    .social {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        a:hover {
+            opacity: 0.8;
+        }
+    }
+    form {
+        width: 100%;
+        font-size: 16px;
+        line-height: 19px;
+        display: flex;
+        flex-direction: row;
+        input {
+            background-color: $darkerGrey;
+            border: none;
+            padding: 15px;
+            width: 80%;
+        }
+        button {
+            position: relative;
+            border: none;
+            padding: 15px;
+            color: $lighterGrey;
+            background-color: $purple;
+            &:hover {
+                color: $white;
+                cursor: pointer;
+                &::before {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    opacity: 0.1;
+                    background-color: $black;
+                }
+            }
+        }
+    }
+    .links {
+        padding-top: 23px;
+        ul {
+            li {
+                display: inline-block;
+                margin: 5px 0;
+                a {
+                    font-family: "Varela";
+                    font-size: $smallFontSize;
+                    line-height: 20px;
+                    padding: 5px 8px;
+                    margin: 0 2px;
+                    background: $darkerGrey;
+                    color: $darkGrey;
+                    &:hover {
+                        background-color: $purple;
+                        color: $lighterGrey;
+                    }
+                }
+            }
+        }
+    }
+    .footer-article {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        color: $darkGrey;
+        .article-info {
+            display: flex;
+            flex-direction: column;
+            padding-right: 20px;
+            .article-info-date-comments {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                p {
+                    font-family: "Varela Round";
+                    font-size: $smallerFontSize;
+                    line-height: 12px;
+                    color: $darkGrey;
+                }
+            }
+            .article-info-title {
+                font-weight: bold;
+                color: $white;
+            }
+        }
+        .article-image {
+            border: 3px solid $white;
+        }
+        &:hover {
+            .article-info {
+                .article-info-title {
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+    .footer-tweet {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin-bottom: 30px;
+        .footer-tweet-acc {
+            display: flex;
+            flex-direction: row;
+            padding-bottom: 3px;
+            img {
+                margin-right: 5px;
+                width: 24px;
+                height: 18px;
+            }
+            a {
+                color: $darkGrey;
+            }
+        }
+        .footer-tweet-post {
+            font-family: "Varela";
+            font-size: 13px;
+            line-height: 18px;
+            color: $lighterGrey;
+        }
+    }
+}
+
+.bottom-footer {
+    width: $maxWidth;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 4px;
+    .copyright {
+        @include footerBottomText();
+    }
+    .links {
+        ul {
+            li {
+                display: inline-block;
+                color: $lightGrey;
+                a {
+                    margin: 0 8px;
+                    @include footerBottomText();
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.footer-hr {
+    width: 100%;
+    height: 1px;
+    margin: 60px 0 18px;
+    background-color: $darkGrey;
+    mix-blend-mode: normal;
+    opacity: 0.2;
+    border: none;
+}
+
+.mid-footer-hr {
+    height: 1px;
+    background-color: $darkGrey;
+    mix-blend-mode: normal;
+    opacity: 0.2;
+    margin: 20px 0;
+    border: none;
+}

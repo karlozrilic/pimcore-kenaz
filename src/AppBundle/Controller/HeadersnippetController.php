@@ -9,9 +9,9 @@ use Pimcore\Controller\Configuration\ResponseHeader;
 
 class HeadersnippetController extends FrontendController
 {
-    
+
     public function showAction(Request $request)
     {
-        
+        return ['view' => $this->view];
     }
 }

@@ -1,0 +1,170 @@
+header {
+    width: 100%;
+}
+
+.top-navigation {
+    @include navigation();
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: $darkBackgroud;
+    .top-navigation-content {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: $maxWidth;
+        .top-navigation-brand {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            .top-logo {
+                position: relative;
+                height: 100%;
+                width: 63px;
+                &::before {
+                    content: "";
+                    display: block;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    height: 100%;
+                    width: 63px;
+                    mix-blend-mode: normal;
+                    opacity: 0.05;
+                    background-color: $white;
+                }
+                img {
+                    position: absolute;
+                    width: 14px;
+                    height: 21px;
+                    left: 23px;
+                    top: 15px;
+                }
+            }
+            h1 {
+                padding: 16px 9px 9px;
+                font-size: $titleFontSize;
+                line-height: 27px;
+                display: flex;
+                align-items: center;
+                color: $white;
+            }
+        }
+        .top-navigation-links {
+            position: relative;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            ul {
+                li {
+                    display: inline;
+                    padding: 5px;
+                    margin-right: 15px;
+                    a {
+                        font-family: "Varela Round", sans-serif;
+                        font-size: $standardFontSize;
+                        height: 27px;
+                        color: $white;
+                        &:hover {
+                            mix-blend-mode: normal;
+                            opacity: 0.7;
+                        }
+                    }
+                }
+            }
+            .top-navigation-search {
+                height: 100%;
+                width: 62px;
+                background-color: transparent;
+                border: none;
+                &::before {
+                    content: "";
+                    display: block;
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    height: 100%;
+                    width: 62px;
+                    mix-blend-mode: normal;
+                    opacity: 0.05;
+                    background-color: $white;
+                }
+                &:hover {
+                    cursor: pointer;
+                }
+                img {
+                    width: 16px;
+                    height: 16px;
+                }
+            }
+        }
+    }
+}
+.lower-navigation {
+    @include navigation();
+    background-color: $purple;
+    display: flex;
+    justify-content: center;
+    .lower-navigation-content {
+        display: flex;
+        flex-direction: row;
+        justify-content: start;
+        align-items: center;
+        width: $maxWidth;
+        /* areablock fix */
+        .pimcore_area_category {
+            height: 100%;
+            width: 100%;
+        }
+        ul {
+            height: 100%;
+            display: flex;
+            flex-direction: row;
+            li {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                height: 100%;
+                a {
+                    font-weight: bold;
+                    font-size: 18px;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                    align-items: center;
+                    height: 100%;
+                    padding: 6px 16px;
+                    color: $white;
+                    &:hover {
+                        mix-blend-mode: normal;
+                        opacity: 0.8;
+                    }
+                    &#news {
+                        background-color: $lightBlue;
+                    }
+                    &#business {
+                        padding-bottom: 0;
+                        border-bottom: 6px solid $red;
+                    }
+                    &#sport {
+                        padding-bottom: 0;
+                        border-bottom: 6px solid $green;
+                    }
+                    &#life {
+                        padding-bottom: 0;
+                        border-bottom: 6px solid $lighterBlue;
+                    }
+                    &#tech {
+                        padding-bottom: 0;
+                        border-bottom: 6px solid $yellow;
+                    }
+                    &#travel {
+                        padding-bottom: 0;
+                        border-bottom: 6px solid $beige;
+                    }
+                }
+            }
+        }
+    }
+}

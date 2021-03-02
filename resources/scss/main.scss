@@ -6,21 +6,32 @@
 @import "base/reset";
 @import "base/typography";
 
+// importing components
+@import "components/banner";
+@import "components/sliders";
+
+// importing layouts
+@import "layouts/header";
+@import "layouts/center-articles";
+@import "layouts/footer";
+
 
 .main-content {
-    padding: 10px;
+    margin: 0 auto;
+    max-width: $maxWidth;
 }
 nav {
     background-color: rgb(177, 177, 177);
     text-align: center;
+    ul {
+        list-style-type: none;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        padding: 10px;
+    }
 }
-ul {
-    list-style-type: none;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    padding: 10px;
-}
+
 a {
     color: black;
 }
@@ -30,9 +41,11 @@ a {
     flex-direction: row;
     flex-wrap: wrap;
 }
-footer {
-    background-color: rgb(77, 77, 77);
-    color: white;
-    padding: 10px;
-    text-align: center;
+
+/* Pimcore edit style */
+.edit {
+    div {
+        color: black;
+        background-color: transparent;
+    }
 }

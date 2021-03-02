@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% block head %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="apple-touch-icon" sizes="180x180" href="/static/icons/favicon/apple-touch-icon.png">
@@ -10,15 +11,23 @@
     <link rel="stylesheet" href="/static/css/main.css" />
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bitter&family=Varela+Round&family=Bitter:wght@700&family=Varela&display=swap" rel="stylesheet">
 
-    {% if pimcore_head_title().count() == 0 %}
-        {% if document and document.getTitle() is not empty %}
-            {% do pimcore_head_title().set(document.getTitle()) %}
+    {% if document.type != "snippet" %}
+        {% if pimcore_head_title().count() == 0 %}
+            {% if document and document.getTitle() is not empty %}
+                {% do pimcore_head_title().set(document.getTitle()) %}
+            {% endif %}
         {% endif %}
-    {% endif %}
 
-    {% if document.getDescription() is not empty %}
-        {% do pimcore_head_meta().setDescription(document.getDescription()) %}
+        {% if document.getDescription() is not empty %}
+            {% do pimcore_head_meta().setDescription(document.getDescription()) %}
+        {% endif %}
     {% endif %}
 
     {% block layout_head_meta deferred %}
@@ -33,25 +42,17 @@
     {% block head_stylesheets deferred %}
     {{ pimcore_head_link() }}
     {% endblock %}
+    {% endblock %}
 </head>
 <body>
 {% block navigation %}
-    <nav>
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/articles">Articles</a></li>
-            <li><a href="/povezivanje">Povezivanje</a></li>
-            <li><a href="/post">Post</a></li>
-        </ul>
-        {{ pimcore_inc('/header') }}
-    </nav>
+    {{ pimcore_inc('/snippets/header') }}
 {% endblock %}
-<div class="main-content">
     {% block content %}
     {% endblock %}
-</div>
+
 {% block footer %}
-    <footer>footer</footer>
+    {{ pimcore_inc('/snippets/footer') }}
 {% endblock %}
 
 {{ pimcore_inc(document.getProperty('cookieBar')) }}

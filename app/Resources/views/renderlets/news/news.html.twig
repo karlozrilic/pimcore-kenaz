@@ -1,3 +1,30 @@
-{% for item in news %}
-    <a href="{{ path(item) }}">{{ item.title }}</a>
-{% endfor %}
+<div class="{{ category[0].getKey()|lower }}">
+    <div class="main-article-top">
+        <h1>{{ category[0].getKey() }}</h1>
+        <a href="/single">See all</a>
+    </div>
+    <div class="articles {% if category[0].getMin > 3 or (category[0].getMax > 3 and news|length > 3) %}wrap{% endif %}">
+    {% for post in news[:category[0].getMax] %}
+        {% if category[0].getMin <= 3 and (category[0].getMax <= 3 or news|length <= 3) %}
+        <a class="medium-article" href="/single">
+            <img src="{{ post.getFeaturedImageSmall }}" alt="Article image" />
+            <div class="article-date-and-views">
+                <p>{{ post.getPublishDate|date("F d, Y") }}</p>
+                <p>{{ post.getComments|length }}</p>
+            </div>
+            <p class="article-title">{{ post.getTitle }}</p>
+        </a>
+        {% else %}
+        <a class="small-article" href="/single">
+            <img src="{{ post.getFeaturedImageSmall }}" alt="Article image" />
+            <div class="article-side">
+                <div class="article-date-and-views">
+                    <p>{{ post.getPublishDate|date("F d, Y") }}</p>
+                </div>
+                <p class="article-title">{{ post.getTitle }}</p>
+            </div>
+        </a>
+        {% endif %}
+    {% endfor %}
+    </div>
+</div>

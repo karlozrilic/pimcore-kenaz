@@ -1,0 +1,81 @@
+{% extends 'layout.html.twig' %}
+{% block head %}
+    {% if view.editmode %}
+        {{parent()}}
+    {% endif %}
+{% endblock %}
+{% block navigation %}
+{% endblock %}
+{% block content %}
+{% endblock %}
+{% block footer %}
+<footer>
+    <div class="footer-container">
+        <div class="top-footer">
+            <div class="footer-element">
+                <div class="logo"><img src="/static/img/logo.svg" alt="Logo" /> Kenaz</div>
+                <div class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus leo ante.</div>
+                <div class="social">
+                    <a href="#"><img src="/static/img/social/rss.svg" /></a>
+                    <a href="#"><img src="/static/img/social/facebook.svg" /></a>
+                    <a href="#"><img src="/static/img/social/twitter.svg" /></a>
+                    <a href="#"><img src="/static/img/social/dribble.svg" /></a>
+                    <a href="#"><img src="/static/img/social/linkedin.svg" /></a>
+                    <a href="#"><img src="/static/img/social/youtube.svg" /></a>
+                    <a href="#"><img src="/static/img/social/skype.svg" /></a>
+                </div>
+            </div>
+            <div class="footer-element">
+                <h3 class="footer-title">Newsletter</h3>
+                <div class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus leo ante...</div>
+                <form action="/" method="POST">
+                    <input type="text" placeholder="Your mail" />
+                    <button>Subscribe</button>
+                </form>
+            </div>
+            <div class="footer-element">
+                <h3 class="footer-title">Tags Widget</h3>
+                <div class="links">
+                    {{ pimcore_areablock("footer-tag-areablock", {
+                        "allowed": ["footer-tags"]
+                    })}}
+                </div>
+            </div>
+        </div>
+        <div class="mid-footer">
+            <div class="footer-element">
+                <h3 class="footer-title">Featured</h3>
+                {{ pimcore_areablock("footer-featured-posts-areablock", {
+                    "allowed" : ["footer-posts"]
+                })}}
+            </div>
+            <div class="footer-element">
+                <h3 class="footer-title">Random Posts</h3>
+                {{ pimcore_areablock("footer-random-posts-areablock", {
+                    "allowed": ["footer-posts"]
+                })}}
+            </div>
+            <div class="footer-element">
+                <h3 class="footer-title">Twitter Feed</h3>
+                {{ pimcore_areablock("footer-tweets-areablock", {
+                    "allowed" : ["footer-tweets"]
+                })}}
+            </div>
+        </div>
+    </div>
+    <hr class="footer-hr" />
+    <div class="bottom-footer">
+        <div class="copyright">&copy; 2013 - Kenaz Template - Proudly made at Plava tvornica Croatia</div>
+        <div class="links">
+            <ul>
+                <li><a href="/single">Typography</a></li>
+                <li><a href="/single">Templates</a></li>
+                <li><a href="/single">Contact Form</a></li>
+                <li><a href="/single">404 Page</a></li>
+            </ul>
+        </div>
+    </div>
+</footer>
+{% endblock %}
+{% block headscripts deferred %}
+{% endblock %}

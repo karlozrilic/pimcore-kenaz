@@ -1,0 +1,15 @@
+{% for post in posts %}
+    <a class="footer-article" href="/single">
+        <div class="article-info">
+            <div class="article-info-date-comments">
+                <p>{{post.getPublishDate|date("F d, Y") }}</p>
+                <p><img src="/static/img/icons/greyComment.png" /> {{post.getComments|length}}</p>
+            </div>
+            <div class="article-info-title">{{post.getTitle}}</div>
+        </div>
+        <img class="article-image" src="{{post.getFeaturedImage}}" alt="Article image" />
+    </a>
+    {% if loop.index != posts|length %}
+    <hr class="mid-footer-hr" />
+    {% endif %}
+{% endfor %}

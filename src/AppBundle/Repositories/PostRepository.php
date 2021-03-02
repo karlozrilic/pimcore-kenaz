@@ -7,6 +7,7 @@ namespace AppBundle\Repositories;
 use Pimcore\Model\DataObject\Folder;
 use Pimcore\Model\DataObject\Post;
 use Pimcore\Model\DataObject\Post\Listing;
+use Pimcore\Model\DataObject\FooterPost\Listing as FooterListing;
 
 class PostRepository
 {
@@ -19,6 +20,16 @@ class PostRepository
         $postListing->setLimit(20);
 
         return $postListing->getObjects();
+    }
+
+    public function getFooterPosts($folderId) {
+        $folder = Folder::getById($folderId);
+
+        $footerPostListing = new FooterListing();
+        $footerPostListing->setCondition('o_parentId = ? AND o_classId = ("footer_post")', [$folder->getId()]);
+        $footerPostListing->setLimit(20);
+
+        return $footerPostListing->getObjects();
     }
 
     /**
