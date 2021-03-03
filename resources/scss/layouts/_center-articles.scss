@@ -1,24 +1,31 @@
 .center-articles {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     width: 100%;
     .main-articles {
-        max-width: 625px;
+        max-width: 635px;
         margin: 15px 18px 0 0;
         .news {
             @include mainArticles($lightBlue);
-            margin-bottom: 17px;
         }
         .sport {
             @include mainArticles($green);
-            margin-bottom: 17px;
         }
         .business {
             @include mainArticles($red);
         }
+        .life {
+            @include mainArticles($lighterBlue);
+        }
+        .tech {
+            @include mainArticles($yellow);
+        }
+        .travel {
+            @include mainArticles($beige);
+        }
         .news-carousel {
             @include mainArticles($yellow);
-            margin-bottom: 17px;
         }
         .single-carousels {
             display: flex;

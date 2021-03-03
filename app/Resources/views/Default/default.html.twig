@@ -36,43 +36,7 @@
                 }) }}
             </div>
         </div>
-        <aside>
-            <div class="aside-articles">
-                <div class="aside-articles-links">
-                    <ul>
-                        <li><a href="#" class="active">Popular</a></li>
-                        <li><a href="#">Top Rated</a></li>
-                        <li><a href="#">Comments</a></li>
-                    </ul>
-                </div>
-                {{ pimcore_areablock("aside-articles", {
-                    "allowed": ["aside-articles", "sidebar-news"]
-                }) }}
-            </div>
-            <div class="aside-social">
-                <div class="aside-social-title">Social</div>
-                {{ pimcore_areablock("aside-social", {
-                    "allowed": ["sidebar-social-widget"]
-                }) }}
-            </div>
-            <div class="aside-tv">
-                <div class="aside-tv-title">Kenaz TV</div>
-                {{ pimcore_areablock("aside-tv", {
-                    "allowed": ["sidebar-t-v"]
-                }) }}
-            </div>
-            <div class="aside-banners">
-                {{ pimcore_areablock("asideBanner1", {
-                    "allowed": ["random-banner"]
-                }) }}
-                {{ pimcore_areablock("asideBanner2", {
-                    "allowed": ["random-banner"]
-                }) }}
-            </div>
-            <div class="aside-facebook">
-                <img src="/static/img/asideFacebook.png" />
-            </div>
-        </aside>
+        {{ pimcore_inc('/snippets/aside') }}
     </div>
     {{ pimcore_areablock("bannerBig2", {
         "allowed": ["random-banner"]
@@ -80,24 +44,5 @@
     {{ pimcore_areablock("bottomImageSlider", {
         "allowed": ["image-slider"]
     }) }}
-    <!--
-    <div class="bottom-slick">
-        <div class="slider-for">
-            <div class="slider-img">
-                <img src="#" />
-            </div>
-        </div>
-        <div class="slider-nav">
-            <div>
-                <img src="#" alt="Bottom slick image" />
-            </div>
-            <div>
-                <img src="#" alt="Bottom slick image" />
-            </div>
-            <div>
-                <img src="#" alt="Bottom slick image" />
-            </div>
-        </div>
-    </div>-->
 </div>
 {% endblock %}

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    {% block head %}
+{% block head %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="apple-touch-icon" sizes="180x180" href="/static/icons/favicon/apple-touch-icon.png">
@@ -30,19 +30,19 @@
         {% endif %}
     {% endif %}
 
-    {% block layout_head_meta deferred %}
-    {{ pimcore_head_title() }}
-    {{ pimcore_head_meta() }}
+    {% block layout_head_meta %}
+        {{ pimcore_head_title() }}
+        {{ pimcore_head_meta() }}
 
-    {% if pimcore_placeholder('canonical').count() %}
-        <link rel="canonical" href="{{ pimcore_placeholder('canonical') }}"/>
-    {% endif %}
+        {% if pimcore_placeholder('canonical').count() %}
+            <link rel="canonical" href="{{ pimcore_placeholder('canonical') }}"/>
+        {% endif %}
     {% endblock %}
 
-    {% block head_stylesheets deferred %}
-    {{ pimcore_head_link() }}
+    {% block head_stylesheets %}
+        {{ pimcore_head_link() }}
     {% endblock %}
-    {% endblock %}
+{% endblock %}
 </head>
 <body>
 {% block navigation %}
@@ -57,12 +57,12 @@
 
 {{ pimcore_inc(document.getProperty('cookieBar')) }}
 
-{% do pimcore_head_script().captureStart %}
-var language = '{{ document.getProperty('language') }}';
-{% do pimcore_head_script().captureEnd %}
-{% do pimcore_head_script().appendFile(asset('static/js/main.js')) %}
 {% block headscripts deferred %}
-{{ pimcore_head_script() }}
+    {% do pimcore_head_script().captureStart %}
+        var language = '{{ document.getProperty('language') }}';
+    {% do pimcore_head_script().captureEnd %}
+    {% do pimcore_head_script().appendFile(asset('static/js/main.js')) %}
+    {{ pimcore_head_script() }}
 {% endblock %}
 </body>
 </html>
