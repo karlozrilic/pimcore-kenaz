@@ -1,0 +1,205 @@
+aside {
+    height: fit-content;
+    width: 100%;
+    margin: 15px 0;
+    .aside-articles {
+        position: relative;
+        background-color: $purple;
+        &::before {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            mix-blend-mode: normal;
+            opacity: 0.2;
+            background-color: $black;
+            pointer-events: none;
+        }
+        .aside-articles-links {
+            z-index: 2;
+            ul {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                padding: 15px 25px;
+                li {
+                    display: inline-block;
+                    a {
+                        font-family: "Varela Round";
+                        color: $white;
+                        border-bottom: 1px solid $whiteAlpha;
+                        &.active {
+                            color: $yellow;
+                            border-bottom: 1px solid $yellowLight;
+                        }
+                    }
+                }
+            }
+        }
+        .article {
+            padding: 18px 25px;
+            position: relative;
+            display: flex;
+            flex-direction: row;
+            background-color: $purple;
+            margin: 2px 0;
+            &:hover {
+                &::before {
+                    content: "";
+                    display: block;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    height: 100%;
+                    width: 100%;
+                    background-color: $black;
+                    mix-blend-mode: normal;
+                    opacity: 0.1;
+                }
+            }
+            .article-content {
+                display: flex;
+                flex-direction: column;
+                padding: 5px 12px 0 0;
+                width: 70%;
+                .article-info {
+                    display: flex;
+                    flex-direction: column;
+                    .article-date {
+                        font-family: "Varela Round";
+                        font-size: 10px;
+                        color: $asideGrey;
+                    }
+                    .article-title {
+                        font-weight: bold;
+                        font-size: $standardFontSize;
+                        color: $white;
+                    }
+                }
+                .article-comments {
+                    font-family: "Varela Round";
+                    font-size: 10px;
+                    text-align: right;
+                    color: $asideGrey;
+                }
+            }
+            .article-image {
+                width: 30%;
+                border: 3px solid $white;
+                box-shadow: 0px 1px 1px rgba(0, 0, 1, 0.3);
+            }
+        }
+    }
+    .aside-social {
+        margin: 15px 0;
+        .aside-social-title {
+            color: $articleTextColor;
+            font-weight: bold;
+            font-size: $titleFontSize;
+            line-height: 29px;
+            padding: 15px 0;
+        }
+        .social-networks {
+            display: flex;
+            flex-direction: column;
+            .social-network {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                margin: 3px 0;
+                .social-icon {
+                    width: 40px;
+                    height: 40px;
+                    img {
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+                .social-text {
+                    width: 40%;
+                    display: flex;
+                    align-items: center;
+                    background-color: $grey;
+                    padding: 0 10px;
+                    color: $articleTextColor;
+                    font-weight: bold;
+                    font-size: 18px;
+                    font-family: "Bitter";
+                }
+                .social-number {
+                    width: 50%;
+                    display: flex;
+                    align-items: center;
+                    background-color: $purple;
+                    padding: 0 10px;
+                    font-family: "Varela Round";
+                    font-size: $standardFontSize;
+                    color: $white;
+                }
+            }
+        }
+    }
+    .aside-tv {
+        background-color: $white;
+        height: fit-content;
+        margin-bottom: 18px;
+        .aside-tv-title {
+            font-weight: bold;
+            color: $articleTextColor;
+            font-size: $titleFontSize;
+            padding: 15px 25px;
+        }
+        .aside-tv-link {
+            /* fix for pimcore iframe mask clipping over */
+            .pimcore_iframe_mask {
+                display: none;
+            }
+            .aside-tv-video {
+                width: 100%;
+            }
+            .aside-tv-text {
+                padding: 15px;
+                .aside-tv-date {
+                    font-family: "Varela Round";
+                    font-size: $smallFontSize;
+                    color: $darkGrey;
+                }
+                .aside-tv-article-title {
+                    color: $articleTextColor;
+                    font-weight: bold;
+                    font-size: $standardFontSize;
+                }
+            }
+        }
+    }
+    .aside-banners {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        background-color: $grey;
+        padding: 15px;
+        margin-bottom: 18px;
+        .banner {
+            width: 128px;
+            height: 128px;
+            background-color: $white;
+            margin: 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            p {
+                color: $lightGrey;
+            }
+        }
+    }
+    .aside-facebook {
+        padding: 15px;
+        background-color: $white;
+    }
+}
