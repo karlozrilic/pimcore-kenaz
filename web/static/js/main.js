@@ -28,6 +28,22 @@ $('.news-carousel-slider').slick({
   prevArrow: $('#news-carousel-prev'),
   nextArrow: $('#news-carousel-next')
 });
+$('.editorials-slider').slick({
+  infinite: true,
+  autoplay: true,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  prevArrow: $('#editorials-prev'),
+  nextArrow: $('#editorials-next')
+});
+$('.local-news-slider').slick({
+  infinite: true,
+  autoplay: true,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  prevArrow: $('#local-news-prev'),
+  nextArrow: $('#local-news-next')
+});
 
 /***/ }),
 

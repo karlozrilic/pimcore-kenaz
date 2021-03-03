@@ -1,0 +1,20 @@
+<div class="single-carousel">
+    <div class="main-article-top">
+        <h1>Editorials</h1>
+        <div class="arrows">
+            <img class="a-left control-c prev slick-prev" id="editorials-prev" src="/static/img/icons/prevArrowNewsCarousel.png" alt="Previous arrow" />
+            <img class="a-left control-c next slick-next" id="editorials-next" src="/static/img/icons/nextArrowNewsCarousel.png" alt="Next arrow" />
+        </div>
+    </div>
+    <div class="articles editorials-slider">
+    {% for post in news %}
+        <a class="medium-article" href="/single">
+            <img src="{{ post.getFeaturedImage }}" alt="Article image" />
+            <div class="article-date-and-views">
+                <p>{{ post.getPublishDate|date('F d, Y') }}</p>
+            </div>
+            <p class="article-title">{{ post.getTitle }}</p>
+        </a>
+    {% endfor %}
+    </div>
+</div>

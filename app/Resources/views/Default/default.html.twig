@@ -27,8 +27,55 @@
             {{ pimcore_areablock("news-carousel", {
                 "allowed": ["news-carousel"]
             }) }}
+            <div class="single-carousels">
+                {{ pimcore_areablock("news-carousel-editorials", {
+                    "allowed": ["news-carousel-editorials"]
+                }) }}
+                {{ pimcore_areablock("news-carousel-local-news", {
+                    "allowed": ["news-carousel-local-news"]
+                }) }}
+            </div>
         </div>
-        <div></div>
+        <aside>
+            <div class="aside-articles">
+                <div class="aside-articles-links">
+                    <ul>
+                        <li><a href="#" class="active">Popular</a></li>
+                        <li><a href="#">Top Rated</a></li>
+                        <li><a href="#">Comments</a></li>
+                    </ul>
+                </div>
+                {{ pimcore_areablock("aside-articles", {
+                    "allowed": ["aside-articles", "sidebar-news"]
+                }) }}
+            </div>
+            <div class="aside-social">
+                <div class="aside-social-title">Social</div>
+                {{ pimcore_areablock("aside-social", {
+                    "allowed": ["sidebar-social-widget"]
+                }) }}
+            </div>
+            <div class="aside-tv">
+                <div class="aside-tv-title">Kenaz TV</div>
+                {{ pimcore_areablock("aside-tv", {
+                    "allowed": ["sidebar-t-v"]
+                }) }}
+            </div>
+            <div class="aside-banners">
+                {{ pimcore_areablock("asideBanner1", {
+                    "allowed": ["random-banner"]
+                }) }}
+                {{ pimcore_areablock("asideBanner2", {
+                    "allowed": ["random-banner"]
+                }) }}
+            </div>
+            <div class="aside-facebook">
+                <img src="/static/img/asideFacebook.png" />
+            </div>
+        </aside>
     </div>
+    {{ pimcore_areablock("bannerBig2", {
+        "allowed": ["random-banner"]
+    }) }}
 </div>
 {% endblock %}

@@ -9,11 +9,6 @@ class NewsCarousel extends AbstractAreabrick
         return 'News Carousel';
     }
 
-    public function getDescription()
-    {
-        return 'News';
-    }
-
     public function getTemplateLocation()
     {
         return static::TEMPLATE_LOCATION_GLOBAL;

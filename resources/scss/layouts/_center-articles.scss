@@ -20,6 +20,18 @@
             @include mainArticles($yellow);
             margin-bottom: 17px;
         }
+        .single-carousels {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            width: 100%;
+            .pimcore_area_content {
+                width: 48%;
+                .single-carousel {
+                    @include mainArticles($beige);
+                }
+            }
+        }
         .main-article-top {
             display: flex;
             flex-direction: row;
