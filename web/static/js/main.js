@@ -44,6 +44,23 @@ $('.local-news-slider').slick({
   prevArrow: $('#local-news-prev'),
   nextArrow: $('#local-news-next')
 });
+$('.slider-for').slick({
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  autoplay: true,
+  prevArrow: $('#bottom-image-slider-prev'),
+  nextArrow: $('#bottom-image-slider-next'),
+  slide: '.slider-img'
+});
+$('.slider-nav').slick({
+  infinite: false,
+  slidesToShow: 7,
+  slidesToScroll: 1,
+  asNavFor: '.slider-for',
+  arrows: false,
+  autoplay: false,
+  focusOnSelect: true
+});
 
 /***/ }),
 

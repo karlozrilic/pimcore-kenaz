@@ -1,0 +1,23 @@
+<div class="bottom-slick">
+    <div class="slider-for">
+        <div class="arrows">
+            <img class="a-left control-c prev slick-prev slick-arrow" id="bottom-image-slider-prev" src="/static/img/icons/whiteArrow.png" alt="Previous arrow" />
+            <img class="a-left control-c next slick-next slick-arrow" id="bottom-image-slider-next" src="/static/img/icons/whiteArrow.png" alt="Next arrow" />
+        </div>
+        <div class="search-icon">
+            <img src="/static/img/search.png" alt="Search icon" />
+        </div>
+        {% for image in images.gallery.items %}
+        <div class="slider-img">
+            <img src="{{ image.image }}" />
+        </div>
+        {% endfor %}
+    </div>
+    <div class="slider-nav">
+        {% for image in images.thumbnails.items %}
+        <div>
+            <img src="{{ image.image }}" alt="Bottom slick image" />
+        </div>
+        {% endfor %}
+    </div>
+</div>
