@@ -44,21 +44,21 @@
         </div>
         <div class="mid-footer">
             <div class="footer-element">
-                <h3 class="footer-title">Featured</h3>
+                <h3 class="footer-title">{{ pimcore_input("footer-input1") }}</h3>
                 {{ pimcore_areablock("footer-featured-posts-areablock", {
-                    "allowed" : ["footer-posts"]
+                    "allowed" : ["footer-posts", "footer-tweets"]
                 })}}
             </div>
             <div class="footer-element">
-                <h3 class="footer-title">Random Posts</h3>
+                <h3 class="footer-title">{{ pimcore_input("footer-input2") }}</h3>
                 {{ pimcore_areablock("footer-random-posts-areablock", {
-                    "allowed": ["footer-posts"]
+                    "allowed": ["footer-posts", "footer-tweets"]
                 })}}
             </div>
             <div class="footer-element">
-                <h3 class="footer-title">Twitter Feed</h3>
+                <h3 class="footer-title">{{ pimcore_input("footer-input3") }}</h3>
                 {{ pimcore_areablock("footer-tweets-areablock", {
-                    "allowed" : ["footer-tweets"]
+                    "allowed" : ["footer-posts", "footer-tweets"]
                 })}}
             </div>
         </div>
