@@ -100,10 +100,15 @@ class CategoryLinkGenerator implements LinkGeneratorInterface
             }
 
             return $this->pimcoreUrl->__invoke(
+                /*
                 [
                     'categorytitle' => Text::toUrl($object->getTitle() ? $object->getTitle() : 'tag'),
                     'category' => $object->getId(),
                     'path' => $fullPath
+                ],
+                */
+                [
+                    'categoryTitle' => Text::toUrl($object->getTitle() ? strtolower($object->getTitle()) : 'tag')
                 ],
                 'category-detail',
                 true

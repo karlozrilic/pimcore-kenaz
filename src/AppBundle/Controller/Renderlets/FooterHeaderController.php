@@ -30,12 +30,6 @@ class FooterHeaderController extends BaseController
         $this->categoryRepository = $categoryRepository;
     }
 
-    public function footerPostAction(Request $request) {
-        return [
-            'posts' => $this->postRepository->getFooterPosts($request->get('id'))
-        ];
-    }
-
     public function footerTweetsAction(Request $request) {
         return [
             'tweets' => $this->tweetsRepository->getTweets($request->get('id'))
@@ -50,7 +44,8 @@ class FooterHeaderController extends BaseController
 
     public function headerCategoryAction(Request $request) {
         return [
-            'categories' => $this->categoryRepository->getCategories($request->get('id'))
+            'categories' => $this->categoryRepository->getCategories($request->get('id')),
+            'current_url' => $request->server->get("SCRIPT_URL")
         ];
     }
 

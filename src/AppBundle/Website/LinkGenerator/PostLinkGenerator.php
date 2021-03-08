@@ -86,6 +86,7 @@ class PostLinkGenerator implements LinkGeneratorInterface
                 $fullPath = substr($document->getFullPath(), strlen($localeUrlPart));
             }
 
+            /*
             if ($document && !$fullPath) {
 
                 if ($document->getProperty('language') === 'en') {
@@ -94,16 +95,21 @@ class PostLinkGenerator implements LinkGeneratorInterface
                     $fullPath = $document->getProperty('articlesDefaultPage') ? substr($document->getProperty('articlesDefaultPage')->getFullPath(), strlen($localeUrlPart)) : '';
                 }
             }
+            */
 
             if (strpos($fullPath, '/') === 0) {
                 $fullPath = substr($fullPath, 1);
             }
 
             return $this->pimcoreUrl->__invoke(
+                /*
                 [
                     'posttitle' => Text::toUrl($object->getTitle() ? $object->getTitle() : 'post'),
                     'post' => $object->getId(),
                     'path' => $fullPath
+                ],*/
+                [
+                    'postId' => $object->getId()
                 ],
                 'post-detail',
                 true

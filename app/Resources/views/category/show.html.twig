@@ -1,2 +1,49 @@
-sss
-{{category}}
+{% extends 'layout.html.twig' %}
+{% block content %}
+<div class="main-content" id="category-page">
+    {{ pimcore_areablock("bannerBig", {
+        "allowed": ["random-banner"]
+    }) }}
+    {{ pimcore_areablock("articleSlider", {
+        "allowed": ["article-slider"]
+    }) }}
+    <div class="center-articles">
+        <div class="main-articles">
+            <div class="category-articles">
+                <h1 class="category-title">{{ category.getTitle }}</h1>
+                {% for post in posts.getCurrentItems() %}
+                <div class="category-article">
+                    <h2 class="title">{{ post.getTitle() }}</h2>
+                    <div class="data">
+                        <div class="date"><img src="/static/img/calendar.png" alt="Calendar" /><div class="dat">{{ post.getPublishDate()|date('F j, Y') }}</div></div>
+                        <div class="author">{{ post.author.getFirstName() }} {{ post.author.getLastName }}</div>
+                        <div class="comments">{{ post.comments|length }} Comments</div>
+                    </div>
+                    <div class="body">
+                        <img src="{{ post.getFeaturedImageSmall().getThumbnail('categoryPostImage') }}" alt="Article image" />
+                        <div class="text-button">
+                            <div class="text">
+                                {{ post.getContent()|slice(0, 500)|raw}} {% if post.getContent|raw|length > 500 %}...{% endif %}
+                            </div>
+                            <a href="{{ path(post) }}">Read article</a>
+                        </div>
+                    </div>
+                </div>
+                <hr class="category-hr" />
+                {% endfor %}
+                <div class="page-numbers">
+                    <ul>
+                        {% for i in range(1, posts.pageRange) %}
+                        <li><a href="{{ "#{base_url}?page=#{i}" }}" {% if posts.currentPageNumber == i %}class="active"{% endif %} >{{i}}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            {{ pimcore_areablock("bannerBig2", {
+                "allowed": ["random-banner"]
+            }) }}
+        </div>
+        {{ pimcore_inc('/snippets/aside') }}
+    </div>
+</div>
+{% endblock %}

@@ -12,6 +12,8 @@ class HeadersnippetController extends FrontendController
 
     public function showAction(Request $request)
     {
-        return ['view' => $this->view];
+        return [
+            'view' => $this->view
+        ];
     }
 }

@@ -1,8 +1,10 @@
 {
-    "/static/js/main.js": "/static/js/main.js?id=50a9ec1fc4a305d95deb",
-    "/static/css/main.css": "/static/css/main.css?id=8ba91225c9fc0a9ee63e",
+    "/static/js/main.js": "/static/js/main.js?id=8b61d7934b90ba124a79",
+    "/static/css/main.css": "/static/css/main.css?id=6fad8800e78a231f1341",
+    "/static/img/asideFacebook.png": "/static/img/asideFacebook.png?id=6df540e7713aaeaa9f36",
+    "/static/img/calendar.png": "/static/img/calendar.png?id=1224068dbb1775c72611",
     "/static/img/logo-white.png": "/static/img/logo-white.png?id=07c74e39c766db5ab7fd",
     "/static/img/logo.png": "/static/img/logo.png?id=979352ad483dd10d6272",
-    "/static/img/search.png": "/static/img/search.png?id=76131286476c3da57d7b",
-    "/static/img/asideFacebook.png": "/static/img/asideFacebook.png?id=6df540e7713aaeaa9f36"
+    "/static/img/profilePic.png": "/static/img/profilePic.png?id=73600d0fcebddc6dfe6b",
+    "/static/img/search.png": "/static/img/search.png?id=76131286476c3da57d7b"
 }

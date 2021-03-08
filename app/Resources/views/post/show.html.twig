@@ -1,3 +1,88 @@
-{{ form_start(commentForm) }}
+{% extends 'layout.html.twig' %}
+{% block content %}
+<div class="main-content" id="post-page">
 
-{{ form_end(commentForm) }}
+    <div class="banner">
+        <p>banner</p>
+        <p>Neki random banner</p>
+    </div>
+
+    <div class="post-banner-image">
+        <img src="{{ post.getFeaturedImage() }}" alt="Banner image" />
+        <div class="banner-image-text">
+            <div class="text">
+                <p>{{ post.getPublishDate()|date('F j, Y') }}</p>
+                <h1>{{ post.getTitle() }}</h1>
+            </div>
+        </div>
+    </div>
+    <div class="center-articles">
+        <div class="main-articles">
+            <div class="article">
+                {{ post.getContent()|raw }}
+                <img class="social" src="/static/img/social/social.png" alt="Social" />
+            </div>
+
+            <div class="banner">
+                <p>banner</p>
+                <p>Neki random banner</p>
+            </div>
+
+            <div class="author-section">
+                <div class="title">About the Author</div>
+                <div class="author-content">
+                    <img src="{{ post.getAuthor().getProfileImage().getThumbnail('authorImage')  }}" alt="Author image" />
+                    <p class="about-author">
+                        {{ post.getAuthor().getAboutAuthor()}}
+                    </p>
+                </div>
+            </div>
+            <div class="comments-section">
+                <div class="title">Comments</div>
+                <div class="comments">
+                    {% for comment in post.getComments() %}
+                    <div class="comment">
+                        <img src="{% if comment.getAuthorProfileImage() != null %}{{ comment.getAuthorProfileImage().getThumbnail('commentImage') }}{% else %}/static/img/profilePic.png{% endif %}" alt="Profile image" />
+                        <div class="comment-body">
+                            <div class="top">
+                                <div class="user-name">{{ comment.getAuthorName() }}</div>
+                                <div class="date">{{ comment.getDateAndTime()|date('F jS, Y g:i a') }}</div>
+                            </div>
+                            <p class="text">
+                                {{ comment.getContent() }}
+                            </p>
+                            <a class="comment-reply" href="#">Reply</a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="title">Add Your Comment</div>
+                <div class="add-comment">
+                    <p class="text">
+                        Molestias ultricies, ante quam urna ut volutpat, 
+                        egestas dolor dui, nec hac ultrices nulla non netus. 
+                        Placerat vehicula donec non suscipit egestas, augue vel 
+                        suspendisse. Et felis venenatis blandit sed est ultrices, 
+                        adipiscing urna.
+                    </p>
+                    {{ form_start(commentForm, {"attr": {"class": "add-comment-form"}}) }}
+                        {{ form_widget(commentForm.authorName) }}
+                        <div class="errors">
+                            {{ form_errors(commentForm.authorName) }}
+                        </div>
+                        {{ form_widget(commentForm.authorEmail) }}
+                        <div class="errors">
+                            {{ form_errors(commentForm.authorEmail) }}
+                        </div>
+                        {{ form_widget(commentForm.content) }}
+                        <div class="errors">
+                            {{ form_errors(commentForm.content) }}
+                        </div>
+                    {{ form_end(commentForm) }}
+                </div>
+            </div>
+        </div>
+        {{ pimcore_inc('/snippets/aside') }}
+    </div>
+</div>
+{% endblock %}

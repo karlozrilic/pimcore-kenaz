@@ -38,6 +38,7 @@ class CategoryRepository
         $paginator = new Paginator($newsListing);
         $paginator->setCurrentPageNumber($page);
         $paginator->setItemCountPerPage($limit);
+        $paginator->setPageRange(ceil(count($newsListing)/$limit));
 
         return $paginator;
     }

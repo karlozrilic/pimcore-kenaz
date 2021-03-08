@@ -5,8 +5,6 @@ namespace AppBundle\Controller;
 
 
 use AppBundle\Repositories\CategoryRepository;
-use AppBundle\Website\LinkGenerator\NewsLinkGenerator;
-use AppBundle\Website\LinkGenerator\TagLinkGenerator;
 use Pimcore\Config\Config;
 use Pimcore\Model\DataObject\Category;
 use Pimcore\Model\DataObject\Tag;
@@ -28,17 +26,16 @@ class CategoryController extends BaseController
     }
 
     /**
-     * @Route("{path}/{categorytitle}~c{category}", name="category-detail", defaults={"path"=""}, requirements={"path"=".*?", "categorytitle"="[\w-]+", "category"="\d+"})
+     * @Route("category/{categoryTitle}{page}", name="category-detail", defaults={"page"=1}, requirements={"categoryTitle"="[\w-]+", "page"="\d+"})
      *
      * @param Request $request
      * @param HeadTitle $headTitle
-     * @param Placeholder $placeholderHelper
-     * @param TagLinkGenerator $tagLinkGenerator
      * @param Config $websiteConfig
      * @return array
      */
-    public function show(Request $request, HeadTitle $headTitle, Placeholder $placeholderHelper, TagLinkGenerator $tagLinkGenerator, Config $websiteConfig) {
-        $category = Category::getById($request->get('category'));
+    public function show(Request $request, HeadTitle $headTitle, Config $websiteConfig) {
+        $temp = ucfirst($request->get('categoryTitle'));
+        $category = Category::getByPath("/Blog/Categories/{$temp}");
 
         if (!($category instanceof Category && ($category->isPublished() || $this->verifyPreviewRequest($request, $category)))) {
             throw new NotFoundHttpException('Category not found.');
@@ -47,13 +44,18 @@ class CategoryController extends BaseController
         $headTitle($category->getTitle());
 
         $posts = $this->categoryRepository->getCategoryPosts($category,
-            $request->get('page', 1),
+            $request->query->get('page'),
             $request->get('limit', $websiteConfig->get('newsPerPageResults', self::PER_PAGE_RESULTS))
         );
 
+        if ($request->query->get('page') > $posts->getPageRange()) {
+            throw new NotFoundHttpException('This page doesn\'t exist');
+        }
+
         return [
             'category' => $category,
-            'posts' => $posts
+            'posts' => $posts,
+            'base_url' => $request->server->get("REDIRECT_SCRIPT_URL")
         ];
     }
 }

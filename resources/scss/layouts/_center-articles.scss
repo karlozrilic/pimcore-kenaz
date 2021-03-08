@@ -5,6 +5,7 @@
     width: 100%;
     .main-articles {
         max-width: 635px;
+        width: 100%;
         margin: 15px 18px 0 0;
         .news {
             @include mainArticles($lightBlue);
@@ -44,10 +45,7 @@
             flex-direction: row;
             justify-content: space-between;
             h1 {
-                font-family: "Bitter";
-                font-weight: bold;
-                font-size: $titleFontSize;
-                line-height: 29px;
+                @include sectionTitle();
                 color: $articleTextColor;
                 padding-bottom: 15px;
             }
@@ -86,7 +84,7 @@
                     opacity: 0.85;
                 }
                 img {
-                    width: auto;
+                    width: 100%;
                     height: 128px;
                     object-fit: cover;
                     &.carousel-article-image {
@@ -99,14 +97,12 @@
                     justify-content: space-between;
                     padding: 5px 0;
                     p {
-                        font-family: "Varela Round";
-                        font-size: $smallFontSize;
+                        @include articleData();
                         color: $darkGrey;
                     }
                 }
                 .article-title {
-                    font-weight: bold;
-                    font-size: $standardFontSize;
+                    @include articleTitle();
                     color: $articleTextColor;
                 }
             }
@@ -135,16 +131,236 @@
                         justify-content: space-between;
                         padding: 5px 0;
                         p {
-                            font-family: "Varela Round";
-                            font-size: $smallFontSize;
+                            @include articleData();
                             color: $darkGrey;
                         }
                     }
                     .article-title {
-                        font-weight: bold;
-                        font-size: $standardFontSize;
-                        line-height: 16px;
+                        @include articleTitle();
                         color: $articleTextColor;
+                    }
+                }
+            }
+        }
+        .category-articles {
+            width: 100%;
+            background-color: $white;
+            padding: 25px;
+            .category-title {
+                @include sectionTitle();
+                color: $articleTextColor;
+                padding-bottom: 35px;
+            }
+            .category-article {
+                display: flex;
+                flex-direction: column;
+                padding: 20px 0;
+                .title {
+                    color: $articleTextColor;
+                    @include sectionTitle();
+                    padding-bottom: 15px;
+                }
+                .data {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: space-between;
+                    width: 70%;
+                    .date {
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        img {
+                            padding-right: 10px;
+                        }
+                        .dat {
+                            color: $darkGrey;
+                            @include articleData();
+                        }
+                    }
+                    .author {
+                        color: $darkGrey;
+                        @include articleData();
+                    }
+                    .comments {
+                        color: $darkGrey;
+                        @include articleData();
+                    }
+                }
+                .body {
+                    display: flex;
+                    flex-direction: row;
+                    padding: 5px 0 30px;
+                    img {
+                        padding: 10px 20px 0 0;
+                        align-self: flex-start;
+                    }
+                    .text-button {
+                        display: flex;
+                        flex-direction: column;
+                        .text {
+                            color: $textColor;
+                            font-size: $standardFontSize;
+                            line-height: 22px;
+                            padding-bottom: 15px;
+                        }
+                        a {
+                            @include button();
+                            padding: 8px 22px;
+                            &:hover {
+                                opacity: 0.9;
+                            }
+                        }
+                    }
+                }
+            }
+            .category-hr {
+                border-color: $grey;
+            }
+            .page-numbers {
+                padding: 40px 0 1px;
+                ul {
+                    li {
+                        display: inline;
+                        margin: 2px;
+                        a {
+                            @include pages();
+                            padding: 8px 12px;
+                            &.active {
+                                background-color: $purple;
+                                color: $white;
+                            }
+                            &:hover {
+                                opacity: 0.8;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .article {
+            background-color: $white;
+            padding: 30px 30px 0;
+            p {
+                padding-bottom: 30px;
+                @include fullArticleText();
+            }
+            img {
+                width: 100%;
+            }
+            .social {
+                padding: 10px 0 18px;
+            }
+        }
+        .author-section {
+            background-color: $white;
+            padding: 18px 30px 30px;
+            margin-bottom: 20px;
+            .title {
+                @include sectionTitle();
+                color: $articleTextColor;
+                padding-bottom: 30px;
+            }
+            .author-content {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                .about-author {
+                    color: $articleTextColor;
+                    font-family: "Varela";
+                    font-size: $standardFontSize;
+                    line-height: 20px;
+                    padding-left: 20px;
+                }
+            }
+        }
+        .comments-section {
+            background-color: $white;
+            margin-bottom: 40px;
+            .title {
+                color: $articleTextColor;
+                @include sectionTitle();
+                padding: 18px 30px;
+            }
+            .comments {
+                padding: 15px 30px;
+                .comment {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: flex-start;
+                    padding-bottom: 40px;
+                    &:last-child {
+                        padding-bottom: 0;
+                    }
+                    .comment-body {
+                        position: relative;
+                        padding-left: 18px;
+                        width: 100%;
+                        .top {
+                            display: flex;
+                            flex-direction: row;
+                            padding-bottom: 3px;
+                            .user-name {
+                                @include commentTitle();
+                                color: $purple;
+                                padding-right: 10px;
+                            }
+                            .date {
+                                @include commentDate();
+                                color: $darkGrey;
+                            }
+                        }
+                        .text {
+                            color: $textColor;
+                            @include commentText();
+                        }
+                        .comment-reply {
+                            position: absolute;
+                            top: 0;
+                            right: 0;
+                            color: $purple;
+                            @include articlePageText();
+                            &:hover {
+                                opacity: 0.8;
+                            }
+                        }
+                    }
+                }
+            }
+            .add-comment {
+                padding: 8px 30px;
+                .text {
+                    color: $textColor;
+                    @include commentText();
+                    padding-bottom: 25px;
+                }
+                .add-comment-form {
+                    display: flex;
+                    flex-direction: column;
+                    input, textarea {
+                        width: 50%;
+                        padding: 10px 15px;
+                        margin: 4px 0;
+                        border: none;
+                        background-color: $grey;
+                        @include articlePageText();
+                        color: $darkGrey;
+                    }
+                    label {
+                        display: none;
+                    }
+                    .add-comment-button {
+                        margin: 14px 0;
+                        padding: 10px 35px;
+                        @include button();
+                    }
+                    .errors {
+                        ul {
+                            li {
+                                color: $red;
+                                font-weight: bold;
+                            }
+                        }
                     }
                 }
             }

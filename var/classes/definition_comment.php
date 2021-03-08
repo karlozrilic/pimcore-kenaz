@@ -11,6 +11,7 @@ Fields Summary:
 - authorProfileImage [image]
 - answers [manyToManyObjectRelation]
 - authorEmail [input]
+- dateAndTime [datetime]
 */ 
 
 
@@ -19,7 +20,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'comment',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1614174955,
+   'modificationDate' => 1614939044,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -206,6 +207,30 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'noteditable' => false,
              'index' => false,
              'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'datatype' => 'data',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'defaultValueGenerator' => '',
+          )),
+          5 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Datetime::__set_state(array(
+             'fieldtype' => 'datetime',
+             'queryColumnType' => 'bigint(20)',
+             'columnType' => 'bigint(20)',
+             'phpdocType' => '\\Carbon\\Carbon',
+             'defaultValue' => NULL,
+             'useCurrentDate' => false,
+             'name' => 'dateAndTime',
+             'title' => 'Date and time',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => NULL,
              'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',

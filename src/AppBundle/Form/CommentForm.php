@@ -58,6 +58,9 @@ class CommentForm extends AbstractType
         $builder
             ->add('authorName', TextType::class, [
                 'label' => $this->translator->trans('general.first_name'),
+                'attr' => [
+                    'placeholder' => $this->translator->trans('general.first_name')
+                ],
                 'constraints' => [
                     new NotBlank([
                         'message' => $this->translator->trans("Please insert your name"),
@@ -72,6 +75,9 @@ class CommentForm extends AbstractType
             ])
             ->add('authorEmail', TextType::class, [
                 'label' => $this->translator->trans('general.email'),
+                'attr' => [
+                    'placeholder' => $this->translator->trans('general.email')
+                ],
                 'constraints' => [
                     new NotBlank([
                         'message' => $this->translator->trans("Please enter your email address"),
@@ -88,6 +94,12 @@ class CommentForm extends AbstractType
                 ]
             ])
             ->add('content', TextareaType::class, [
+                'label' => $this->translator->trans("comment"),
+                'attr' => [
+                    'placeholder' => $this->translator->trans('comment'),
+                    'rows' => '8',
+                    'cols' => '50'
+                ],
                 'constraints' => [
                     new NotBlank([
                         'message' => $this->translator->trans("Please enter comment"),
@@ -98,7 +110,10 @@ class CommentForm extends AbstractType
                     ]),
                 ]
             ])->add('_submit', SubmitType::class, [
-                'label' => $this->translator->trans('checkout.submit-address'),
+                'label' => $this->translator->trans('general.submit'),
+                'attr' => [
+                    'class' => 'add-comment-button'
+                ]
             ]);;
     }
 

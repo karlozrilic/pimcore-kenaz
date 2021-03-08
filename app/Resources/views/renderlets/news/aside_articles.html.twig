@@ -1,14 +1,14 @@
 {% for post in posts %}
-    <a class="article" href="/single">
+    <a class="article" href="{{ path(post) }}">
         <div class="article-content">
             <div class="article-comments"><img src="/static/img/icons/greyComment.png" /> {{ post.getComments|length }}</div>
             <div class="article-info">
-                <div class="article-date">{{ post.getPublishDate|date('F m, Y') }}</div>
+                <div class="article-date">{{ post.getPublishDate|date('F j, Y') }}</div>
                 <p class="article-title">{{ post.getTitle }}</p>
             </div>
         </div>
         <div class="article-image">
-            <img src="{{ post.getFeaturedImage }}" alt="Article image" />
+            <img src="{{ post.getFeaturedImage().getThumbnail('smallPostImage') }}" alt="Article image" />
         </div>
     </a>
 {% endfor %}

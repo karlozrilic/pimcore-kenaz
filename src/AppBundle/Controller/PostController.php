@@ -47,7 +47,7 @@ class PostController extends BaseController
     }
 
     /**
-     * @Route("{path}/{posttitle}~p{post}", name="post-detail", defaults={"path"=""}, requirements={"path"=".*?", "posttitle"="[\w-]+", "post"="\d+"})
+     * @Route("post/{postId}", name="post-detail")
      *
      * @param Request $request
      * @param HeadTitle $headTitle
@@ -57,7 +57,7 @@ class PostController extends BaseController
      * @return mixed
      */
     public function show(Request $request, HeadTitle $headTitle, Placeholder $placeholderHelper, TagLinkGenerator $tagLinkGenerator, Config $websiteConfig) {
-        $post = Post::getById($request->get('post'));
+        $post = Post::getById($request->get('postId'));
 
         if (!($post instanceof Post && ($post->isPublished() || $this->verifyPreviewRequest($request, $post)))) {
             throw new NotFoundHttpException('Post not found.');
@@ -84,4 +84,13 @@ class PostController extends BaseController
             'commentForm' => $form->createView()
         ];
     }
+
+    public function showAction(Request $request) {
+        $form = $this->createForm(CommentForm::class, [], []);
+        return [
+            'post' => $this->postRepository->getPost(26),
+            'commentForm' => $form->createView()
+        ];
+    }
+
 }

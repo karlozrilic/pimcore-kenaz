@@ -35,8 +35,16 @@ a:hover {
   color: inherit;
 }
 
+hr {
+  border-style: solid;
+}
+
 .control-c:hover {
   cursor: pointer;
+}
+
+h1 {
+  font-family: "Bitter";
 }
 
 a {
@@ -63,6 +71,45 @@ p {
 .banner p {
   color: grey;
   font-weight: normal;
+  font-family: "Varela Round", sans-serif;
+}
+
+.post-banner-image {
+  position: relative;
+}
+.post-banner-image img {
+  width: 100%;
+}
+.post-banner-image .banner-image-text {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 0 0 30px 30px;
+  width: 100%;
+  height: 50%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, white 70%);
+}
+.post-banner-image .banner-image-text .text {
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+.post-banner-image .banner-image-text p {
+  font-family: "Varela Round", sans-serif;
+  font-size: 12px;
+  line-height: 14px;
+  color: #222222;
+}
+.post-banner-image .banner-image-text h1 {
+  padding-top: 15px;
+  width: 80%;
+  font-weight: bold;
+  font-size: 44px;
+  line-height: 52, 8px;
+  color: #222222;
 }
 
 .article-slider .slick-arrow {
@@ -90,9 +137,11 @@ p {
   position: absolute;
   width: 100%;
   height: 100%;
+  pointer-events: none;
 }
 .article-slider .arrows img {
   height: 36px;
+  pointer-events: visible;
 }
 .article-slider .arrows img:last-child {
   transform: rotateY(180deg);
@@ -103,6 +152,9 @@ p {
 }
 .slick-slide .slider-image {
   width: 100%;
+  height: 425px;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 .slick-slide .image-info {
   position: absolute;
@@ -311,20 +363,22 @@ aside .aside-articles .article .article-content .article-info {
   flex-direction: column;
 }
 aside .aside-articles .article .article-content .article-info .article-date {
-  font-family: "Varela Round";
+  font-family: "Varela Round", sans-serif;
   font-size: 10px;
-  color: #acb3ba;
+  color: #ACB3BA;
 }
 aside .aside-articles .article .article-content .article-info .article-title {
+  font-family: "Bitter";
   font-weight: bold;
   font-size: 14px;
+  line-height: 16.8px;
   color: #FFFFFF;
 }
 aside .aside-articles .article .article-content .article-comments {
   font-family: "Varela Round";
   font-size: 10px;
   text-align: right;
-  color: #acb3ba;
+  color: #ACB3BA;
 }
 aside .aside-articles .article .article-image {
   width: 30%;
@@ -339,7 +393,7 @@ aside .aside-social {
   margin: 15px 0;
 }
 aside .aside-social .aside-social-title {
-  color: #363F48;
+  font-family: "Bitter";
   font-weight: bold;
   font-size: 24px;
   line-height: 29px;
@@ -369,10 +423,10 @@ aside .aside-social .social-networks .social-network .social-text {
   align-items: center;
   background-color: #DDDDDD;
   padding: 0 10px;
+  font-family: "Bitter";
   color: #363F48;
   font-weight: bold;
   font-size: 18px;
-  font-family: "Bitter";
 }
 aside .aside-social .social-networks .social-network .social-number {
   width: 50%;
@@ -392,9 +446,10 @@ aside .aside-tv {
   margin-bottom: 18px;
 }
 aside .aside-tv .aside-tv-title {
+  font-family: "Bitter";
   font-weight: bold;
-  color: #363F48;
   font-size: 24px;
+  line-height: 29px;
   padding: 15px 25px;
 }
 aside .aside-tv .aside-tv-link {
@@ -410,14 +465,17 @@ aside .aside-tv .aside-tv-link .aside-tv-text {
   padding: 15px;
 }
 aside .aside-tv .aside-tv-link .aside-tv-text .aside-tv-date {
-  font-family: "Varela Round";
+  font-family: "Varela Round", sans-serif;
   font-size: 12px;
+  line-height: 14px;
   color: #666666;
 }
 aside .aside-tv .aside-tv-link .aside-tv-text .aside-tv-article-title {
   color: #363F48;
+  font-family: "Bitter";
   font-weight: bold;
   font-size: 14px;
+  line-height: 16.8px;
 }
 aside .aside-banners {
   display: flex;
@@ -445,6 +503,15 @@ aside .aside-banners .banner p {
 aside .aside-facebook {
   padding: 15px;
   background-color: #FFFFFF;
+}
+
+.alert {
+  position: fixed;
+  top: 30px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 30%;
+  text-align: center;
 }
 
 header {
@@ -496,6 +563,8 @@ header {
 }
 .top-navigation .top-navigation-content .top-navigation-brand h1 {
   padding: 16px 9px 9px;
+  font-family: "Bitter";
+  font-weight: normal;
   font-size: 24px;
   line-height: 27px;
   display: flex;
@@ -581,8 +650,10 @@ header {
   height: 100%;
 }
 .lower-navigation .lower-navigation-content ul li a {
+  font-family: "Bitter";
   font-weight: bold;
   font-size: 18px;
+  line-height: 22px;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -596,27 +667,46 @@ header {
   opacity: 0.8;
 }
 .lower-navigation .lower-navigation-content ul li a#news {
+  padding-bottom: 0;
+  border-bottom: 6px solid #299EC3;
+}
+.lower-navigation .lower-navigation-content ul li a#news.active {
   background-color: #299EC3;
 }
 .lower-navigation .lower-navigation-content ul li a#business {
   padding-bottom: 0;
   border-bottom: 6px solid #EE6151;
 }
+.lower-navigation .lower-navigation-content ul li a#business.active {
+  background-color: #EE6151;
+}
 .lower-navigation .lower-navigation-content ul li a#sport {
   padding-bottom: 0;
   border-bottom: 6px solid #84C14F;
+}
+.lower-navigation .lower-navigation-content ul li a#sport.active {
+  background-color: #84C14F;
 }
 .lower-navigation .lower-navigation-content ul li a#life {
   padding-bottom: 0;
   border-bottom: 6px solid #5DCFF3;
 }
+.lower-navigation .lower-navigation-content ul li a#life.active {
+  background-color: #5DCFF3;
+}
 .lower-navigation .lower-navigation-content ul li a#tech {
   padding-bottom: 0;
   border-bottom: 6px solid #FCC44D;
 }
+.lower-navigation .lower-navigation-content ul li a#tech.active {
+  background-color: #FCC44D;
+}
 .lower-navigation .lower-navigation-content ul li a#travel {
   padding-bottom: 0;
   border-bottom: 6px solid #A99765;
+}
+.lower-navigation .lower-navigation-content ul li a#travel.active {
+  background-color: #A99765;
 }
 
 .center-articles {
@@ -627,6 +717,7 @@ header {
 }
 .center-articles .main-articles {
   max-width: 635px;
+  width: 100%;
   margin: 15px 18px 0 0;
 }
 .center-articles .main-articles .news {
@@ -751,7 +842,7 @@ header {
   opacity: 0.85;
 }
 .center-articles .main-articles .articles .medium-article img {
-  width: auto;
+  width: 100%;
   height: 128px;
   -o-object-fit: cover;
      object-fit: cover;
@@ -766,13 +857,16 @@ header {
   padding: 5px 0;
 }
 .center-articles .main-articles .articles .medium-article .article-date-and-views p {
-  font-family: "Varela Round";
+  font-family: "Varela Round", sans-serif;
   font-size: 12px;
+  line-height: 14px;
   color: #666666;
 }
 .center-articles .main-articles .articles .medium-article .article-title {
+  font-family: "Bitter";
   font-weight: bold;
   font-size: 14px;
+  line-height: 16.8px;
   color: #363F48;
 }
 .center-articles .main-articles .articles .small-article {
@@ -804,20 +898,294 @@ header {
   padding: 5px 0;
 }
 .center-articles .main-articles .articles .small-article .article-side .article-date-and-views p {
-  font-family: "Varela Round";
+  font-family: "Varela Round", sans-serif;
   font-size: 12px;
+  line-height: 14px;
   color: #666666;
 }
 .center-articles .main-articles .articles .small-article .article-side .article-title {
+  font-family: "Bitter";
   font-weight: bold;
   font-size: 14px;
-  line-height: 16px;
+  line-height: 16.8px;
   color: #363F48;
+}
+.center-articles .main-articles .category-articles {
+  width: 100%;
+  background-color: #FFFFFF;
+  padding: 25px;
+}
+.center-articles .main-articles .category-articles .category-title {
+  font-family: "Bitter";
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 29px;
+  color: #363F48;
+  padding-bottom: 35px;
+}
+.center-articles .main-articles .category-articles .category-article {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0;
+}
+.center-articles .main-articles .category-articles .category-article .title {
+  color: #363F48;
+  font-family: "Bitter";
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 29px;
+  padding-bottom: 15px;
+}
+.center-articles .main-articles .category-articles .category-article .data {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 70%;
+}
+.center-articles .main-articles .category-articles .category-article .data .date {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.center-articles .main-articles .category-articles .category-article .data .date img {
+  padding-right: 10px;
+}
+.center-articles .main-articles .category-articles .category-article .data .date .dat {
+  color: #666666;
+  font-family: "Varela Round", sans-serif;
+  font-size: 12px;
+  line-height: 14px;
+}
+.center-articles .main-articles .category-articles .category-article .data .author {
+  color: #666666;
+  font-family: "Varela Round", sans-serif;
+  font-size: 12px;
+  line-height: 14px;
+}
+.center-articles .main-articles .category-articles .category-article .data .comments {
+  color: #666666;
+  font-family: "Varela Round", sans-serif;
+  font-size: 12px;
+  line-height: 14px;
+}
+.center-articles .main-articles .category-articles .category-article .body {
+  display: flex;
+  flex-direction: row;
+  padding: 5px 0 30px;
+}
+.center-articles .main-articles .category-articles .category-article .body img {
+  padding: 10px 20px 0 0;
+  align-self: flex-start;
+}
+.center-articles .main-articles .category-articles .category-article .body .text-button {
+  display: flex;
+  flex-direction: column;
+}
+.center-articles .main-articles .category-articles .category-article .body .text-button .text {
+  color: #444444;
+  font-size: 14px;
+  line-height: 22px;
+  padding-bottom: 15px;
+}
+.center-articles .main-articles .category-articles .category-article .body .text-button a {
+  font-family: "Varela Round", sans-serif;
+  font-size: 14px;
+  line-height: 17px;
+  background-color: #4D4382;
+  color: #FFFFFF;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  border: none;
+  padding: 8px 22px;
+}
+.center-articles .main-articles .category-articles .category-article .body .text-button a:hover {
+  opacity: 0.9;
+}
+.center-articles .main-articles .category-articles .category-hr {
+  border-color: #DDDDDD;
+}
+.center-articles .main-articles .category-articles .page-numbers {
+  padding: 40px 0 1px;
+}
+.center-articles .main-articles .category-articles .page-numbers ul li {
+  display: inline;
+  margin: 2px;
+}
+.center-articles .main-articles .category-articles .page-numbers ul li a {
+  font-family: "Varela Round", sans-serif;
+  font-size: 14px;
+  line-height: 17px;
+  color: #4D4382;
+  background-color: #DDDDDD;
+  padding: 8px 12px;
+}
+.center-articles .main-articles .category-articles .page-numbers ul li a.active {
+  background-color: #4D4382;
+  color: #FFFFFF;
+}
+.center-articles .main-articles .category-articles .page-numbers ul li a:hover {
+  opacity: 0.8;
+}
+.center-articles .main-articles .article {
+  background-color: #FFFFFF;
+  padding: 30px 30px 0;
+}
+.center-articles .main-articles .article p {
+  padding-bottom: 30px;
+  font-family: "Bitter";
+  font-size: 14px;
+  line-height: 22px;
+  color: #444444;
+}
+.center-articles .main-articles .article img {
+  width: 100%;
+}
+.center-articles .main-articles .article .social {
+  padding: 10px 0 18px;
+}
+.center-articles .main-articles .author-section {
+  background-color: #FFFFFF;
+  padding: 18px 30px 30px;
+  margin-bottom: 20px;
+}
+.center-articles .main-articles .author-section .title {
+  font-family: "Bitter";
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 29px;
+  color: #363F48;
+  padding-bottom: 30px;
+}
+.center-articles .main-articles .author-section .author-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.center-articles .main-articles .author-section .author-content .about-author {
+  color: #363F48;
+  font-family: "Varela";
+  font-size: 14px;
+  line-height: 20px;
+  padding-left: 20px;
+}
+.center-articles .main-articles .comments-section {
+  background-color: #FFFFFF;
+  margin-bottom: 40px;
+}
+.center-articles .main-articles .comments-section .title {
+  color: #363F48;
+  font-family: "Bitter";
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 29px;
+  padding: 18px 30px;
+}
+.center-articles .main-articles .comments-section .comments {
+  padding: 15px 30px;
+}
+.center-articles .main-articles .comments-section .comments .comment {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding-bottom: 40px;
+}
+.center-articles .main-articles .comments-section .comments .comment:last-child {
+  padding-bottom: 0;
+}
+.center-articles .main-articles .comments-section .comments .comment .comment-body {
+  position: relative;
+  padding-left: 18px;
+  width: 100%;
+}
+.center-articles .main-articles .comments-section .comments .comment .comment-body .top {
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 3px;
+}
+.center-articles .main-articles .comments-section .comments .comment .comment-body .top .user-name {
+  font-family: "Bitter";
+  font-size: 18px;
+  line-height: 20px;
+  color: #4D4382;
+  padding-right: 10px;
+}
+.center-articles .main-articles .comments-section .comments .comment .comment-body .top .date {
+  font-family: "Varela";
+  font-size: 11px;
+  line-height: 20px;
+  color: #666666;
+}
+.center-articles .main-articles .comments-section .comments .comment .comment-body .text {
+  color: #444444;
+  font-family: "Varela";
+  font-size: 13px;
+  line-height: 20px;
+}
+.center-articles .main-articles .comments-section .comments .comment .comment-body .comment-reply {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: #4D4382;
+  font-family: "Varela Round";
+  font-size: 14px;
+  line-height: 17px;
+}
+.center-articles .main-articles .comments-section .comments .comment .comment-body .comment-reply:hover {
+  opacity: 0.8;
+}
+.center-articles .main-articles .comments-section .add-comment {
+  padding: 8px 30px;
+}
+.center-articles .main-articles .comments-section .add-comment .text {
+  color: #444444;
+  font-family: "Varela";
+  font-size: 13px;
+  line-height: 20px;
+  padding-bottom: 25px;
+}
+.center-articles .main-articles .comments-section .add-comment .add-comment-form {
+  display: flex;
+  flex-direction: column;
+}
+.center-articles .main-articles .comments-section .add-comment .add-comment-form input, .center-articles .main-articles .comments-section .add-comment .add-comment-form textarea {
+  width: 50%;
+  padding: 10px 15px;
+  margin: 4px 0;
+  border: none;
+  background-color: #DDDDDD;
+  font-family: "Varela Round";
+  font-size: 14px;
+  line-height: 17px;
+  color: #666666;
+}
+.center-articles .main-articles .comments-section .add-comment .add-comment-form label {
+  display: none;
+}
+.center-articles .main-articles .comments-section .add-comment .add-comment-form .add-comment-button {
+  margin: 14px 0;
+  padding: 10px 35px;
+  font-family: "Varela Round", sans-serif;
+  font-size: 14px;
+  line-height: 17px;
+  background-color: #4D4382;
+  color: #FFFFFF;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  border: none;
+}
+.center-articles .main-articles .comments-section .add-comment .add-comment-form .errors ul li {
+  color: #EE6151;
+  font-weight: bold;
 }
 
 .footer-title {
+  font-family: "Bitter";
   font-weight: bold;
   font-size: 24px;
+  line-height: 29px;
   color: #CCCCCC;
 }
 
@@ -879,6 +1247,7 @@ footer .footer-container .mid-footer .footer-title {
 }
 .footer-element form {
   width: 100%;
+  font-family: "Varela Round", sans-serif;
   font-size: 16px;
   line-height: 19px;
   display: flex;
@@ -946,6 +1315,7 @@ footer .footer-container .mid-footer .footer-title {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  padding-bottom: 2px;
 }
 .footer-element .footer-article .article-info .article-info-date-comments p {
   font-family: "Varela Round";
@@ -954,7 +1324,10 @@ footer .footer-container .mid-footer .footer-title {
   color: #666666;
 }
 .footer-element .footer-article .article-info .article-info-title {
+  font-family: "Bitter";
   font-weight: bold;
+  font-size: 14px;
+  line-height: 16.8px;
   color: #FFFFFF;
 }
 .footer-element .footer-article .article-image {
@@ -984,7 +1357,7 @@ footer .footer-container .mid-footer .footer-title {
 }
 .footer-element .footer-tweet .footer-tweet-post {
   font-family: "Varela";
-  font-size: 13px;
+  font-size: 14px;
   line-height: 18px;
   color: #CCCCCC;
 }
