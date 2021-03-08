@@ -4,9 +4,30 @@
     {{ pimcore_areablock("bannerBig", {
         "allowed": ["random-banner"]
     }) }}
-    {{ pimcore_areablock("articleSlider", {
+    {#{ pimcore_areablock("articleSlider", {
         "allowed": ["article-slider"]
-    }) }}
+    }) }#}
+
+    <div class="article-slider">
+        <div class="arrows">
+            <img class='a-left control-c prev slick-prev' id="article-slider-prev" src='/static/img/icons/whiteArrow.png' alt="Previous arrow">
+            <img class='a-right control-c next slick-next' id="article-slider-next" src='/static/img/icons/whiteArrow.png' alt="Next arrow">
+        </div>
+        {% for article in carousell %}
+        <div class="artcle">
+            <img class="slider-image" src="{{ article.getFeaturedImage().getThumbnail("tst") }}" alt="Slider image" />
+            <div class="image-info">
+                <div class="article-info">
+                    <div class="article-date">{{ article.getPublishDate|date("F d, Y") }}</div>
+                    <div class="article-comments"><img src="/static/img/icons/comment.png" alt="Number of comments" /> {{ article.getComments|length }} Comments</div>
+                </div>
+                <h1>{{ article.getTitle }}</h1>
+                <a class="article-link" href="{{ path(article) }}">Read article</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
     <div class="center-articles">
         <div class="main-articles">
             <div class="category-articles">

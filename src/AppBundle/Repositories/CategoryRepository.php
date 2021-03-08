@@ -43,6 +43,16 @@ class CategoryRepository
         return $paginator;
     }
 
+    public function getCategoryPostsLimited($category) {
+        $categoryListing = new \Pimcore\Model\DataObject\Post\Listing();
+        $categoryListing->setOrderKey("publishDate");
+        $categoryListing->setOrder("desc");
+        $categoryListing->setCondition('category like ?', ['%' . $category->getId() . '%']);
+        $categoryListing->setLimit(5);
+
+        return $categoryListing->getObjects();
+    }
+
     public function getCategoryName($categoryId) {
         $category = new Listing();
         $category->addConditionParam('oo_id = ?', [$categoryId]);

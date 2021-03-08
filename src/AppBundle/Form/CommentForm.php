@@ -82,12 +82,6 @@ class CommentForm extends AbstractType
                     new NotBlank([
                         'message' => $this->translator->trans("Please enter your email address"),
                     ]),
-                    new Length([
-                        'min' => 5,
-                        'max' => 254,
-                        'minMessage' => $this->translator->trans("Name must contain at least 5 characters"),
-                        'maxMessage' => $this->translator->trans("Name should be less than 254 characters"),
-                    ]),
                     new Email([
                         'message' => $this->translator->trans("Please enter valid email address"),
                     ])

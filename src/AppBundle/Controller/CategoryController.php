@@ -52,17 +52,22 @@ class CategoryController extends BaseController
             throw new NotFoundHttpException('This page doesn\'t exist');
         }
 
+        $carousellPosts = $this->categoryRepository->getCategoryPostsLimited($category);
+
         return [
             'category' => $category,
-            'posts' => $posts
+            'posts' => $posts,
+            'carousell' => $carousellPosts
         ];
     }
 
     public function showAction(Request $request) {
         $category = Category::getById(4);
+        $carousellPosts = $this->categoryRepository->getCategoryPostsLimited($category);
         return [
             'category' => $category,
-            'posts' => $this->categoryRepository->getCategoryPosts($category, 1, 10)
+            'posts' => $this->categoryRepository->getCategoryPosts($category, 1, 10),
+            'carousell' => $carousellPosts
         ];
     }
 
