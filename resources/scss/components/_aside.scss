@@ -70,19 +70,16 @@ aside {
                     display: flex;
                     flex-direction: column;
                     .article-date {
-                        font-family: "Varela Round";
-                        font-size: 10px;
-                        color: $asideGrey;
+                        @include asideArticleDate();
                     }
                     .article-title {
-                        font-weight: bold;
-                        font-size: $standardFontSize;
+                        @include articleTitle();
                         color: $white;
                     }
                 }
                 .article-comments {
                     font-family: "Varela Round";
-                    font-size: 10px;
+                    font-size: $smallerFontSize;
                     text-align: right;
                     color: $asideGrey;
                 }
@@ -101,10 +98,7 @@ aside {
     .aside-social {
         margin: 15px 0;
         .aside-social-title {
-            color: $articleTextColor;
-            font-weight: bold;
-            font-size: $titleFontSize;
-            line-height: 29px;
+            @include sectionTitle();
             padding: 15px 0;
         }
         .social-networks {
@@ -129,10 +123,7 @@ aside {
                     align-items: center;
                     background-color: $grey;
                     padding: 0 10px;
-                    color: $articleTextColor;
-                    font-weight: bold;
-                    font-size: 18px;
-                    font-family: "Bitter";
+                    @include asideSocialText();
                 }
                 .social-number {
                     width: 50%;
@@ -152,9 +143,7 @@ aside {
         height: fit-content;
         margin-bottom: 18px;
         .aside-tv-title {
-            font-weight: bold;
-            color: $articleTextColor;
-            font-size: $titleFontSize;
+            @include sectionTitle();
             padding: 15px 25px;
         }
         .aside-tv-link {
@@ -168,14 +157,12 @@ aside {
             .aside-tv-text {
                 padding: 15px;
                 .aside-tv-date {
-                    font-family: "Varela Round";
-                    font-size: $smallFontSize;
+                    @include articleData();
                     color: $darkGrey;
                 }
                 .aside-tv-article-title {
                     color: $articleTextColor;
-                    font-weight: bold;
-                    font-size: $standardFontSize;
+                    @include articleTitle();
                 }
             }
         }

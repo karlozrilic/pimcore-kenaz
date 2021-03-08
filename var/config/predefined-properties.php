@@ -33,11 +33,11 @@ return [
         "description" => NULL,
         "key" => "articlesDefaultPage",
         "type" => "document",
-        "data" => NULL,
-        "config" => NULL,
+        "data" => "",
+        "config" => "",
         "ctype" => "document",
         "inheritable" => FALSE,
         "creationDate" => 1609884135,
-        "modificationDate" => 1609884151
+        "modificationDate" => 1615192899
     ]
 ];

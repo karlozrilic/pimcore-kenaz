@@ -3,15 +3,76 @@
     height: 53px;
 }
 
+@mixin sectionTitle {
+    font-family: "Bitter";
+    font-weight: bold;
+    font-size: $titleFontSize;
+    line-height: 29px;
+}
+
+@mixin articleTitle {
+    font-family: "Bitter";
+    font-weight: bold;
+    font-size: $standardFontSize;
+    line-height: 16.8px;
+}
+
+@mixin articleData {
+    font-family: "Varela Round", sans-serif;
+    font-size: $smallFontSize;
+    line-height: 14px;
+}
+
 @mixin articleText {
     font-family: "Varela Round", sans-serif;
     font-size: $smallFontSize;
     line-height: 14px;
     color: $sliderTextColor;
 }
+
+@mixin fullArticleText {
+    font-family: "Bitter";
+    font-size: $standardFontSize;
+    line-height: 22px;
+    color: $textColor;
+}
+
+@mixin commentTitle {
+    font-family: "Bitter";
+    font-size: $biggerFontSize;
+    line-height: 20px;
+}
+
+@mixin commentDate {
+    font-family: "Varela";
+    font-size: 11px;
+    line-height: 20px;
+}
+
+@mixin commentText {
+    font-family: "Varela";
+    font-size: 13px;
+    line-height: 20px;
+}
     
+@mixin asideSocialText {
+    font-family: "Bitter";
+    color: $articleTextColor;
+    font-weight: bold;
+    font-size: $biggerFontSize;
+}
+
+@mixin asideArticleDate {
+    font-family: "Varela Round", sans-serif;
+    font-size: $smallerFontSize;
+    color: $asideGrey;
+}
+
 @mixin headerCategoryLinks {
-    
+    font-family: "Bitter";
+    font-weight: bold;
+    font-size: $biggerFontSize;
+    line-height: 22px;
 }
 
 @mixin mainArticles($color) {
@@ -21,6 +82,48 @@
     padding: 25px;
     border-left: 13px solid $color;
     margin-bottom: 17px;
+}
+
+@mixin articlePageText {
+    font-family: "Varela Round";
+    font-size: $standardFontSize;
+    line-height: 17px;
+}
+
+@mixin formText {
+    font-family: "Varela Round", sans-serif;
+    font-size: 16px;
+    line-height: 19px;
+}
+
+@mixin smallLinks {
+    font-family: "Varela";
+    font-size: $smallFontSize;
+    line-height: 20px;
+}
+
+@mixin tweetText {
+    font-family: "Varela";
+    font-size: $standardFontSize;
+    line-height: 18px;
+}
+
+@mixin button {
+    font-family: "Varela Round", sans-serif;
+    font-size: $standardFontSize;
+    line-height: 17px;
+    background-color: $purple;
+    color: $white;
+    width: fit-content;
+    border: none;
+}
+
+@mixin pages {
+    font-family: "Varela Round", sans-serif;
+    font-size: $standardFontSize;
+    line-height: 17px;
+    color: $purple;
+    background-color: $grey;
 }
 
 @mixin footerBottomText {
