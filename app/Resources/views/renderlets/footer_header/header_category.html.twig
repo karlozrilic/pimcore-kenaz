@@ -1,9 +1,9 @@
 <ul>
 {% for category in categories %}
     <li>
-        <a href="{% if category.getKey()|lower == "news" %}/{% else %}{{path(category)}}{% endif %}" 
+        <a href="{{path(category)}}" 
             id="{{category.getKey()|lower}}"
-            {% if path(category)|split('?')[0] == current_url or (current_url == "/" and category.getKey()|lower == "news" ) %}class="active"{% endif %}>
+            {% if path(category) == current_url %}class="active"{% endif %}>
             {{category.getTitle}}
         </a>
     </li>

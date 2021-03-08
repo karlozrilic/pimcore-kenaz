@@ -2,10 +2,9 @@
 {% block content %}
 <div class="main-content" id="post-page">
 
-    <div class="banner">
-        <p>banner</p>
-        <p>Neki random banner</p>
-    </div>
+    {{ pimcore_areablock("bannerBig", {
+        "allowed": ["random-banner"]
+    }) }}
 
     <div class="post-banner-image">
         <img src="{{ post.getFeaturedImage() }}" alt="Banner image" />
@@ -23,10 +22,9 @@
                 <img class="social" src="/static/img/social/social.png" alt="Social" />
             </div>
 
-            <div class="banner">
-                <p>banner</p>
-                <p>Neki random banner</p>
-            </div>
+            {{ pimcore_areablock("bannerBig2", {
+                "allowed": ["random-banner"]
+            }) }}
 
             <div class="author-section">
                 <div class="title">About the Author</div>

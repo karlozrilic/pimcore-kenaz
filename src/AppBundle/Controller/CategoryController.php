@@ -54,8 +54,16 @@ class CategoryController extends BaseController
 
         return [
             'category' => $category,
-            'posts' => $posts,
-            'base_url' => $request->server->get("REDIRECT_SCRIPT_URL")
+            'posts' => $posts
         ];
     }
+
+    public function showAction(Request $request) {
+        $category = Category::getById(4);
+        return [
+            'category' => $category,
+            'posts' => $this->categoryRepository->getCategoryPosts($category, 1, 10)
+        ];
+    }
+
 }

@@ -23,9 +23,9 @@ return [
         "data" => "",
         "config" => NULL,
         "ctype" => "document",
-        "inheritable" => FALSE,
+        "inheritable" => TRUE,
         "creationDate" => 1609883597,
-        "modificationDate" => 1614240532
+        "modificationDate" => 1615194313
     ],
     3 => [
         "id" => 3,
@@ -36,8 +36,8 @@ return [
         "data" => "",
         "config" => "",
         "ctype" => "document",
-        "inheritable" => FALSE,
+        "inheritable" => TRUE,
         "creationDate" => 1609884135,
-        "modificationDate" => 1615192899
+        "modificationDate" => 1615194313
     ]
 ];
