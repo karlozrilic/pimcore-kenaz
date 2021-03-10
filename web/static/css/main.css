@@ -505,6 +505,11 @@ aside .aside-facebook {
   background-color: #FFFFFF;
 }
 
+video {
+  width: 200px;
+  height: auto;
+}
+
 .alert {
   position: fixed;
   top: 30px;
@@ -512,6 +517,7 @@ aside .aside-facebook {
   transform: translate(-50%, 0);
   width: 30%;
   text-align: center;
+  z-index: 1000;
 }
 
 header {

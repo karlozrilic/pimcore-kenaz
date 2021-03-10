@@ -43,12 +43,12 @@ class CategoryRepository
         return $paginator;
     }
 
-    public function getCategoryPostsLimited($category) {
+    public function getCategoryPostsLimited($category, $limit = 5) {
         $categoryListing = new \Pimcore\Model\DataObject\Post\Listing();
         $categoryListing->setOrderKey("publishDate");
         $categoryListing->setOrder("desc");
         $categoryListing->setCondition('category like ?', ['%' . $category->getId() . '%']);
-        $categoryListing->setLimit(5);
+        $categoryListing->setLimit($limit);
 
         return $categoryListing->getObjects();
     }

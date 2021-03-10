@@ -44,5 +44,13 @@
     {{ pimcore_areablock("bottomImageSlider", {
         "allowed": ["image-slider"]
     }) }}
+
+    {{ pimcore_areablock("video") }}
+
+    {{ pimcore_video('campaignVideo', {
+        thumbnail: "tst",
+        width: 400
+    }) }}
+
 </div>
 {% endblock %}
