@@ -155,5 +155,61 @@ return [
         "creationDate" => 1614940558,
         "forcePictureTag" => FALSE,
         "id" => "commentImage"
+    ],
+    "authorImageTestemonial" => [
+        "items" => [
+            [
+                "method" => "resize",
+                "arguments" => [
+                    "width" => 32,
+                    "height" => 32
+                ]
+            ]
+        ],
+        "medias" => [
+
+        ],
+        "name" => "authorImageTestemonial",
+        "description" => "",
+        "group" => "",
+        "format" => "SOURCE",
+        "quality" => 85,
+        "highResolution" => 0.0,
+        "preserveColor" => FALSE,
+        "preserveMetaData" => FALSE,
+        "rasterizeSVG" => FALSE,
+        "downloadable" => FALSE,
+        "modificationDate" => 1615548039,
+        "creationDate" => 1615547857,
+        "forcePictureTag" => FALSE,
+        "id" => "authorImageTestemonial"
+    ],
+    "authorImageTestemonialBigger" => [
+        "items" => [
+            [
+                "method" => "resize",
+                "arguments" => [
+                    "width" => 44,
+                    "height" => 44
+                ]
+            ]
+        ],
+        "medias" => [
+
+        ],
+        "name" => "authorImageTestemonialBigger",
+        "description" => "",
+        "group" => "",
+        "format" => "SOURCE",
+        "quality" => 85,
+        "highResolution" => 0.0,
+        "preserveColor" => FALSE,
+        "preserveMetaData" => FALSE,
+        "rasterizeSVG" => FALSE,
+        "downloadable" => FALSE,
+        "modificationDate" => 1615552714,
+        "creationDate" => 1615552704,
+        "forcePictureTag" => FALSE,
+        "id" => "authorImageTestemonialBigger"
     ]
 ];

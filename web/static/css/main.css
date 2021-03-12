@@ -505,11 +505,289 @@ aside .aside-facebook {
   background-color: #FFFFFF;
 }
 
+.video-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
 video {
   width: 200px;
   height: auto;
 }
 
+.video-testemonial {
+  position: fixed;
+  top: calc(100% - 400px);
+  right: 1em;
+  width: 220px;
+  height: 360px;
+  background-color: #253342;
+  color: #FFFFFF;
+  padding: 20px;
+  border-radius: 10px;
+}
+.video-testemonial p {
+  color: #FFFFFF;
+  font-family: "Varela Round";
+  line-height: 1;
+  font-weight: bold;
+}
+.video-testemonial .video {
+  position: relative;
+  height: 280px;
+  margin-top: 8px;
+}
+.video-testemonial .video::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: linear-gradient(0deg, #000, transparent);
+}
+.video-testemonial .video video {
+  -o-object-fit: cover;
+     object-fit: cover;
+  width: 100%;
+  height: 280px;
+  border-radius: 5px 5px 0 0;
+}
+.video-testemonial .video .buttons {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+}
+.video-testemonial .video .buttons .video-play-button {
+  background-color: transparent;
+  border: none;
+}
+.video-testemonial .video .buttons .video-play-button i {
+  font-size: 2rem;
+  color: #FFFFFF;
+}
+.video-testemonial .video .about {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 15px 8px;
+  z-index: 1;
+}
+.video-testemonial .video .about img {
+  border-radius: 50px;
+  border: 1px solid white;
+}
+.video-testemonial .video .about .author-info {
+  padding-left: 10px;
+  font-family: "Varela Round";
+  line-height: 1;
+  font-weight: bold;
+  font-size: 12px;
+}
+.video-testemonial .video .about .author-info span {
+  color: #FFFFFF;
+  font-weight: normal;
+}
+.video-testemonial .video .about .author-info .name {
+  color: #FFFFFF;
+}
+.video-testemonial .video .about .author-info .job-title {
+  color: #FFFFFF;
+  font-weight: normal;
+}
+
+.video-testemonial-modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  background-color: rgba(0, 0, 0, 0.4);
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-animation: fadeIn 0.4s forwards;
+          animation: fadeIn 0.4s forwards;
+}
+.video-testemonial-modal.out {
+  -webkit-animation: fadeOut 0.5s forwards;
+          animation: fadeOut 0.5s forwards;
+}
+.video-testemonial-modal.out .modal-content {
+  -webkit-animation: scaleDown 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+          animation: scaleDown 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+.video-testemonial-modal .modal-content {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 36px 12px 8px 12px;
+  border-radius: 0.125rem;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  max-height: 100%;
+  background-color: #FFFFFF;
+  -webkit-animation: slideIn 0.4s forwards;
+          animation: slideIn 0.4s forwards;
+}
+.video-testemonial-modal .modal-content .close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 5px;
+  width: 25px;
+  height: 25px;
+  box-shadow: 0 3px 7px 0 rgba(0, 0, 0, 0.2);
+  margin: 5px -13px 0 0;
+  background-color: #FFFFFF;
+  border: none;
+  border-radius: 20px;
+}
+.video-testemonial-modal .modal-content .close i {
+  font-size: 15px;
+}
+.video-testemonial-modal .modal-content .description {
+  position: relative;
+  width: 100%;
+  margin-bottom: 34px;
+  font-size: 0.875rem;
+  padding-left: 10px;
+  font-family: "Varela Round";
+  line-height: 1.2;
+  font-weight: bold;
+}
+.video-testemonial-modal .modal-content .description::before {
+  content: "";
+  width: 4px;
+  border-radius: 99px;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: black;
+}
+.video-testemonial-modal .modal-content .content {
+  width: 350px;
+}
+.video-testemonial-modal .modal-content .content video {
+  width: 100%;
+  border-radius: 10px;
+}
+.video-testemonial-modal .modal-content .author {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.video-testemonial-modal .modal-content .author img {
+  border-radius: 50px;
+  border: 1px solid #45cad6;
+}
+.video-testemonial-modal .modal-content .author .author-info {
+  padding-left: 10px;
+  color: #000000;
+  font-family: "Varela Round";
+  line-height: 1;
+  font-weight: bold;
+}
+.video-testemonial-modal .modal-content .author .author-info .job-title {
+  font-size: 12px;
+  font-weight: normal;
+}
+
+@-webkit-keyframes slideIn {
+  from {
+    top: -300px;
+    opacity: 0;
+  }
+  to {
+    top: 50%;
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    top: -300px;
+    opacity: 0;
+  }
+  to {
+    top: 50%;
+    opacity: 1;
+  }
+}
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes fadeOut {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  99% {
+    opacity: 0;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0);
+  }
+}
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  99% {
+    opacity: 0;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0);
+  }
+}
+@-webkit-keyframes scaleDown {
+  from {
+    top: 50%;
+    opacity: 1;
+  }
+  to {
+    top: -300px;
+    opacity: 0;
+  }
+}
+@keyframes scaleDown {
+  from {
+    top: 50%;
+    opacity: 1;
+  }
+  to {
+    top: -300px;
+    opacity: 0;
+  }
+}
 .alert {
   position: fixed;
   top: 30px;

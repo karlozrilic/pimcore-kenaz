@@ -4,9 +4,6 @@
     {{ pimcore_areablock("bannerBig", {
         "allowed": ["random-banner"]
     }) }}
-    {#{ pimcore_areablock("articleSlider", {
-        "allowed": ["article-slider"]
-    }) }#}
 
     <div class="article-slider">
         <div class="arrows">
@@ -53,7 +50,7 @@
                 <hr class="category-hr" />
                 {% endfor %}
                 <div class="page-numbers">
-                    <ul>
+                      <ul>
                         {% for i in range(1, posts.pageRange) %}
                         <li><a href="{{ "#{path(category)}?page=#{i}" }}" {% if posts.currentPageNumber == i %}class="active"{% endif %} >{{i}}</a></li>
                         {% endfor %}
@@ -67,4 +64,5 @@
         {{ pimcore_inc('/snippets/aside') }}
     </div>
 </div>
+{{ pimcore_inc('/snippets/video-testemonial') }}
 {% endblock %}

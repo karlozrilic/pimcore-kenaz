@@ -13,7 +13,7 @@ class VideoController extends BaseController
 
     public function videoAction(Request $request) {
         $id = $request->get('id');
-        $video = Asset::getById(43);
+        $video = Asset::getById($id);
         return [
             'video' => $video
         ];

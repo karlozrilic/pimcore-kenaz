@@ -5,6 +5,7 @@ $.fn.exists = function () {
 $(() => {
     const homePage = $('#home-page');
     const categoryPage = $('#category-page');
+    const postPage = $('#post-page');
 
     const articleSliderConfig = {
         slide: '.artcle',
@@ -66,5 +67,31 @@ $(() => {
     }
     if (categoryPage.exists()) {
         $('.article-slider').slick(articleSliderConfig);
+    }
+    if (categoryPage.exists() || postPage.exists()) {
+        const modal = $('#modal');
+        const modalClose = $('#modal-close');
+        const button = $('#open-modal');
+        const video = $('#video');
+
+        button.on("click", () => {
+            modal.css("display", "block");
+            modal.removeClass("out");
+            video.get(0).play();
+        });
+
+        modalClose.on("click", () => {
+            modal.addClass("out");
+            video.get(0).pause();
+            video.get(0).currentTime = 0;
+        });
+
+        $(window).on("click", (event) => {
+            if (event.target == modal.get(0)) {
+                modal.addClass("out");
+                video.get(0).pause();
+                video.get(0).currentTime = 0;
+            }
+        });
     }
 })

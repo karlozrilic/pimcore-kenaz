@@ -14,6 +14,7 @@ $.fn.exists = function () {
 $(function () {
   var homePage = $('#home-page');
   var categoryPage = $('#category-page');
+  var postPage = $('#post-page');
   var articleSliderConfig = {
     slide: '.artcle',
     autoplay: true,
@@ -74,6 +75,30 @@ $(function () {
 
   if (categoryPage.exists()) {
     $('.article-slider').slick(articleSliderConfig);
+  }
+
+  if (categoryPage.exists() || postPage.exists()) {
+    var modal = $('#modal');
+    var modalClose = $('#modal-close');
+    var button = $('#open-modal');
+    var video = $('#video');
+    button.on("click", function () {
+      modal.css("display", "block");
+      modal.removeClass("out");
+      video.get(0).play();
+    });
+    modalClose.on("click", function () {
+      modal.addClass("out");
+      video.get(0).pause();
+      video.get(0).currentTime = 0;
+    });
+    $(window).on("click", function (event) {
+      if (event.target == modal.get(0)) {
+        modal.addClass("out");
+        video.get(0).pause();
+        video.get(0).currentTime = 0;
+      }
+    });
   }
 });
 

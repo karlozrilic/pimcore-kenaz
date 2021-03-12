@@ -64,6 +64,7 @@ class CategoryController extends BaseController
     public function showAction(Request $request) {
         $category = Category::getById(4);
         $carousellPosts = $this->categoryRepository->getCategoryPostsLimited($category);
+        $testemonial = VideoTestemonial::getById(161);
         return [
             'category' => $category,
             'posts' => $this->categoryRepository->getCategoryPosts($category, 1, 10),
