@@ -78,26 +78,76 @@ $(function () {
   }
 
   if (categoryPage.exists() || postPage.exists()) {
-    var modal = $('#modal');
-    var modalClose = $('#modal-close');
-    var button = $('#open-modal');
-    var video = $('#video');
-    button.on("click", function () {
-      modal.css("display", "block");
-      modal.removeClass("out");
-      video.get(0).play();
+    setInterval(function () {
+      var testemonials = $('.video-testemonial');
+      $(testemonials).eq(0).animate({
+        top: "400px"
+      }, {
+        duration: 1000,
+        queue: false,
+        progress: function progress(animation, _progress, remainingMs) {
+          if (remainingMs <= 200) {
+            $(testemonials).each(function (index, element) {
+              $(element).removeClass("z-ind-".concat(index + 1)).addClass("z-ind-".concat(index == 0 ? 3 : index));
+            });
+          }
+
+          if (remainingMs <= 800) {
+            $(testemonials).each(function (index, element) {
+              $(element).removeClass("tab-".concat(index + 1)).addClass("tab-".concat(index == 0 ? 3 : index));
+            });
+          }
+        },
+        done: function done() {
+          $(this).animate({
+            top: "20px"
+          }, {
+            duration: 1000,
+            done: function done() {
+              $(testemonials).each(function (index, element) {
+                $(element).removeAttr("style");
+              });
+            }
+          });
+          $(testemonials).eq(0).insertAfter($(testemonials).last());
+        }
+      });
+      $(testemonials).eq(1).animate({
+        top: "0px"
+      }, {
+        duration: 1000,
+        queue: false,
+        done: function done() {
+          $(this).removeAttr("style");
+        }
+      });
+    }, 5000);
+    var modals = $(".video-testemonial-modal");
+    var modalsClose = $(".modal-close");
+    var openModals = $(".video-play-button");
+    var videos = $(".modal-video");
+    openModals.each(function (index, element) {
+      $(element).on("click", function () {
+        $(modals[index]).css("display", "block");
+        $(modals[index]).removeClass("out");
+        videos[index].play();
+      });
     });
-    modalClose.on("click", function () {
-      modal.addClass("out");
-      video.get(0).pause();
-      video.get(0).currentTime = 0;
+    modalsClose.each(function (index, element) {
+      $(element).on("click", function () {
+        $(modals[index]).addClass("out");
+        videos[index].pause();
+        videos[index].currentTime = 0;
+      });
     });
     $(window).on("click", function (event) {
-      if (event.target == modal.get(0)) {
-        modal.addClass("out");
-        video.get(0).pause();
-        video.get(0).currentTime = 0;
-      }
+      modals.each(function (index, element) {
+        if (event.target == element) {
+          $(element).addClass("out");
+          videos[index].pause();
+          videos[index].currentTime = 0;
+        }
+      });
     });
   }
 });

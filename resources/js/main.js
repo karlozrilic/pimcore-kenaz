@@ -69,29 +69,79 @@ $(() => {
         $('.article-slider').slick(articleSliderConfig);
     }
     if (categoryPage.exists() || postPage.exists()) {
-        const modal = $('#modal');
-        const modalClose = $('#modal-close');
-        const button = $('#open-modal');
-        const video = $('#video');
+        setInterval(() => {
+            let testemonials = $('.video-testemonial');
+            $(testemonials).eq(0).animate({
+                top: "400px"
+            }, {
+                duration: 1000,
+                queue: false,
+                progress: (animation, progress, remainingMs) => {
+                    if (remainingMs <= 200) {
+                        $(testemonials).each((index, element) => {
+                            $(element).removeClass(`z-ind-${index+1}`).addClass(`z-ind-${index == 0 ? 3 : index}`);
+                        });
+                    }
+                    if (remainingMs <= 800) {
+                        $(testemonials).each((index, element) => {
+                            $(element).removeClass(`tab-${index+1}`).addClass(`tab-${index == 0 ? 3 : index}`);
+                        });
+                    }
+                },
+                done: function() {        
+                    $(this).animate({
+                        top: "20px"
+                    }, {
+                        duration: 1000,
+                        done: function() {
+                            $(testemonials).each((index, element) => {
+                                $(element).removeAttr("style");
+                            });
+                        }
+                    })
+                    $(testemonials).eq(0).insertAfter($(testemonials).last());
+                }
+            })
+            $(testemonials).eq(1).animate({
+                top: "0px"
+            }, {
+                duration: 1000,
+                queue: false,
+                done: function() {
+                    $(this).removeAttr("style");
+                }
+            })
+        }, 5000)
 
-        button.on("click", () => {
-            modal.css("display", "block");
-            modal.removeClass("out");
-            video.get(0).play();
+        const modals = $(".video-testemonial-modal");
+        const modalsClose = $(".modal-close");
+        const openModals = $(".video-play-button");
+        const videos = $(".modal-video");
+
+        openModals.each((index, element) => {
+            $(element).on("click", () => {
+                $(modals[index]).css("display", "block");
+                $(modals[index]).removeClass("out");
+                videos[index].play();
+            })
         });
 
-        modalClose.on("click", () => {
-            modal.addClass("out");
-            video.get(0).pause();
-            video.get(0).currentTime = 0;
+        modalsClose.each((index, element) => {
+            $(element).on("click", () => {
+                $(modals[index]).addClass("out");
+                videos[index].pause();
+                videos[index].currentTime = 0;
+            })
         });
 
         $(window).on("click", (event) => {
-            if (event.target == modal.get(0)) {
-                modal.addClass("out");
-                video.get(0).pause();
-                video.get(0).currentTime = 0;
-            }
-        });
+            modals.each((index, element) => {
+                if (event.target == element) {
+                    $(element).addClass("out");
+                    videos[index].pause();
+                    videos[index].currentTime = 0;
+                }
+            })
+        })
     }
 })

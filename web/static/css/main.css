@@ -517,29 +517,62 @@ video {
   height: auto;
 }
 
-.video-testemonial {
+.testemonials {
   position: fixed;
-  top: calc(100% - 400px);
+  top: calc(100% - 450px);
   right: 1em;
+  width: 220px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.testemonials .video-testemonial {
+  position: absolute;
+  top: 0;
   width: 220px;
   height: 360px;
   background-color: #253342;
   color: #FFFFFF;
   padding: 20px;
   border-radius: 10px;
+  box-shadow: 2px 5px 5px 0px rgba(0, 0, 0, 0.75);
+  transform: scale(1, 1);
+  transition: transform 0.8s ease-in-out;
 }
-.video-testemonial p {
+.testemonials .video-testemonial.z-ind-1 {
+  z-index: 6;
+}
+.testemonials .video-testemonial.z-ind-2 {
+  z-index: 4;
+}
+.testemonials .video-testemonial.z-ind-3 {
+  z-index: 2;
+}
+.testemonials .video-testemonial.tab-1 {
+  top: 0;
+  transform: scale(1, 1);
+}
+.testemonials .video-testemonial.tab-2 {
+  top: 10px;
+  transform: scale(0.9, 1);
+}
+.testemonials .video-testemonial.tab-3 {
+  top: 20px;
+  transform: scale(0.8, 1);
+}
+.testemonials .video-testemonial p {
   color: #FFFFFF;
   font-family: "Varela Round";
   line-height: 1;
   font-weight: bold;
 }
-.video-testemonial .video {
+.testemonials .video-testemonial .video {
   position: relative;
   height: 280px;
   margin-top: 8px;
 }
-.video-testemonial .video::after {
+.testemonials .video-testemonial .video::after {
   content: "";
   position: absolute;
   bottom: 0;
@@ -548,27 +581,27 @@ video {
   height: 50%;
   background: linear-gradient(0deg, #000, transparent);
 }
-.video-testemonial .video video {
+.testemonials .video-testemonial .video video {
   -o-object-fit: cover;
      object-fit: cover;
   width: 100%;
   height: 280px;
   border-radius: 5px 5px 0 0;
 }
-.video-testemonial .video .buttons {
+.testemonials .video-testemonial .video .buttons {
   position: absolute;
   top: 1em;
   right: 1em;
 }
-.video-testemonial .video .buttons .video-play-button {
+.testemonials .video-testemonial .video .buttons .video-play-button {
   background-color: transparent;
   border: none;
 }
-.video-testemonial .video .buttons .video-play-button i {
+.testemonials .video-testemonial .video .buttons .video-play-button i {
   font-size: 2rem;
   color: #FFFFFF;
 }
-.video-testemonial .video .about {
+.testemonials .video-testemonial .video .about {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -578,25 +611,25 @@ video {
   padding: 15px 8px;
   z-index: 1;
 }
-.video-testemonial .video .about img {
+.testemonials .video-testemonial .video .about img {
   border-radius: 50px;
   border: 1px solid white;
 }
-.video-testemonial .video .about .author-info {
+.testemonials .video-testemonial .video .about .author-info {
   padding-left: 10px;
   font-family: "Varela Round";
   line-height: 1;
   font-weight: bold;
   font-size: 12px;
 }
-.video-testemonial .video .about .author-info span {
+.testemonials .video-testemonial .video .about .author-info span {
   color: #FFFFFF;
   font-weight: normal;
 }
-.video-testemonial .video .about .author-info .name {
+.testemonials .video-testemonial .video .about .author-info .name {
   color: #FFFFFF;
 }
-.video-testemonial .video .about .author-info .job-title {
+.testemonials .video-testemonial .video .about .author-info .job-title {
   color: #FFFFFF;
   font-weight: normal;
 }
@@ -604,7 +637,7 @@ video {
 .video-testemonial-modal {
   display: none;
   position: fixed;
-  z-index: 1;
+  z-index: 10;
   left: 0;
   top: 0;
   width: 100%;
@@ -634,6 +667,7 @@ video {
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
+  max-width: 380px;
   max-height: 100%;
   background-color: #FFFFFF;
   -webkit-animation: slideIn 0.4s forwards;
@@ -676,7 +710,7 @@ video {
   background-color: black;
 }
 .video-testemonial-modal .modal-content .content {
-  width: 350px;
+  width: 100%;
 }
 .video-testemonial-modal .modal-content .content video {
   width: 100%;

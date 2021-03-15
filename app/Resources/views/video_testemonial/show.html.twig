@@ -7,6 +7,55 @@
 {% block navigation %}
 {% endblock %}
 {% block content %}
+<div class="testemonials" id="testemonials">
+    {% for el in array %}
+    <div class="video-testemonial tab-{{ loop.index  }} z-ind-{{ loop.index }}">
+        <p>{{ el.getDescription() }}</p>
+        <div class="video">
+            <video autoplay muted loop>
+                <source src="{{ el.getVideo().getData()|raw }}">
+            </video>
+            <div class="buttons">
+                <button class="video-play-button"><i class="material-icons">play_circle_outline</i></button>
+            </div>
+            <div class="about">
+                <img src="{{ el.getAuthor().getProfileImage().getThumbnail('authorImageTestemonial') }}" alt="Author image" />
+                <div class="author-info">
+                    <div class="name">
+                        <span>Answered by:</span>
+                        {{ el.getAuthor().getFirstName() }}
+                    </div>
+                    <div class="job-title">Job title</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="video-testemonial-modal out">
+        <div class="modal-content">
+            <button class="close modal-close"><i class="material-icons">close</i></button>
+            <h3 class="description">
+                {{ el.getDescription() }}
+            </h3>
+            <div class="content">
+                <video controls autoplay class="modal-video">
+                    <source src="{{ el.getVideo().getData()|raw }}">
+                </video>
+            </div>
+            <div class="author">
+                <img src="{{ el.getAuthor().getProfileImage().getThumbnail('authorImageTestemonialBigger') }}" alt="Author image" />
+                <div class="author-info">
+                    <div class="name">
+                        {{ el.getAuthor().getFirstName() }}
+                        {{ el.getAuthor().getLastName() }}
+                    </div>
+                    <div class="job-title">Job title</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+    <!--
     <div class="video-testemonial">
         <p>{{ video_testemonial.getDescription() }}</p>
         <div class="video">
@@ -50,7 +99,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
 {% endblock %}
 {% block footer %}
 {% endblock %}

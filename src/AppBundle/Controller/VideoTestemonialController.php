@@ -15,10 +15,13 @@ class VideoTestemonialController extends FrontendController
     {
 
         $testemonial = VideoTestemonial::getById(161);
+        $testemonial2 = VideoTestemonial::getById(162);
+        $testemonial3 = VideoTestemonial::getById(163);
 
         return [
             'view' => $this->view,
-            'video_testemonial' => $testemonial
+            'video_testemonial' => $testemonial,
+            'array' => array($testemonial, $testemonial2, $testemonial3)
         ];
     }
 }
