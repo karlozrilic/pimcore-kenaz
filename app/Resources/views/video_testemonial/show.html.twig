@@ -7,16 +7,45 @@
 {% block navigation %}
 {% endblock %}
 {% block content %}
-<div class="testemonials" id="testemonials">
+
+{% if view.editmode %}
+<div class="testemonials-edit">
     {% for el in array %}
     <div class="video-testemonial tab-{{ loop.index  }} z-ind-{{ loop.index }}">
-        <p>{{ el.getDescription() }}</p>
+        <p>{{ el.getDescription("en")|truncate(35, '...') }}</p>
         <div class="video">
-            <video autoplay muted loop>
+            
+            <video autoplay muted loop class="testemonial-video">
                 <source src="{{ el.getVideo().getData()|raw }}">
             </video>
             <div class="buttons">
-                <button class="video-play-button"><i class="material-icons">play_circle_outline</i></button>
+                <button class="video-play-button"><i class="material-icons-two-tone">play_circle</i></button>
+            </div>
+            <div class="about">
+                <img src="{{ el.getAuthor().getProfileImage().getThumbnail('authorImageTestemonial') }}" alt="Author image" />
+                <div class="author-info">
+                    <div class="name">
+                        <span>Answered by:</span>
+                        {{ el.getAuthor().getFirstName() }}
+                    </div>
+                    <div class="job-title">Job title</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="testemonials">
+    {% for el in array %}
+    <div class="video-testemonial tab-{{ loop.index  }} z-ind-{{ loop.index }}">
+        <p>{{ el.getDescription("en")|truncate(35, '...') }}</p>
+        <div class="video">
+            <video {% if loop.index == 1 %}autoplay{% endif %} muted loop class="testemonial-video">
+                <source src="{{ el.getVideo().getData()|raw }}">
+            </video>
+            <div class="buttons">
+                <button class="video-play-button"><i class="material-icons-two-tone">play_circle</i></button>
             </div>
             <div class="about">
                 <img src="{{ el.getAuthor().getProfileImage().getThumbnail('authorImageTestemonial') }}" alt="Author image" />
@@ -34,7 +63,7 @@
         <div class="modal-content">
             <button class="close modal-close"><i class="material-icons">close</i></button>
             <h3 class="description">
-                {{ el.getDescription() }}
+                {{ el.getDescription("en") }}
             </h3>
             <div class="content">
                 <video controls autoplay class="modal-video">
@@ -55,51 +84,7 @@
     </div>
     {% endfor %}
 </div>
-    <!--
-    <div class="video-testemonial">
-        <p>{{ video_testemonial.getDescription() }}</p>
-        <div class="video">
-            <video autoplay muted loop>
-                <source src="{{ video_testemonial.getVideo().getData()|raw }}">
-            </video>
-            <div class="buttons">
-                <button class="video-play-button" id="open-modal"><i class="material-icons">play_circle_outline</i></button>
-            </div>
-            <div class="about">
-                <img src="{{ video_testemonial.getAuthor().getProfileImage().getThumbnail('authorImageTestemonial') }}" alt="Author image" />
-                <div class="author-info">
-                    <div class="name">
-                        <span>Answered by:</span>
-                        {{ video_testemonial.getAuthor().getFirstName() }}
-                    </div>
-                    <div class="job-title">Job title</div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="video-testemonial-modal out" id="modal">
-        <div class="modal-content">
-            <button class="close" id="modal-close"><i class="material-icons">close</i></button>
-            <h3 class="description">
-                {{ video_testemonial.getDescription() }}
-            </h3>
-            <div class="content">
-                <video controls autoplay id="video">
-                    <source src="{{ video_testemonial.getVideo().getData()|raw }}">
-                </video>
-            </div>
-            <div class="author">
-                <img src="{{ video_testemonial.getAuthor().getProfileImage().getThumbnail('authorImageTestemonialBigger') }}" alt="Author image" />
-                <div class="author-info">
-                    <div class="name">
-                        {{ video_testemonial.getAuthor().getFirstName() }}
-                        {{ video_testemonial.getAuthor().getLastName() }}
-                    </div>
-                    <div class="job-title">Job title</div>
-                </div>
-            </div>
-        </div>
-    </div>-->
+{% endif %}
 {% endblock %}
 {% block footer %}
 {% endblock %}

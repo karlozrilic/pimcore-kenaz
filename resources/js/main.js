@@ -70,7 +70,22 @@ $(() => {
     }
     if (categoryPage.exists() || postPage.exists()) {
         setInterval(() => {
-            let testemonials = $('.video-testemonial');
+            const testemonials = $('.video-testemonial');
+            const testemonialVideos = $(".testemonial-video");
+
+            $(testemonialVideos).each((index, element) => {
+                console.log(index);
+                console.log(element);
+                if (index == 1) {
+                    element.play();
+                } else {
+                    setTimeout(() => {
+                        element.pause();
+                        element.currentTime = 0;
+                    }, 2000)
+                }
+            })
+
             $(testemonials).eq(0).animate({
                 top: "400px"
             }, {
@@ -129,8 +144,10 @@ $(() => {
         modalsClose.each((index, element) => {
             $(element).on("click", () => {
                 $(modals[index]).addClass("out");
-                videos[index].pause();
-                videos[index].currentTime = 0;
+                setTimeout(() => {
+                    videos[index].pause();
+                    videos[index].currentTime = 0;
+                }, 400)
             })
         });
 
@@ -138,8 +155,10 @@ $(() => {
             modals.each((index, element) => {
                 if (event.target == element) {
                     $(element).addClass("out");
-                    videos[index].pause();
-                    videos[index].currentTime = 0;
+                    setTimeout(() => {
+                        videos[index].pause();
+                        videos[index].currentTime = 0;
+                    }, 400)
                 }
             })
         })

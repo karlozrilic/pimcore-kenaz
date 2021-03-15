@@ -80,6 +80,20 @@ $(function () {
   if (categoryPage.exists() || postPage.exists()) {
     setInterval(function () {
       var testemonials = $('.video-testemonial');
+      var testemonialVideos = $(".testemonial-video");
+      $(testemonialVideos).each(function (index, element) {
+        console.log(index);
+        console.log(element);
+
+        if (index == 1) {
+          element.play();
+        } else {
+          setTimeout(function () {
+            element.pause();
+            element.currentTime = 0;
+          }, 2000);
+        }
+      });
       $(testemonials).eq(0).animate({
         top: "400px"
       }, {
@@ -136,16 +150,20 @@ $(function () {
     modalsClose.each(function (index, element) {
       $(element).on("click", function () {
         $(modals[index]).addClass("out");
-        videos[index].pause();
-        videos[index].currentTime = 0;
+        setTimeout(function () {
+          videos[index].pause();
+          videos[index].currentTime = 0;
+        }, 400);
       });
     });
     $(window).on("click", function (event) {
       modals.each(function (index, element) {
         if (event.target == element) {
           $(element).addClass("out");
-          videos[index].pause();
-          videos[index].currentTime = 0;
+          setTimeout(function () {
+            videos[index].pause();
+            videos[index].currentTime = 0;
+          }, 400);
         }
       });
     });

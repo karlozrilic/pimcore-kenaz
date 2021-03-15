@@ -585,7 +585,7 @@ video {
   -o-object-fit: cover;
      object-fit: cover;
   width: 100%;
-  height: 280px;
+  max-height: 280px;
   border-radius: 5px 5px 0 0;
 }
 .testemonials .video-testemonial .video .buttons {
@@ -599,7 +599,9 @@ video {
 }
 .testemonials .video-testemonial .video .buttons .video-play-button i {
   font-size: 2rem;
-  color: #FFFFFF;
+  border-radius: 50px;
+  background-color: #CCCCCC;
+  mix-blend-mode: luminosity;
 }
 .testemonials .video-testemonial .video .about {
   position: absolute;
@@ -822,6 +824,96 @@ video {
     opacity: 0;
   }
 }
+/* editmode */
+.testemonials-edit {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.testemonials-edit .video-testemonial {
+  width: 220px;
+  height: 360px;
+  background-color: #253342;
+  color: #FFFFFF;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 2px 5px 5px 0px rgba(0, 0, 0, 0.75);
+}
+.testemonials-edit .video-testemonial p {
+  color: #FFFFFF;
+  font-family: "Varela Round";
+  line-height: 1;
+  font-weight: bold;
+}
+.testemonials-edit .video-testemonial .video {
+  position: relative;
+  height: 280px;
+  margin-top: 8px;
+}
+.testemonials-edit .video-testemonial .video::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: linear-gradient(0deg, #000, transparent);
+}
+.testemonials-edit .video-testemonial .video video {
+  -o-object-fit: cover;
+     object-fit: cover;
+  width: 100%;
+  max-height: 280px;
+  border-radius: 5px 5px 0 0;
+}
+.testemonials-edit .video-testemonial .video .buttons {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+}
+.testemonials-edit .video-testemonial .video .buttons .video-play-button {
+  background-color: transparent;
+  border: none;
+}
+.testemonials-edit .video-testemonial .video .buttons .video-play-button i {
+  font-size: 2rem;
+  border-radius: 50px;
+  background-color: #CCCCCC;
+  mix-blend-mode: luminosity;
+}
+.testemonials-edit .video-testemonial .video .about {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 15px 8px;
+  z-index: 1;
+}
+.testemonials-edit .video-testemonial .video .about img {
+  border-radius: 50px;
+  border: 1px solid white;
+}
+.testemonials-edit .video-testemonial .video .about .author-info {
+  padding-left: 10px;
+  font-family: "Varela Round";
+  line-height: 1;
+  font-weight: bold;
+  font-size: 12px;
+}
+.testemonials-edit .video-testemonial .video .about .author-info span {
+  color: #FFFFFF;
+  font-weight: normal;
+}
+.testemonials-edit .video-testemonial .video .about .author-info .name {
+  color: #FFFFFF;
+}
+.testemonials-edit .video-testemonial .video .about .author-info .job-title {
+  color: #FFFFFF;
+  font-weight: normal;
+}
+
 .alert {
   position: fixed;
   top: 30px;

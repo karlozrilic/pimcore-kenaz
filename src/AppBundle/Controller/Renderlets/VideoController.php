@@ -6,6 +6,7 @@ namespace AppBundle\Controller\Renderlets;
 
 use AppBundle\Controller\BaseController;
 use Pimcore\Model\Asset;
+use Pimcore\Model\DataObject\VideoTestemonial;
 use Symfony\Component\HttpFoundation\Request;
 
 class VideoController extends BaseController
@@ -18,4 +19,5 @@ class VideoController extends BaseController
             'video' => $video
         ];
     }
+
 }
