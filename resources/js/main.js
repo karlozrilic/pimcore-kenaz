@@ -69,13 +69,32 @@ $(() => {
         $('.article-slider').slick(articleSliderConfig);
     }
     if (categoryPage.exists() || postPage.exists()) {
-        setInterval(() => {
+        let interval;
+        const intervalDelay = 5000;
+        let isIntervalRunning = false;
+
+        $(window).focus(() => {
+            clearInterval(interval);
+            if (!isIntervalRunning) {
+                interval = setInterval(intervalFunction, intervalDelay);
+            }
+        }).blur(() => {
+            clearInterval(interval);
+            isIntervalRunning = false;
+        }).ready(() => {
+            clearInterval(interval);
+            if (!isIntervalRunning) {
+                interval = setInterval(intervalFunction, intervalDelay);
+            }
+        })
+
+        const intervalFunction = () => {
+            isIntervalRunning = true;
+            console.log("started: " + new Date())
             const testemonials = $('.video-testemonial');
             const testemonialVideos = $(".testemonial-video");
 
             $(testemonialVideos).each((index, element) => {
-                console.log(index);
-                console.log(element);
                 if (index == 1) {
                     element.play();
                 } else {
@@ -114,6 +133,9 @@ $(() => {
                             });
                         }
                     })
+                    $(testemonials).each((index, element) => {
+                        $(element).removeAttr("style");
+                    });
                     $(testemonials).eq(0).insertAfter($(testemonials).last());
                 }
             })
@@ -123,10 +145,83 @@ $(() => {
                 duration: 1000,
                 queue: false,
                 done: function() {
-                    $(this).removeAttr("style");
+                    $(testemonials).each((index, element) => {
+                        $(element).removeAttr("style");
+                    });
                 }
             })
+            $(testemonials).each((index, element) => {
+                $(element).removeAttr("style");
+            });
+        }
+
+        /*
+        setInterval(() => {
+            console.log("started: " + new Date())
+            const testemonials = $('.video-testemonial');
+            const testemonialVideos = $(".testemonial-video");
+
+            $(testemonialVideos).each((index, element) => {
+                if (index == 1) {
+                    element.play();
+                } else {
+                    setTimeout(() => {
+                        element.pause();
+                        element.currentTime = 0;
+                    }, 2000)
+                }
+            })
+
+            $(testemonials).eq(0).animate({
+                top: "400px"
+            }, {
+                duration: 1000,
+                queue: false,
+                progress: (animation, progress, remainingMs) => {
+                    if (remainingMs <= 200) {
+                        $(testemonials).each((index, element) => {
+                            $(element).removeClass(`z-ind-${index+1}`).addClass(`z-ind-${index == 0 ? 3 : index}`);
+                        });
+                    }
+                    if (remainingMs <= 800) {
+                        $(testemonials).each((index, element) => {
+                            $(element).removeClass(`tab-${index+1}`).addClass(`tab-${index == 0 ? 3 : index}`);
+                        });
+                    }
+                },
+                done: function() {        
+                    $(this).animate({
+                        top: "20px"
+                    }, {
+                        duration: 1000,
+                        done: function() {
+                            $(testemonials).each((index, element) => {
+                                $(element).removeAttr("style");
+                            });
+                        }
+                    })
+                    $(testemonials).each((index, element) => {
+                        $(element).removeAttr("style");
+                    });
+                    $(testemonials).eq(0).insertAfter($(testemonials).last());
+                }
+            })
+            $(testemonials).eq(1).animate({
+                top: "0px"
+            }, {
+                duration: 1000,
+                queue: false,
+                done: function() {
+                    $(testemonials).each((index, element) => {
+                        $(element).removeAttr("style");
+                    });
+                }
+            })
+            $(testemonials).each((index, element) => {
+                $(element).removeAttr("style");
+            });
         }, 5000)
+        */
 
         const modals = $(".video-testemonial-modal");
         const modalsClose = $(".modal-close");

@@ -7,6 +7,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    z-index: 1;
     .video-testemonial {
         position: absolute;
         top: 0;
@@ -180,13 +181,15 @@
                 position: absolute;
                 left: 0;
                 top: 0;
-                background-color: black;
+                background-color: $black;
             }
         }
         .content {
             width: 100%;
             video {
                 width: 100%;
+                height: 100%;
+                object-fit: cover;
                 border-radius: 10px;
             }
         }
@@ -194,6 +197,7 @@
             display: flex;
             flex-direction: row;
             align-items: center;
+            padding-top: 5px;
             img {
                 border-radius: 50px;
                 border: 1px solid #45cad6;
@@ -208,6 +212,19 @@
                     font-size: 12px;
                     font-weight: normal;
                 }
+            }
+        }
+        .modal-tags {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            padding-top: 20px;
+            .tag-pill {
+                padding: 4px 8px;
+                margin: 0 8px 8px 0;
+                border-radius: 20px;
+                background-color: $orange;
+                font-family: "Varela Round", sans-serif;
             }
         }
     }

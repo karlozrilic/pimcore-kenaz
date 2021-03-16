@@ -526,6 +526,7 @@ video {
   display: flex;
   flex-direction: column;
   align-items: center;
+  z-index: 1;
 }
 .testemonials .video-testemonial {
   position: absolute;
@@ -709,19 +710,23 @@ video {
   position: absolute;
   left: 0;
   top: 0;
-  background-color: black;
+  background-color: #000000;
 }
 .video-testemonial-modal .modal-content .content {
   width: 100%;
 }
 .video-testemonial-modal .modal-content .content video {
   width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
   border-radius: 10px;
 }
 .video-testemonial-modal .modal-content .author {
   display: flex;
   flex-direction: row;
   align-items: center;
+  padding-top: 5px;
 }
 .video-testemonial-modal .modal-content .author img {
   border-radius: 50px;
@@ -737,6 +742,19 @@ video {
 .video-testemonial-modal .modal-content .author .author-info .job-title {
   font-size: 12px;
   font-weight: normal;
+}
+.video-testemonial-modal .modal-content .modal-tags {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding-top: 20px;
+}
+.video-testemonial-modal .modal-content .modal-tags .tag-pill {
+  padding: 4px 8px;
+  margin: 0 8px 8px 0;
+  border-radius: 20px;
+  background-color: #ff7a59;
+  font-family: "Varela Round", sans-serif;
 }
 
 @-webkit-keyframes slideIn {
