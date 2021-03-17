@@ -81,9 +81,9 @@
                 </div>
             </div>
             <div class="modal-tags">
-                <div class="tag-pill">Neki tag</div>
-                <div class="tag-pill">Neki baš dugačak tag</div>
-                <div class="tag-pill">Još jedan tag</div>
+            {% for category in el.getCategory() %}
+                <a class="tag-pill" href="{{ path(category) }}">{{ category.getTitle() }}</a>
+            {% endfor %}
             </div>
         </div>
     </div>

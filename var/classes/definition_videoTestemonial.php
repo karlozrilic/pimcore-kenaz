@@ -10,6 +10,7 @@ Fields Summary:
 - author [manyToOneRelation]
 - localizedfields [localizedfields]
 -- description [textarea]
+-- category [manyToManyObjectRelation]
 */ 
 
 
@@ -18,7 +19,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'videoTestemonial',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1615814205,
+   'modificationDate' => 1615971148,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -160,11 +161,48 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
-                 'locked' => NULL,
+                 'locked' => false,
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
                  'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+              )),
+              1 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+                 'fieldtype' => 'manyToManyObjectRelation',
+                 'width' => '',
+                 'height' => '',
+                 'maxItems' => '',
+                 'queryColumnType' => 'text',
+                 'phpdocType' => 'array',
+                 'relationType' => true,
+                 'visibleFields' => 'title',
+                 'allowToCreateNewObject' => false,
+                 'optimizedAdminLoading' => false,
+                 'visibleFieldDefinitions' => 
+                array (
+                ),
+                 'classes' => 
+                array (
+                  0 => 
+                  array (
+                    'classes' => 'category',
+                  ),
+                ),
+                 'pathFormatterClass' => '',
+                 'name' => 'category',
+                 'title' => 'Category',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => NULL,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'datatype' => 'data',
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
@@ -185,12 +223,12 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'referencedFields' => 
             array (
             ),
-             'tooltip' => NULL,
-             'mandatory' => NULL,
-             'noteditable' => NULL,
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
              'index' => NULL,
-             'locked' => NULL,
-             'style' => NULL,
+             'locked' => false,
+             'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',
              'relationType' => false,

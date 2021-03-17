@@ -756,6 +756,10 @@ video {
   background-color: #ff7a59;
   font-family: "Varela Round", sans-serif;
 }
+.video-testemonial-modal .modal-content .modal-tags .tag-pill:hover {
+  background-color: brown;
+  color: #FFFFFF;
+}
 
 @-webkit-keyframes slideIn {
   from {

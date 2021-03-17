@@ -7,6 +7,8 @@ $(() => {
     const categoryPage = $('#category-page');
     const postPage = $('#post-page');
 
+    const numberOfTestemonials = $('.video-testemonial').length;
+
     const articleSliderConfig = {
         slide: '.artcle',
         autoplay: true,
@@ -68,29 +70,30 @@ $(() => {
     if (categoryPage.exists()) {
         $('.article-slider').slick(articleSliderConfig);
     }
-    if (categoryPage.exists() || postPage.exists()) {
+    if (categoryPage.exists() || postPage.exists() && numberOfTestemonials > 0) {
         let interval;
         const intervalDelay = 5000;
         let isIntervalRunning = false;
 
-        $(window).focus(() => {
-            clearInterval(interval);
-            if (!isIntervalRunning) {
-                interval = setInterval(intervalFunction, intervalDelay);
-            }
-        }).blur(() => {
-            clearInterval(interval);
-            isIntervalRunning = false;
-        }).ready(() => {
-            clearInterval(interval);
-            if (!isIntervalRunning) {
-                interval = setInterval(intervalFunction, intervalDelay);
-            }
-        })
+        if (numberOfTestemonials > 1) {
+            $(window).focus(() => {
+                clearInterval(interval);
+                if (!isIntervalRunning) {
+                    interval = setInterval(intervalFunction, intervalDelay);
+                }
+            }).blur(() => {
+                clearInterval(interval);
+                isIntervalRunning = false;
+            }).ready(() => {
+                clearInterval(interval);
+                if (!isIntervalRunning) {
+                    interval = setInterval(intervalFunction, intervalDelay);
+                }
+            })
+        }
 
         const intervalFunction = () => {
             isIntervalRunning = true;
-            console.log("started: " + new Date())
             const testemonials = $('.video-testemonial');
             const testemonialVideos = $(".testemonial-video");
 
@@ -105,7 +108,7 @@ $(() => {
                 }
             })
 
-            $(testemonials).eq(0).animate({
+            $(testemonials).first().animate({
                 top: "400px"
             }, {
                 duration: 1000,
@@ -113,18 +116,22 @@ $(() => {
                 progress: (animation, progress, remainingMs) => {
                     if (remainingMs <= 200) {
                         $(testemonials).each((index, element) => {
-                            $(element).removeClass(`z-ind-${index+1}`).addClass(`z-ind-${index == 0 ? 3 : index}`);
+                            $(element).removeClass(`z-ind-${index+1}`).addClass(`z-ind-${index == 0 ? numberOfTestemonials : index}`);
                         });
                     }
                     if (remainingMs <= 800) {
                         $(testemonials).each((index, element) => {
-                            $(element).removeClass(`tab-${index+1}`).addClass(`tab-${index == 0 ? 3 : index}`);
+                            $(element).removeClass(`tab-${index+1}`).addClass(`tab-${index == 0 ? numberOfTestemonials : index}`);
                         });
                     }
                 },
-                done: function() {        
+                done: function() {
+                    let fromTop = "20px";
+                    if (numberOfTestemonials == 2) {
+                        fromTop = "10px"
+                    }      
                     $(this).animate({
-                        top: "20px"
+                        top: fromTop
                     }, {
                         duration: 1000,
                         done: function() {
@@ -133,10 +140,7 @@ $(() => {
                             });
                         }
                     })
-                    $(testemonials).each((index, element) => {
-                        $(element).removeAttr("style");
-                    });
-                    $(testemonials).eq(0).insertAfter($(testemonials).last());
+                    $(testemonials).first().insertAfter($(testemonials).last());
                 }
             })
             $(testemonials).eq(1).animate({
@@ -150,9 +154,6 @@ $(() => {
                     });
                 }
             })
-            $(testemonials).each((index, element) => {
-                $(element).removeAttr("style");
-            });
         }
 
         /*
