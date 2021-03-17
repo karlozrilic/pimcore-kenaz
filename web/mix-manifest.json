@@ -1,10 +1,14 @@
 {
     "/static/js/main.js": "/static/js/main.js?id=4a6a9b6653e1ff3c622d",
-    "/static/css/main.css": "/static/css/main.css?id=89801d34d146c1cdce0b",
+    "/static/css/main.css": "/static/css/main.css?id=418919abc08baaef82e0",
     "/static/img/asideFacebook.png": "/static/img/asideFacebook.png?id=6df540e7713aaeaa9f36",
     "/static/img/calendar.png": "/static/img/calendar.png?id=1224068dbb1775c72611",
     "/static/img/logo-white.png": "/static/img/logo-white.png?id=07c74e39c766db5ab7fd",
     "/static/img/logo.png": "/static/img/logo.png?id=979352ad483dd10d6272",
     "/static/img/profilePic.png": "/static/img/profilePic.png?id=73600d0fcebddc6dfe6b",
-    "/static/img/search.png": "/static/img/search.png?id=76131286476c3da57d7b"
+    "/static/img/search.png": "/static/img/search.png?id=76131286476c3da57d7b",
+    "/static/fonts/PosteramaText-Black.woff2": "/static/fonts/PosteramaText-Black.woff2?id=c2cdd53912d13b8507a0",
+    "/static/fonts/PosteramaText-Light.woff2": "/static/fonts/PosteramaText-Light.woff2?id=4fd88fdd0d4583872cd0",
+    "/static/fonts/PosteramaText-Regular.woff2": "/static/fonts/PosteramaText-Regular.woff2?id=ba4ffd7eff058acf49e8",
+    "/static/fonts/PosteramaText-Thin.woff2": "/static/fonts/PosteramaText-Thin.woff2?id=34038e39795449b1bce4"
 }

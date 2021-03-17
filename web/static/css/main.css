@@ -43,6 +43,34 @@ hr {
   cursor: pointer;
 }
 
+@font-face {
+  font-family: "Posterama Text";
+  src: url(/static/fonts/PosteramaText-Regular.woff2) format("woff2"), url(/static/fonts/PosteramaText-Regular.woff) format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Posterama Text";
+  src: url(/assets/fonts/PosteramaText-Thin.woff2) format("woff2"), url(/assets/fonts/PosteramaText-Thin.woff) format("woff");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Posterama Text";
+  src: url(/assets/fonts/PosteramaText-Light.woff2) format("woff2"), url(/assets/fonts/PosteramaText-Light.woff) format("woff");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Posterama Text";
+  src: url(/assets/fonts/PosteramaText-Black.woff2) format("woff2"), url(/assets/fonts/PosteramaText-Black.woff) format("woff");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
 h1 {
   font-family: "Bitter";
 }

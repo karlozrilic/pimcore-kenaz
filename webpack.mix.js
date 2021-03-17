@@ -6,7 +6,12 @@ mix.setPublicPath('./web')
 mix.copy(
 	'resources/img',
 	'web/static/img'
-)
+);
+
+mix.copy(
+	'resources/fonts',
+	'web/static/fonts'
+);
 
 mix.sass(
 	'resources/scss/main.scss',
