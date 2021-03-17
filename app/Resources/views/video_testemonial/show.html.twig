@@ -1,6 +1,6 @@
 {% extends 'layout.html.twig' %}
 {% block head %}
-    {% if view.editmode %}
+    {% if editmode %}
         {{parent()}}
     {% endif %}
 {% endblock %}
@@ -8,7 +8,7 @@
 {% endblock %}
 {% block content %}
 
-{% if view.editmode %}
+{% if editmode %}
 <div class="testemonials-edit">
     {% for el in array %}
     <div class="video-testemonial tab-{{ loop.index  }} z-ind-{{ loop.index }}">

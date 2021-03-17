@@ -31,7 +31,7 @@ class VideoTestemonialController extends FrontendController
             $category = Category::getByPath("/Blog/Categories/{$categoryName}");
             $testemonials = $this->videoTestemonialRepository->getVideoTestemonialsByCategory($category);
             return [
-                'view' => $this->view,
+                'editmode' => $this->view->editmode,
                 'array' => $testemonials
             ];
         } else if (!$isSingleCategory && !$this->editmode) {
@@ -43,7 +43,7 @@ class VideoTestemonialController extends FrontendController
             }, $categoryList);
             $testemonials = $this->videoTestemonialRepository->getVideoTestemonialsWithCategoryArray($categoryList);
             return [
-                'view' => $this->view,
+                'editmode' => $this->view->editmode,
                 'array' => $testemonials
             ];
         }
@@ -51,7 +51,7 @@ class VideoTestemonialController extends FrontendController
         $allTestemonials = $this->videoTestemonialRepository->getAllVideoTestemonials();
 
         return [
-            'view' => $this->view,
+            'editmode' => $this->view->editmode,
             'array' => $allTestemonials
         ];
         
