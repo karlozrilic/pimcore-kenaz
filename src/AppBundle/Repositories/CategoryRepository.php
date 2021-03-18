@@ -7,6 +7,7 @@ namespace AppBundle\Repositories;
 use Pimcore\Model\DataObject\Folder;
 use Pimcore\Model\DataObject\Category;
 use Pimcore\Model\DataObject\Category\Listing;
+use Pimcore\Model\DataObject\VideoTestemonial;
 use Zend\Paginator\Paginator;
 
 class CategoryRepository
@@ -60,4 +61,20 @@ class CategoryRepository
         return $category->getObjects();
     }
 
+    public function getCategoriesForVideoTestimonials(array $videoTestimonialIds)
+    {
+        $videoTestimonialRelationsTable = 'object_relations_' . VideoTestemonial::classId();
+        $list = Category::getList();
+
+        $list->setCondition(
+            "
+                o_id IN (
+                    SELECT DISTINCT(dest_id) FROM $videoTestimonialRelationsTable
+                    WHERE src_id IN (?) AND fieldname = 'category'
+                )",
+            [$videoTestimonialIds]
+        );
+
+        return $list;
+    }
 }

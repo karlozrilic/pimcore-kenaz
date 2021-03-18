@@ -64,4 +64,16 @@ class VideoTestemonialRepository
         return $videoTestemonialListing;
     }
 
+    public function filterList(array $filters = [])
+    {
+        $list = VideoTestemonial::getList();
+
+        if (array_key_exists('categories', $filters) && is_array($filters['categories'])) {
+            foreach ($filters['categories'] as $category) {
+                $list->addConditionParam('category LIKE ?', ["%,$category,%"]);
+            }
+        }
+
+        return $list;
+    }
 }
