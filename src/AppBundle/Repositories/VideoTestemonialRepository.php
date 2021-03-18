@@ -30,7 +30,7 @@ class VideoTestemonialRepository
         $videoTestemonialListing = new Listing();
         $videoTestemonialListing->setOrder("desc");
         $videoTestemonialListing->setLimit($limit);
-        $videoTestemonialListing->setCondition('category like ?', ['%' . $category->getId() . '%']);
+        $videoTestemonialListing->setCondition('category like ?', ['%,' . $category->getId() . ',%']);
 
         return $videoTestemonialListing;
     }

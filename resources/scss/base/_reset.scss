@@ -9,7 +9,10 @@ body {
     overflow-x: hidden;
     width: 100%;
     color: black;
+    /*
     background-color: #eeeeee;
+    */
+    background-color: $white;
     font-family: "Bitter";
     font-size: $standardFontSize;
 }

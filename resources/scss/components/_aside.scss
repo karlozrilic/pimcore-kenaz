@@ -1,11 +1,17 @@
 aside {
     height: fit-content;
+    /*
     max-width: 302px;
     width: 100%;
+    */
+    width: 25%;
     margin: 15px 0;
     .aside-articles {
         position: relative;
+        /*
         background-color: $purple;
+        */
+        background-color: $factoryBlue;
         &::before {
             content: "";
             display: block;
@@ -28,14 +34,51 @@ aside {
                 padding: 15px 25px;
                 li {
                     display: inline-block;
+                    position: relative;
                     a {
+                        /*
                         font-family: "Varela Round";
+                        */
+                        font-family: "Posterama Text";
                         color: $white;
-                        border-bottom: 1px solid $whiteAlpha;
+                        /* new */
+                        font-weight: bold;
+                        /**/
+                        /*
+                        border-bottom: 3px solid $whiteAlpha;
+                        */
                         &.active {
+                            /*
                             color: $yellow;
                             border-bottom: 1px solid $yellowLight;
+                            */
+                            &:after {
+                                content: "";
+                                position: absolute;
+                                bottom: -3px;
+                                width: 100%;
+                                height: 3px;
+                                background-color: $factoryRed;
+                            }
                         }
+                        /* new */
+                        &:hover {
+                            &::after {
+                                width: 100%;
+                            }
+                        }
+                        &:after {
+                            content: "";
+                            position: absolute;
+                            right: 50%;
+                            transform: translateX(50%);
+                            bottom: -3px;
+                            width: 0;
+                            height: 3px;
+                            background-color: $factoryRed;
+                            transition: all .3s cubic-bezier(.77,0,.175,1);
+                        }
+                        /**/
                     }
                 }
             }
@@ -45,7 +88,10 @@ aside {
             position: relative;
             display: flex;
             flex-direction: row;
+            /*
             background-color: $purple;
+            */
+            background-color: $factoryBlue;
             margin: 2px 0;
             &:hover {
                 &::before {

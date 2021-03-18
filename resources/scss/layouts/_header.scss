@@ -1,5 +1,8 @@
 header {
     width: 100%;
+    /* new */
+    box-shadow: 0 0 15px rgb(0 0 0 / 30%);
+    /**/
 }
 
 .top-navigation {
@@ -7,7 +10,10 @@ header {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    /*
     background-color: $darkBackgroud;
+    */
+    background-color: $white;
     .top-navigation-content {
         display: flex;
         flex-direction: row;
@@ -63,10 +69,16 @@ header {
                     padding: 5px;
                     margin-right: 15px;
                     a {
+                        /*
                         font-family: "Varela Round", sans-serif;
+                        */
+                        font-family: "Posterama Text";
                         font-size: $standardFontSize;
                         height: 27px;
+                        /*
                         color: $white;
+                        */
+                        color: $black;
                         &:hover {
                             mix-blend-mode: normal;
                             opacity: 0.7;
@@ -89,7 +101,10 @@ header {
                     width: 62px;
                     mix-blend-mode: normal;
                     opacity: 0.05;
+                    /*
                     background-color: $white;
+                    */
+                    background-color: $black;
                 }
                 &:hover {
                     cursor: pointer;
@@ -104,7 +119,10 @@ header {
 }
 .lower-navigation {
     @include navigation();
+    /*
     background-color: $purple;
+    */
+    background-color: $white;
     display: flex;
     justify-content: center;
     .lower-navigation-content {
@@ -130,13 +148,19 @@ header {
                 height: 100%;
                 a {
                     @include headerCategoryLinks();
+                    /* new */
+                    font-family: "Posterama Text";
+                    /**/
                     display: flex;
                     flex-direction: row;
                     justify-content: center;
                     align-items: center;
                     height: 100%;
                     padding: 6px 16px;
+                    /*
                     color: $white;
+                    */
+                    color: $black;
                     &:hover {
                         mix-blend-mode: normal;
                         opacity: 0.8;

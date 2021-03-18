@@ -26,7 +26,7 @@ class CategoryController extends BaseController
     }
 
     /**
-     * @Route("category/{categoryTitle}{page}", name="category-detail", defaults={"page"=1}, requirements={"categoryTitle"="[\w-]+", "page"="\d+"})
+     * @Route("category/{categoryTitle}:id{categoryId}{page}", name="category-detail", defaults={"page"=1}, requirements={"categoryTitle"="[\w-]+", "page"="\d+"})
      *
      * @param Request $request
      * @param HeadTitle $headTitle
@@ -35,7 +35,7 @@ class CategoryController extends BaseController
      */
     public function show(Request $request, HeadTitle $headTitle, Config $websiteConfig) {
         $temp = ucfirst($request->get('categoryTitle'));
-        $category = Category::getByPath("/Blog/Categories/{$temp}");
+        $category = Category::getById($request->get('categoryId'));
 
         if (!($category instanceof Category && ($category->isPublished() || $this->verifyPreviewRequest($request, $category)))) {
             throw new NotFoundHttpException('Category not found.');

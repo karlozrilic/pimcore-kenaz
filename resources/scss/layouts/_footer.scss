@@ -1,11 +1,17 @@
 .footer-title {
     @include sectionTitle();
+    /* new */
+    font-family: "Posterama Text";
+    /**/
     color: $lighterGrey;
 }
 
 footer {
     width: 100%;
+    /*
     border-top: 23px solid $purple;
+    */
+    border-top: 23px solid $factoryBlue;
     background-color: $darkBackgroud;
     display: flex;
     flex-direction: column;
@@ -42,11 +48,17 @@ footer {
         display: flex;
         flex-direction: row;
         font-size: 29.623px;
+        /* new */
+        padding: 35px 0;
+        /**/
         img {
             padding-right: 18px;
         }
     }
     .text {
+        /* new */
+        font-family: "Source Sans Pro", serif;
+        /**/
         color: $darkGrey;
         padding: 23px 0;
     }
@@ -54,6 +66,13 @@ footer {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+        /* new */
+        a {
+            img {
+                width: 45px;
+            }
+        }
+        /**/
         a:hover {
             opacity: 0.8;
         }
@@ -68,13 +87,24 @@ footer {
             border: none;
             padding: 15px;
             width: 80%;
+            color: $white;
+            /* new */
+            font-family: "Posterama Text";
+            /**/
         }
         button {
             position: relative;
             border: none;
             padding: 15px;
+            /*
             color: $lighterGrey;
             background-color: $purple;
+            */
+            /* new */
+            font-family: "Posterama Text";
+            /**/
+            color: $white;
+            background-color: $factoryBlue;
             &:hover {
                 color: $white;
                 cursor: pointer;
@@ -115,18 +145,25 @@ footer {
         position: relative;
         display: flex;
         flex-direction: row;
+        justify-content: space-between;
         color: $darkGrey;
         .article-info {
             display: flex;
             flex-direction: column;
             padding-right: 20px;
+            /* new */
+            max-width: calc(85% - 20px);
+            /**/
             .article-info-date-comments {
                 display: flex;
                 flex-direction: row;
                 justify-content: space-between;
                 padding-bottom: 2px;
                 p {
+                    /*
                     font-family: "Varela Round";
+                    */
+                    font-family: "Source Sans Pro", serif;
                     font-size: $smallerFontSize;
                     line-height: 12px;
                     color: $darkGrey;
@@ -134,10 +171,16 @@ footer {
             }
             .article-info-title {
                 @include articleTitle();
+                /* new */
+                font-family: "Source Sans Pro", serif;
+                /**/
                 color: $white;
             }
         }
         .article-image {
+            /* new */
+            max-width: 15%;
+            /**/
             border: 3px solid $white;
         }
         &:hover {
@@ -164,10 +207,16 @@ footer {
             }
             a {
                 color: $darkGrey;
+                /* new */
+                font-family: "Source Sans Pro", serif;
+                /**/
             }
         }
         .footer-tweet-post {
             @include tweetText();
+            /* new */
+            font-family: "Source Sans Pro", serif;
+            /**/
             color: $lighterGrey;
         }
     }

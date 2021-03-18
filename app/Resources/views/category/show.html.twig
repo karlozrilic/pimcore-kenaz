@@ -64,5 +64,5 @@
         {{ pimcore_inc('/snippets/aside') }}
     </div>
 </div>
-{{ pimcore_inc('/snippets/video-testemonial', {'singleCategory': true, 'category': category.getTitle() }) }}
+{{ pimcore_inc('/snippets/video-testemonial', {'singleCategory': true, 'categoryId': category.getId() }) }}
 {% endblock %}

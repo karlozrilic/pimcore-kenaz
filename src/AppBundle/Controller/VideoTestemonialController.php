@@ -23,12 +23,11 @@ class VideoTestemonialController extends FrontendController
 
     public function showAction(Request $request)
     {
-
+        
         $isSingleCategory = $request->get('singleCategory');
 
         if ($isSingleCategory && !$this->editmode) {
-            $categoryName = ucfirst($request->get('category'));
-            $category = Category::getByPath("/Blog/Categories/{$categoryName}");
+            $category = Category::getById($request->get("categoryId"));
             $testemonials = $this->videoTestemonialRepository->getVideoTestemonialsByCategory($category);
             return [
                 'editmode' => $this->view->editmode,

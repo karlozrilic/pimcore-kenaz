@@ -4,8 +4,11 @@
     justify-content: space-between;
     width: 100%;
     .main-articles {
+        /*
         max-width: 635px;
         width: 100%;
+        */
+        width: calc(75% - 18px);
         margin: 15px 18px 0 0;
         .news {
             @include mainArticles($lightBlue);
@@ -27,6 +30,7 @@
         }
         .news-carousel {
             @include mainArticles($yellow);
+            
         }
         .single-carousels {
             display: flex;
@@ -48,6 +52,7 @@
                 @include sectionTitle();
                 color: $articleTextColor;
                 padding-bottom: 15px;
+                padding-left: 5px;
             }
             a {
                 font-family: "Varela Round";
@@ -85,10 +90,16 @@
                 }
                 img {
                     width: 100%;
+                    /*
                     height: 128px;
+                    */
+                    height: 200px;
                     object-fit: cover;
                     &.carousel-article-image {
+                        /*
                         height: 150px;
+                        */
+                        height: 220px;
                     }
                 }
                 .article-date-and-views {
@@ -117,14 +128,21 @@
                     opacity: 0.85;
                 }
                 img {
+                    /*
                     width: 120px;
                     height: auto;
+                    */
+                    width: 35%;
+                    height: 130px;
                     object-fit: cover;
                 }
                 .article-side {
                     display: flex;
                     flex-direction: column;
                     padding-left: 10px;
+                    /* new */
+                    width: 65%;
+                    /**/
                     .article-date-and-views {
                         display: flex;
                         flex-direction: row;
@@ -250,6 +268,10 @@
             }
             .social {
                 padding: 10px 0 18px;
+                /* new */
+                height: 70px;
+                width: auto;
+                /**/
             }
         }
         .author-section {
