@@ -9,7 +9,7 @@
 {% block content %}
 
 {% if editmode %}
-<div class="testemonials-edit">
+<div class="list-of-testemonials">
     {% for el in array %}
     <div class="video-testemonial tab-{{ loop.index  }} z-ind-{{ loop.index }}">
         <p>{{ el.getDescription("en")|truncate(35, '...') }}</p>

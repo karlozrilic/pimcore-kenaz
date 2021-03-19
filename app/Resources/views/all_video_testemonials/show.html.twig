@@ -1,0 +1,41 @@
+{% extends 'layout.html.twig' %}
+{% block content %}
+<div class="main-content all-testemonials" id="all-testemonials">
+    <div class="filters-container">
+        filteriiiiii
+        <div class="filters">
+            {% for key, category in categoriesData %}
+            <input class="input" type="checkbox" id="{{ category|lower }}" name="{{ category|lower }}" value={{ key }} {% if key in filterCategories %}checked{% endif %}>
+            <label for="{{ category|lower }}">{{ category }}</label><br>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="testemonials-list">
+        <div class="list-of-testemonials">
+            {% for el in videoTestimonials %}
+            <div class="video-testemonial">
+                <p>{{ el['description']|truncate(35, '...') }}</p>
+                <div class="video">
+                    <video autoplay muted loop class="testemonial-video">
+                        <source src="{{ el['video']|raw }}">
+                    </video>
+                    <div class="buttons">
+                        <button class="video-play-button"><i class="material-icons-two-tone">play_circle</i></button>
+                    </div>
+                    <div class="about">
+                        <img src="{{ el['author_image'] }}" alt="Author image" />
+                        <div class="author-info">
+                            <div class="name">
+                                <span>Answered by:</span>
+                                {{ el['author_name'] }}
+                            </div>
+                            <div class="job-title">Job title</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -33,14 +33,8 @@ class VideoTestemonialController extends FrontendController
         $isSingleCategory = $request->get('singleCategory');
 
         if ($isSingleCategory && !$this->editmode) {
-<<<<<<< HEAD
             $category = Category::getById($request->get("categoryId"));
-            $testemonials = $this->videoTestemonialRepository->getVideoTestemonialsByCategory($category);
-=======
-            $categoryName = ucfirst($request->get('category'));
-            $category = Category::getByPath("/Blog/Categories/{$categoryName}");
             $testemonials = $this->videoTestimonialRepository->getVideoTestemonialsByCategory($category);
->>>>>>> bf4e686b0955dda3a8f0fc57f06642040116e3f3
             return [
                 'editmode' => $this->view->editmode,
                 'array' => $testemonials
@@ -96,7 +90,11 @@ class VideoTestemonialController extends FrontendController
         /** @var VideoTestemonial $videoTestimonial */
         foreach ($videoTestimonials as $videoTestimonial) {
             $videoTestimonialsData[] = [
-                'author' => $videoTestimonial->getAuthor()->getFirstName(),
+                'author_name' => $videoTestimonial->getAuthor()->getFirstName(),
+                'author_surname' => $videoTestimonial->getAuthor()->getLastName(),
+                'author_image' => "/authors/" . explode("/authors/", $videoTestimonial->getAuthor()->getProfileImage()->getThumbnail('authorImageTestemonial')->getFileSystemPath())[1],
+                'description' => $videoTestimonial->getDescription(),
+                'video' => "/videos/" . explode("/videos/", $videoTestimonial->getVideo()->getData()->getFileSystemPath())[1]
             ];
         }
 
@@ -104,10 +102,19 @@ class VideoTestemonialController extends FrontendController
             return $this->json([
                 'video_testimonials' => $videoTestimonialsData,
                 'categories_data' => $categoriesData,
+                'filter_categories' => $filterCategories
             ]);
         }
-
-        $this->view->videoTestimonials = $videoTestimonialsData;
-        $this->view->categoriesData = $categoriesData;
+        
+        if ($this->container) {
+            $this->view->videoTestimonials = $videoTestimonialsData;
+            $this->view->categoriesData = $categoriesData;
+            $this->view->filterCategories = $filterCategories;
+        }
+        return [
+            'videoTestimonials' => $videoTestimonialsData,
+            'categoriesData' => $categoriesData,
+            'filterCategories' => $filterCategories
+        ];
     }
 }

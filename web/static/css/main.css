@@ -938,12 +938,12 @@ video {
   }
 }
 /* editmode */
-.testemonials-edit {
+.list-of-testemonials {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
 }
-.testemonials-edit .video-testemonial {
+.list-of-testemonials .video-testemonial {
   width: 220px;
   height: 360px;
   background-color: #253342;
@@ -952,18 +952,18 @@ video {
   border-radius: 10px;
   box-shadow: 2px 5px 5px 0px rgba(0, 0, 0, 0.75);
 }
-.testemonials-edit .video-testemonial p {
+.list-of-testemonials .video-testemonial p {
   color: #FFFFFF;
   font-family: "Varela Round";
   line-height: 1;
   font-weight: bold;
 }
-.testemonials-edit .video-testemonial .video {
+.list-of-testemonials .video-testemonial .video {
   position: relative;
   height: 280px;
   margin-top: 8px;
 }
-.testemonials-edit .video-testemonial .video::after {
+.list-of-testemonials .video-testemonial .video::after {
   content: "";
   position: absolute;
   bottom: 0;
@@ -972,29 +972,29 @@ video {
   height: 50%;
   background: linear-gradient(0deg, #000, transparent);
 }
-.testemonials-edit .video-testemonial .video video {
+.list-of-testemonials .video-testemonial .video video {
   -o-object-fit: cover;
      object-fit: cover;
   width: 100%;
   max-height: 280px;
   border-radius: 5px 5px 0 0;
 }
-.testemonials-edit .video-testemonial .video .buttons {
+.list-of-testemonials .video-testemonial .video .buttons {
   position: absolute;
   top: 1em;
   right: 1em;
 }
-.testemonials-edit .video-testemonial .video .buttons .video-play-button {
+.list-of-testemonials .video-testemonial .video .buttons .video-play-button {
   background-color: transparent;
   border: none;
 }
-.testemonials-edit .video-testemonial .video .buttons .video-play-button i {
+.list-of-testemonials .video-testemonial .video .buttons .video-play-button i {
   font-size: 2rem;
   border-radius: 50px;
   background-color: #CCCCCC;
   mix-blend-mode: luminosity;
 }
-.testemonials-edit .video-testemonial .video .about {
+.list-of-testemonials .video-testemonial .video .about {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -1004,25 +1004,25 @@ video {
   padding: 15px 8px;
   z-index: 1;
 }
-.testemonials-edit .video-testemonial .video .about img {
+.list-of-testemonials .video-testemonial .video .about img {
   border-radius: 50px;
   border: 1px solid white;
 }
-.testemonials-edit .video-testemonial .video .about .author-info {
+.list-of-testemonials .video-testemonial .video .about .author-info {
   padding-left: 10px;
   font-family: "Varela Round";
   line-height: 1;
   font-weight: bold;
   font-size: 12px;
 }
-.testemonials-edit .video-testemonial .video .about .author-info span {
+.list-of-testemonials .video-testemonial .video .about .author-info span {
   color: #FFFFFF;
   font-weight: normal;
 }
-.testemonials-edit .video-testemonial .video .about .author-info .name {
+.list-of-testemonials .video-testemonial .video .about .author-info .name {
   color: #FFFFFF;
 }
-.testemonials-edit .video-testemonial .video .about .author-info .job-title {
+.list-of-testemonials .video-testemonial .video .about .author-info .job-title {
   color: #FFFFFF;
   font-weight: normal;
 }
@@ -1747,6 +1747,18 @@ header {
 .center-articles .main-articles .comments-section .add-comment .add-comment-form .errors ul li {
   color: #EE6151;
   font-weight: bold;
+}
+
+.all-testemonials {
+  display: flex;
+  flex-direction: row;
+  padding: 10px 0;
+}
+.all-testemonials .filters-container {
+  width: 18%;
+}
+.all-testemonials .testemonials-list {
+  width: 80%;
 }
 
 .footer-title {

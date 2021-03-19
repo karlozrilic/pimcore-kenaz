@@ -52,7 +52,7 @@
                 <div class="page-numbers">
                       <ul>
                         {% for i in range(1, posts.pageRange) %}
-                        <li><a href="{{ "#{path(category)}?page=#{i}" }}" {% if posts.currentPageNumber == i %}class="active"{% endif %} >{{i}}</a></li>
+                        <li><a href="{{ "#{path(category)}&page=#{i}" }}" {% if posts.currentPageNumber == i %}class="active"{% endif %} >{{i}}</a></li>
                         {% endfor %}
                     </ul>
                 </div>
