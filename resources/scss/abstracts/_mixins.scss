@@ -4,14 +4,20 @@
 }
 
 @mixin sectionTitle {
+    /*
     font-family: "Bitter";
+    */
+    font-family: "Posterama Text";
     font-weight: bold;
     font-size: $titleFontSize;
     line-height: 29px;
 }
 
 @mixin articleTitle {
+    /*
     font-family: "Bitter";
+    */
+    font-family: "Posterama Text";
     font-weight: bold;
     font-size: $standardFontSize;
     line-height: 16.8px;
@@ -31,14 +37,20 @@
 }
 
 @mixin fullArticleText {
+    /*
     font-family: "Bitter";
+    */
+    font-family: "Posterama Text";
     font-size: $standardFontSize;
     line-height: 22px;
     color: $textColor;
 }
 
 @mixin commentTitle {
+    /*
     font-family: "Bitter";
+    */
+    font-family: "Posterama Text";
     font-size: $biggerFontSize;
     line-height: 20px;
 }
@@ -56,7 +68,10 @@
 }
     
 @mixin asideSocialText {
+    /*
     font-family: "Bitter";
+    */
+    font-family: "Posterama Text";
     color: $articleTextColor;
     font-weight: bold;
     font-size: $biggerFontSize;
@@ -69,7 +84,9 @@
 }
 
 @mixin headerCategoryLinks {
+    /*
     font-family: "Bitter";
+    */
     font-weight: bold;
     font-size: $biggerFontSize;
     line-height: 22px;
@@ -139,4 +156,16 @@
     position: absolute;
     display: block;
     cursor: pointer;
+}
+
+@mixin animatedUnderline($color) {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 50%;
+    transform: translateX(50%);
+    width: 0;
+    height: 3px;
+    background-color: $color;
+    transition: all .3s cubic-bezier(.77, 0, .175, 1);
 }

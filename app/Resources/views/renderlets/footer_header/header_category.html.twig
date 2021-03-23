@@ -3,7 +3,7 @@
     <li>
         <a href="{{path(category)}}" 
             id="{{category.getKey()|lower}}"
-            {% if path(category) == current_url %}class="active"{% endif %}>
+            {% if category.getId() == current_category_id %}class="active"{% endif %}>
             {{category.getTitle}}
         </a>
     </li>

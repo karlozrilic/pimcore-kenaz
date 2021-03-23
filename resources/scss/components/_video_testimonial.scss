@@ -1,0 +1,390 @@
+.testimonials {
+    position: fixed;
+    top: calc(100% - 450px);
+    right: 1em;
+    width: 220px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 1;
+    .video-testimonial {
+        position: absolute;
+        top: 0;
+        width: 220px;
+        height: 360px;
+        background-color: #253342;
+        color: $white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 2px 5px 5px 0px rgba(0,0,0,0.75);
+        transform: scale(1, 1);
+        transition: transform .8s ease-in-out;
+        &.z-ind-1 {
+            z-index: 6;
+        }
+        &.z-ind-2 {
+            z-index: 4;
+        }
+        &.z-ind-3 {
+            z-index: 2;
+        }
+        &.tab-1 {
+            top: 0;
+            transform: scale(1, 1);
+        }
+        &.tab-2 {
+            top: 10px;
+            transform: scale(0.9, 1);
+        }
+        &.tab-3 {
+            top: 20px;
+            transform: scale(0.8, 1);
+        }
+        p {
+            color: $white;
+            /*
+            font-family: "Varela Round";
+            */
+            font-family: "Posterama Text";
+            line-height: 1;
+            font-weight: bold;
+        }
+        .video {
+            position: relative;
+            height: 280px;
+            margin-top: 8px;
+            border-radius: 5px 5px 0 0;
+            overflow: hidden;
+            &::after {
+                content: "";
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 50%;
+                background: linear-gradient(0deg,#000,transparent);
+            }
+            video {
+                object-fit: cover;
+                width: 100%;
+                height: 100%;
+            }
+            .buttons {
+                position: absolute;
+                top: 1em;
+                right: 1em;
+                .video-play-button {
+                    background-color: transparent;
+                    border: none;
+                    i {
+                        font-size: 2rem;
+                        border-radius: 50px;
+                        background-color: $lighterGrey;
+                        mix-blend-mode: luminosity;
+                    }
+                }
+            }
+            .about {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                padding: 15px 8px;
+                z-index: 1;
+                img {
+                    border-radius: 50px;
+                    border: 1px solid white;
+                }
+                .author-info {
+                    padding-left: 10px;
+                    font-family: "Posterama Text";
+                    line-height: 1;
+                    font-weight: bold;
+                    font-size: 12px;
+                    span {
+                        color: $white;
+                        font-weight: normal;
+                    }
+                    .name {
+                        color: $white;
+                    }
+                    .job-title {
+                        color: $white;
+                        font-weight: normal;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.video-testimonial-modal {
+    display: none;
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+    overflow-y: auto;
+    overflow-x: hidden;
+    animation: fadeIn .4s forwards;
+    &.out {
+        animation: fadeOut .5s forwards;
+        .modal-content {
+            animation: scaleDown .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+        }
+    }
+    .modal-content {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        padding: 36px 12px 8px 12px;
+        border-radius: .125rem;
+        background-color: $white;
+        transform: translate(-50%, -50%);
+        animation: slideIn .4s forwards;
+        max-height: 100%;
+        &.width {
+            max-width: 900px;
+        }
+        &.height {
+            max-width: 390px;
+        }
+        .close {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 5px;
+            width: 25px;
+            height: 25px;
+            box-shadow: 0 3px 7px 0 rgba(0, 0, 0, 20%);
+            margin: 5px -13px 0 0;
+            background-color: $white;
+            border: none;
+            border-radius: 20px;
+            i {
+                font-size: 15px;
+            }
+        }
+        .description {
+            position: relative;
+            width: 100%;
+            margin-bottom: 34px;
+            font-size: .875rem;
+            padding-left: 10px;
+            font-family: "Varela Round";
+            line-height: 1.2;
+            font-weight: bold;
+            &::before {
+                content: "";
+                width: 4px;
+                border-radius: 99px;
+                height: 100%;
+                position: absolute;
+                left: 0;
+                top: 0;
+                background-color: $black;
+            }
+        }
+        .content {
+            width: 100%;
+            video {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 10px;
+            }
+        }
+        .author {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            padding-top: 5px;
+            img {
+                border-radius: 50px;
+                border: 1px solid #45cad6;
+            }
+            .author-info {
+                padding-left: 10px;
+                color: $black;
+                font-family: "Posterama Text";
+                line-height: 1;
+                font-weight: bold;
+                .job-title {
+                    font-size: 12px;
+                    font-weight: normal;
+                }
+            }
+        }
+        .modal-tags {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            padding-top: 20px;
+            .tag-pill {
+                position: relative;
+                padding: 6px 12px;
+                margin: 0 8px 8px 0;
+                border-radius: 25px;
+                font-family: "Posterama Text";
+                font-weight: bold;
+                border: 1px solid $black;
+                &:after {
+                    @include animatedUnderline($white);
+                    bottom: 3px;
+                }
+                &:hover {
+                    background-color: $factoryRed;
+                    color: $white;
+                    border-color: $factoryRed;
+                    &:after {
+                        width: calc(100% - calc(12px + 12px));
+                    }
+                }
+            }
+        }
+    }
+}
+
+@keyframes slideIn {
+    from {
+        top: -300px;
+        opacity: 0;
+    }
+    to {
+        top: 50%;
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    99% {
+        opacity: 0;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0);
+    }
+    
+}
+
+@keyframes scaleDown {
+    from {
+        top: 50%;
+        opacity: 1;
+    }
+    to {
+        top: -300px;
+        opacity: 0;
+    }
+}
+
+/* editmode */
+.list-of-testimonials {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    .video-testimonial {
+        width: 220px;
+        height: 360px;
+        background-color: #253342;
+        color: $white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 2px 5px 5px 0px rgba(0,0,0,0.75);
+        p {
+            color: $white;
+            font-family: "Varela Round";
+            line-height: 1;
+            font-weight: bold;
+        }
+        .video {
+            position: relative;
+            height: 280px;
+            margin-top: 8px;
+            border-radius: 5px 5px 0 0;
+            overflow: hidden;
+            &::after {
+                content: "";
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 50%;
+                background: linear-gradient(0deg,#000,transparent);
+            }
+            video {
+                object-fit: cover;
+                width: 100%;
+                height: 100%;
+            }
+            .buttons {
+                position: absolute;
+                top: 1em;
+                right: 1em;
+                .video-play-button {
+                    background-color: transparent;
+                    border: none;
+                    i {
+                        font-size: 2rem;
+                        border-radius: 50px;
+                        background-color: $lighterGrey;
+                        mix-blend-mode: luminosity;
+                    }
+                }
+            }
+            .about {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                padding: 15px 8px;
+                z-index: 1;
+                img {
+                    border-radius: 50px;
+                    border: 1px solid white;
+                }
+                .author-info {
+                    padding-left: 10px;
+                    font-family: "Varela Round";
+                    line-height: 1;
+                    font-weight: bold;
+                    font-size: 12px;
+                    span {
+                        color: $white;
+                        font-weight: normal;
+                    }
+                    .name {
+                        color: $white;
+                    }
+                    .job-title {
+                        color: $white;
+                        font-weight: normal;
+                    }
+                }
+            }
+        }
+    }
+}

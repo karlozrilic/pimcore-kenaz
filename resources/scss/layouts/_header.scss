@@ -151,6 +151,7 @@ header {
                     /* new */
                     font-family: "Posterama Text";
                     /**/
+                    position: relative;
                     display: flex;
                     flex-direction: row;
                     justify-content: center;
@@ -161,6 +162,25 @@ header {
                     color: $white;
                     */
                     color: $black;
+                    &:after {
+                        @include animatedUnderline($factoryRed);
+                    }
+                    &:hover {
+                        &::after {
+                            width: calc(100% - calc(16px + 16px));
+                        }
+                    }
+                    &.active {
+                        &:after {
+                            content: "";
+                            position: absolute;
+                            bottom: 0;
+                            width: calc(100% - calc(16px + 16px));
+                            height: 3px;
+                            background-color: $factoryRed;
+                        }
+                    }
+                    /*
                     &:hover {
                         mix-blend-mode: normal;
                         opacity: 0.8;
@@ -207,6 +227,7 @@ header {
                             background-color: $beige;
                         }
                     }
+                    */
                 }
             }
         }

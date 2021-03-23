@@ -16,7 +16,10 @@ body {
   background-color: #eeeeee;
   */
   background-color: #FFFFFF;
+  /*
   font-family: "Bitter";
+  */
+  font-family: "Posterama Text";
   font-size: 14px;
 }
 
@@ -236,7 +239,10 @@ p {
   padding-right: 6px;
 }
 .slick-slide h1 {
+  /*
   font-family: "Bitter";
+  */
+  font-family: "Posterama Text";
   font-weight: bold;
   font-size: 34px;
   line-height: 40, 8px;
@@ -412,13 +418,14 @@ aside .aside-articles .aside-articles-links ul li a:hover::after {
 aside .aside-articles .aside-articles-links ul li a:after {
   content: "";
   position: absolute;
+  bottom: 0;
   right: 50%;
   transform: translateX(50%);
-  bottom: -3px;
   width: 0;
   height: 3px;
   background-color: #fe1375;
   transition: all 0.3s cubic-bezier(0.77, 0, 0.175, 1);
+  bottom: -3px;
 }
 aside .aside-articles .article {
   padding: 18px 25px;
@@ -459,7 +466,10 @@ aside .aside-articles .article .article-content .article-info .article-date {
   color: #ACB3BA;
 }
 aside .aside-articles .article .article-content .article-info .article-title {
+  /*
   font-family: "Bitter";
+  */
+  font-family: "Posterama Text";
   font-weight: bold;
   font-size: 14px;
   line-height: 16.8px;
@@ -484,7 +494,10 @@ aside .aside-social {
   margin: 15px 0;
 }
 aside .aside-social .aside-social-title {
+  /*
   font-family: "Bitter";
+  */
+  font-family: "Posterama Text";
   font-weight: bold;
   font-size: 24px;
   line-height: 29px;
@@ -514,7 +527,10 @@ aside .aside-social .social-networks .social-network .social-text {
   align-items: center;
   background-color: #DDDDDD;
   padding: 0 10px;
+  /*
   font-family: "Bitter";
+  */
+  font-family: "Posterama Text";
   color: #363F48;
   font-weight: bold;
   font-size: 18px;
@@ -537,7 +553,10 @@ aside .aside-tv {
   margin-bottom: 18px;
 }
 aside .aside-tv .aside-tv-title {
+  /*
   font-family: "Bitter";
+  */
+  font-family: "Posterama Text";
   font-weight: bold;
   font-size: 24px;
   line-height: 29px;
@@ -563,7 +582,10 @@ aside .aside-tv .aside-tv-link .aside-tv-text .aside-tv-date {
 }
 aside .aside-tv .aside-tv-link .aside-tv-text .aside-tv-article-title {
   color: #363F48;
+  /*
   font-family: "Bitter";
+  */
+  font-family: "Posterama Text";
   font-weight: bold;
   font-size: 14px;
   line-height: 16.8px;
@@ -608,7 +630,7 @@ video {
   height: auto;
 }
 
-.testemonials {
+.testimonials {
   position: fixed;
   top: calc(100% - 450px);
   right: 1em;
@@ -619,7 +641,7 @@ video {
   align-items: center;
   z-index: 1;
 }
-.testemonials .video-testemonial {
+.testimonials .video-testimonial {
   position: absolute;
   top: 0;
   width: 220px;
@@ -632,39 +654,44 @@ video {
   transform: scale(1, 1);
   transition: transform 0.8s ease-in-out;
 }
-.testemonials .video-testemonial.z-ind-1 {
+.testimonials .video-testimonial.z-ind-1 {
   z-index: 6;
 }
-.testemonials .video-testemonial.z-ind-2 {
+.testimonials .video-testimonial.z-ind-2 {
   z-index: 4;
 }
-.testemonials .video-testemonial.z-ind-3 {
+.testimonials .video-testimonial.z-ind-3 {
   z-index: 2;
 }
-.testemonials .video-testemonial.tab-1 {
+.testimonials .video-testimonial.tab-1 {
   top: 0;
   transform: scale(1, 1);
 }
-.testemonials .video-testemonial.tab-2 {
+.testimonials .video-testimonial.tab-2 {
   top: 10px;
   transform: scale(0.9, 1);
 }
-.testemonials .video-testemonial.tab-3 {
+.testimonials .video-testimonial.tab-3 {
   top: 20px;
   transform: scale(0.8, 1);
 }
-.testemonials .video-testemonial p {
+.testimonials .video-testimonial p {
   color: #FFFFFF;
+  /*
   font-family: "Varela Round";
+  */
+  font-family: "Posterama Text";
   line-height: 1;
   font-weight: bold;
 }
-.testemonials .video-testemonial .video {
+.testimonials .video-testimonial .video {
   position: relative;
   height: 280px;
   margin-top: 8px;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
 }
-.testemonials .video-testemonial .video::after {
+.testimonials .video-testimonial .video::after {
   content: "";
   position: absolute;
   bottom: 0;
@@ -673,29 +700,28 @@ video {
   height: 50%;
   background: linear-gradient(0deg, #000, transparent);
 }
-.testemonials .video-testemonial .video video {
+.testimonials .video-testimonial .video video {
   -o-object-fit: cover;
      object-fit: cover;
   width: 100%;
-  max-height: 280px;
-  border-radius: 5px 5px 0 0;
+  height: 100%;
 }
-.testemonials .video-testemonial .video .buttons {
+.testimonials .video-testimonial .video .buttons {
   position: absolute;
   top: 1em;
   right: 1em;
 }
-.testemonials .video-testemonial .video .buttons .video-play-button {
+.testimonials .video-testimonial .video .buttons .video-play-button {
   background-color: transparent;
   border: none;
 }
-.testemonials .video-testemonial .video .buttons .video-play-button i {
+.testimonials .video-testimonial .video .buttons .video-play-button i {
   font-size: 2rem;
   border-radius: 50px;
   background-color: #CCCCCC;
   mix-blend-mode: luminosity;
 }
-.testemonials .video-testemonial .video .about {
+.testimonials .video-testimonial .video .about {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -705,30 +731,30 @@ video {
   padding: 15px 8px;
   z-index: 1;
 }
-.testemonials .video-testemonial .video .about img {
+.testimonials .video-testimonial .video .about img {
   border-radius: 50px;
   border: 1px solid white;
 }
-.testemonials .video-testemonial .video .about .author-info {
+.testimonials .video-testimonial .video .about .author-info {
   padding-left: 10px;
-  font-family: "Varela Round";
+  font-family: "Posterama Text";
   line-height: 1;
   font-weight: bold;
   font-size: 12px;
 }
-.testemonials .video-testemonial .video .about .author-info span {
+.testimonials .video-testimonial .video .about .author-info span {
   color: #FFFFFF;
   font-weight: normal;
 }
-.testemonials .video-testemonial .video .about .author-info .name {
+.testimonials .video-testimonial .video .about .author-info .name {
   color: #FFFFFF;
 }
-.testemonials .video-testemonial .video .about .author-info .job-title {
+.testimonials .video-testimonial .video .about .author-info .job-title {
   color: #FFFFFF;
   font-weight: normal;
 }
 
-.video-testemonial-modal {
+.video-testimonial-modal {
   display: none;
   position: fixed;
   z-index: 10;
@@ -743,31 +769,33 @@ video {
   -webkit-animation: fadeIn 0.4s forwards;
           animation: fadeIn 0.4s forwards;
 }
-.video-testemonial-modal.out {
+.video-testimonial-modal.out {
   -webkit-animation: fadeOut 0.5s forwards;
           animation: fadeOut 0.5s forwards;
 }
-.video-testemonial-modal.out .modal-content {
+.video-testimonial-modal.out .modal-content {
   -webkit-animation: scaleDown 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
           animation: scaleDown 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
 }
-.video-testemonial-modal .modal-content {
-  position: fixed;
+.video-testimonial-modal .modal-content {
+  position: absolute;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%);
   padding: 36px 12px 8px 12px;
   border-radius: 0.125rem;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-  max-width: 380px;
-  max-height: 100%;
   background-color: #FFFFFF;
+  transform: translate(-50%, -50%);
   -webkit-animation: slideIn 0.4s forwards;
           animation: slideIn 0.4s forwards;
+  max-height: 100%;
 }
-.video-testemonial-modal .modal-content .close {
+.video-testimonial-modal .modal-content.width {
+  max-width: 900px;
+}
+.video-testimonial-modal .modal-content.height {
+  max-width: 390px;
+}
+.video-testimonial-modal .modal-content .close {
   position: absolute;
   top: 0;
   right: 0;
@@ -780,10 +808,10 @@ video {
   border: none;
   border-radius: 20px;
 }
-.video-testemonial-modal .modal-content .close i {
+.video-testimonial-modal .modal-content .close i {
   font-size: 15px;
 }
-.video-testemonial-modal .modal-content .description {
+.video-testimonial-modal .modal-content .description {
   position: relative;
   width: 100%;
   margin-bottom: 34px;
@@ -793,7 +821,7 @@ video {
   line-height: 1.2;
   font-weight: bold;
 }
-.video-testemonial-modal .modal-content .description::before {
+.video-testimonial-modal .modal-content .description::before {
   content: "";
   width: 4px;
   border-radius: 99px;
@@ -803,53 +831,71 @@ video {
   top: 0;
   background-color: #000000;
 }
-.video-testemonial-modal .modal-content .content {
+.video-testimonial-modal .modal-content .content {
   width: 100%;
 }
-.video-testemonial-modal .modal-content .content video {
+.video-testimonial-modal .modal-content .content video {
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
   border-radius: 10px;
 }
-.video-testemonial-modal .modal-content .author {
+.video-testimonial-modal .modal-content .author {
   display: flex;
   flex-direction: row;
   align-items: center;
   padding-top: 5px;
 }
-.video-testemonial-modal .modal-content .author img {
+.video-testimonial-modal .modal-content .author img {
   border-radius: 50px;
   border: 1px solid #45cad6;
 }
-.video-testemonial-modal .modal-content .author .author-info {
+.video-testimonial-modal .modal-content .author .author-info {
   padding-left: 10px;
   color: #000000;
-  font-family: "Varela Round";
+  font-family: "Posterama Text";
   line-height: 1;
   font-weight: bold;
 }
-.video-testemonial-modal .modal-content .author .author-info .job-title {
+.video-testimonial-modal .modal-content .author .author-info .job-title {
   font-size: 12px;
   font-weight: normal;
 }
-.video-testemonial-modal .modal-content .modal-tags {
+.video-testimonial-modal .modal-content .modal-tags {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   padding-top: 20px;
 }
-.video-testemonial-modal .modal-content .modal-tags .tag-pill {
-  padding: 4px 8px;
+.video-testimonial-modal .modal-content .modal-tags .tag-pill {
+  position: relative;
+  padding: 6px 12px;
   margin: 0 8px 8px 0;
-  border-radius: 20px;
-  background-color: #ff7a59;
-  font-family: "Varela Round", sans-serif;
+  border-radius: 25px;
+  font-family: "Posterama Text";
+  font-weight: bold;
+  border: 1px solid #000000;
 }
-.video-testemonial-modal .modal-content .modal-tags .tag-pill:hover {
-  background-color: brown;
+.video-testimonial-modal .modal-content .modal-tags .tag-pill:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 50%;
+  transform: translateX(50%);
+  width: 0;
+  height: 3px;
+  background-color: #FFFFFF;
+  transition: all 0.3s cubic-bezier(0.77, 0, 0.175, 1);
+  bottom: 3px;
+}
+.video-testimonial-modal .modal-content .modal-tags .tag-pill:hover {
+  background-color: #fe1375;
   color: #FFFFFF;
+  border-color: #fe1375;
+}
+.video-testimonial-modal .modal-content .modal-tags .tag-pill:hover:after {
+  width: calc(100% - calc(12px + 12px));
 }
 
 @-webkit-keyframes slideIn {
@@ -938,12 +984,12 @@ video {
   }
 }
 /* editmode */
-.list-of-testemonials {
+.list-of-testimonials {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
 }
-.list-of-testemonials .video-testemonial {
+.list-of-testimonials .video-testimonial {
   width: 220px;
   height: 360px;
   background-color: #253342;
@@ -952,18 +998,20 @@ video {
   border-radius: 10px;
   box-shadow: 2px 5px 5px 0px rgba(0, 0, 0, 0.75);
 }
-.list-of-testemonials .video-testemonial p {
+.list-of-testimonials .video-testimonial p {
   color: #FFFFFF;
   font-family: "Varela Round";
   line-height: 1;
   font-weight: bold;
 }
-.list-of-testemonials .video-testemonial .video {
+.list-of-testimonials .video-testimonial .video {
   position: relative;
   height: 280px;
   margin-top: 8px;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
 }
-.list-of-testemonials .video-testemonial .video::after {
+.list-of-testimonials .video-testimonial .video::after {
   content: "";
   position: absolute;
   bottom: 0;
@@ -972,29 +1020,28 @@ video {
   height: 50%;
   background: linear-gradient(0deg, #000, transparent);
 }
-.list-of-testemonials .video-testemonial .video video {
+.list-of-testimonials .video-testimonial .video video {
   -o-object-fit: cover;
      object-fit: cover;
   width: 100%;
-  max-height: 280px;
-  border-radius: 5px 5px 0 0;
+  height: 100%;
 }
-.list-of-testemonials .video-testemonial .video .buttons {
+.list-of-testimonials .video-testimonial .video .buttons {
   position: absolute;
   top: 1em;
   right: 1em;
 }
-.list-of-testemonials .video-testemonial .video .buttons .video-play-button {
+.list-of-testimonials .video-testimonial .video .buttons .video-play-button {
   background-color: transparent;
   border: none;
 }
-.list-of-testemonials .video-testemonial .video .buttons .video-play-button i {
+.list-of-testimonials .video-testimonial .video .buttons .video-play-button i {
   font-size: 2rem;
   border-radius: 50px;
   background-color: #CCCCCC;
   mix-blend-mode: luminosity;
 }
-.list-of-testemonials .video-testemonial .video .about {
+.list-of-testimonials .video-testimonial .video .about {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -1004,25 +1051,25 @@ video {
   padding: 15px 8px;
   z-index: 1;
 }
-.list-of-testemonials .video-testemonial .video .about img {
+.list-of-testimonials .video-testimonial .video .about img {
   border-radius: 50px;
   border: 1px solid white;
 }
-.list-of-testemonials .video-testemonial .video .about .author-info {
+.list-of-testimonials .video-testimonial .video .about .author-info {
   padding-left: 10px;
   font-family: "Varela Round";
   line-height: 1;
   font-weight: bold;
   font-size: 12px;
 }
-.list-of-testemonials .video-testemonial .video .about .author-info span {
+.list-of-testimonials .video-testimonial .video .about .author-info span {
   color: #FFFFFF;
   font-weight: normal;
 }
-.list-of-testemonials .video-testemonial .video .about .author-info .name {
+.list-of-testimonials .video-testimonial .video .about .author-info .name {
   color: #FFFFFF;
 }
-.list-of-testemonials .video-testemonial .video .about .author-info .job-title {
+.list-of-testimonials .video-testimonial .video .about .author-info .job-title {
   color: #FFFFFF;
   font-weight: normal;
 }
@@ -1191,13 +1238,16 @@ header {
   height: 100%;
 }
 .lower-navigation .lower-navigation-content ul li a {
+  /*
   font-family: "Bitter";
+  */
   font-weight: bold;
   font-size: 18px;
   line-height: 22px;
   /* new */
   font-family: "Posterama Text";
   /**/
+  position: relative;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -1208,52 +1258,76 @@ header {
   color: $white;
   */
   color: #000000;
+  /*
+  &:hover {
+      mix-blend-mode: normal;
+      opacity: 0.8;
+  }
+  &#news {
+      padding-bottom: 0;
+      border-bottom: 6px solid $lightBlue;
+      &.active {
+          background-color: $lightBlue;
+      }
+  }
+  &#business {
+      padding-bottom: 0;
+      border-bottom: 6px solid $red;
+      &.active {
+          background-color: $red;
+      }
+  }
+  &#sport {
+      padding-bottom: 0;
+      border-bottom: 6px solid $green;
+      &.active {
+          background-color: $green;
+      }
+  }
+  &#life {
+      padding-bottom: 0;
+      border-bottom: 6px solid $lighterBlue;
+      &.active {
+          background-color: $lighterBlue;
+      }
+  }
+  &#tech {
+      padding-bottom: 0;
+      border-bottom: 6px solid $yellow;
+      &.active {
+          background-color: $yellow;
+      }
+  }
+  &#travel {
+      padding-bottom: 0;
+      border-bottom: 6px solid $beige;
+      &.active {
+          background-color: $beige;
+      }
+  }
+  */
 }
-.lower-navigation .lower-navigation-content ul li a:hover {
-  mix-blend-mode: normal;
-  opacity: 0.8;
+.lower-navigation .lower-navigation-content ul li a:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 50%;
+  transform: translateX(50%);
+  width: 0;
+  height: 3px;
+  background-color: #fe1375;
+  transition: all 0.3s cubic-bezier(0.77, 0, 0.175, 1);
 }
-.lower-navigation .lower-navigation-content ul li a#news {
-  padding-bottom: 0;
-  border-bottom: 6px solid #299EC3;
+.lower-navigation .lower-navigation-content ul li a:hover::after {
+  width: calc(100% - calc(16px + 16px));
 }
-.lower-navigation .lower-navigation-content ul li a#news.active {
-  background-color: #299EC3;
-}
-.lower-navigation .lower-navigation-content ul li a#business {
-  padding-bottom: 0;
-  border-bottom: 6px solid #EE6151;
-}
-.lower-navigation .lower-navigation-content ul li a#business.active {
-  background-color: #EE6151;
-}
-.lower-navigation .lower-navigation-content ul li a#sport {
-  padding-bottom: 0;
-  border-bottom: 6px solid #84C14F;
-}
-.lower-navigation .lower-navigation-content ul li a#sport.active {
-  background-color: #84C14F;
-}
-.lower-navigation .lower-navigation-content ul li a#life {
-  padding-bottom: 0;
-  border-bottom: 6px solid #5DCFF3;
-}
-.lower-navigation .lower-navigation-content ul li a#life.active {
-  background-color: #5DCFF3;
-}
-.lower-navigation .lower-navigation-content ul li a#tech {
-  padding-bottom: 0;
-  border-bottom: 6px solid #FCC44D;
-}
-.lower-navigation .lower-navigation-content ul li a#tech.active {
-  background-color: #FCC44D;
-}
-.lower-navigation .lower-navigation-content ul li a#travel {
-  padding-bottom: 0;
-  border-bottom: 6px solid #A99765;
-}
-.lower-navigation .lower-navigation-content ul li a#travel.active {
-  background-color: #A99765;
+.lower-navigation .lower-navigation-content ul li a.active:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  width: calc(100% - calc(16px + 16px));
+  height: 3px;
+  background-color: #fe1375;
 }
 
 .center-articles {
@@ -1349,7 +1423,10 @@ header {
   justify-content: space-between;
 }
 .center-articles .main-articles .main-article-top h1 {
+  /*
   font-family: "Bitter";
+  */
+  font-family: "Posterama Text";
   font-weight: bold;
   font-size: 24px;
   line-height: 29px;
@@ -1420,7 +1497,10 @@ header {
   color: #666666;
 }
 .center-articles .main-articles .articles .medium-article .article-title {
+  /*
   font-family: "Bitter";
+  */
+  font-family: "Posterama Text";
   font-weight: bold;
   font-size: 14px;
   line-height: 16.8px;
@@ -1468,7 +1548,10 @@ header {
   color: #666666;
 }
 .center-articles .main-articles .articles .small-article .article-side .article-title {
+  /*
   font-family: "Bitter";
+  */
+  font-family: "Posterama Text";
   font-weight: bold;
   font-size: 14px;
   line-height: 16.8px;
@@ -1480,7 +1563,10 @@ header {
   padding: 25px;
 }
 .center-articles .main-articles .category-articles .category-title {
+  /*
   font-family: "Bitter";
+  */
+  font-family: "Posterama Text";
   font-weight: bold;
   font-size: 24px;
   line-height: 29px;
@@ -1494,7 +1580,10 @@ header {
 }
 .center-articles .main-articles .category-articles .category-article .title {
   color: #363F48;
+  /*
   font-family: "Bitter";
+  */
+  font-family: "Posterama Text";
   font-weight: bold;
   font-size: 24px;
   line-height: 29px;
@@ -1551,6 +1640,11 @@ header {
   font-size: 14px;
   line-height: 22px;
   padding-bottom: 15px;
+  /* new */
+  /**/
+}
+.center-articles .main-articles .category-articles .category-article .body .text-button .text p {
+  font-family: "Posterama Text";
 }
 .center-articles .main-articles .category-articles .category-article .body .text-button a {
   font-family: "Varela Round", sans-serif;
@@ -1598,7 +1692,10 @@ header {
 }
 .center-articles .main-articles .article p {
   padding-bottom: 30px;
+  /*
   font-family: "Bitter";
+  */
+  font-family: "Posterama Text";
   font-size: 14px;
   line-height: 22px;
   color: #444444;
@@ -1619,7 +1716,10 @@ header {
   margin-bottom: 20px;
 }
 .center-articles .main-articles .author-section .title {
+  /*
   font-family: "Bitter";
+  */
+  font-family: "Posterama Text";
   font-weight: bold;
   font-size: 24px;
   line-height: 29px;
@@ -1644,7 +1744,10 @@ header {
 }
 .center-articles .main-articles .comments-section .title {
   color: #363F48;
+  /*
   font-family: "Bitter";
+  */
+  font-family: "Posterama Text";
   font-weight: bold;
   font-size: 24px;
   line-height: 29px;
@@ -1673,7 +1776,10 @@ header {
   padding-bottom: 3px;
 }
 .center-articles .main-articles .comments-section .comments .comment .comment-body .top .user-name {
+  /*
   font-family: "Bitter";
+  */
+  font-family: "Posterama Text";
   font-size: 18px;
   line-height: 20px;
   color: #4D4382;
@@ -1749,20 +1855,190 @@ header {
   font-weight: bold;
 }
 
-.all-testemonials {
+.all-testimonials {
   display: flex;
   flex-direction: row;
   padding: 10px 0;
+  max-height: -webkit-fit-content;
+  max-height: -moz-fit-content;
+  max-height: fit-content;
+  transition: max-height 1s;
 }
-.all-testemonials .filters-container {
-  width: 18%;
+.all-testimonials .filters-container {
+  width: calc(18% - 15px);
+  padding-top: 10px;
+  margin-right: 15px;
 }
-.all-testemonials .testemonials-list {
-  width: 80%;
+.all-testimonials .filters-container .filters-title {
+  width: 100%;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  padding: 10px 15px;
+}
+.all-testimonials .filters-container .filters-title h4 {
+  margin: 0;
+  font-family: "Posterama Text";
+  font-weight: bold;
+}
+.all-testimonials .filters-container .filters {
+  padding: 15px;
+}
+.all-testimonials .filters-container .filters .checkbox {
+  display: grid;
+  align-items: center;
+  grid-template-columns: -webkit-min-content auto;
+  grid-template-columns: min-content auto;
+  grid-gap: 0.5em;
+  font-size: 1.1rem;
+}
+.all-testimonials .filters-container .filters .checkbox .radio-label {
+  position: relative;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+.all-testimonials .filters-container .filters .checkbox .radio-label:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 50%;
+  transform: translateX(50%);
+  width: 0;
+  height: 3px;
+  background-color: #000000;
+  transition: all 0.3s cubic-bezier(0.77, 0, 0.175, 1);
+}
+.all-testimonials .filters-container .filters .checkbox:hover {
+  cursor: pointer;
+}
+.all-testimonials .filters-container .filters .checkbox:hover .checkbox-input input:not(:checked) + .checkbox-control svg path {
+  stroke: #999999;
+}
+.all-testimonials .filters-container .filters .checkbox:hover .checkbox-input .checkbox-control svg {
+  transform: scale(1);
+}
+.all-testimonials .filters-container .filters .checkbox:hover .checkbox-input .checkbox-control svg path {
+  stroke: #666666;
+}
+.all-testimonials .filters-container .filters .checkbox:hover .radio-label:after {
+  width: 100%;
+}
+.all-testimonials .filters-container .filters .checkbox-control {
+  display: inline-grid;
+  width: 1em;
+  height: 1em;
+  /*border-radius: 0.25em;*/
+  border: 0.1em solid currentColor;
+}
+.all-testimonials .filters-container .filters .checkbox-control svg {
+  transition: transform 0.1s ease-in 25ms;
+  transform: scale(0);
+  transform-origin: bottom left;
+}
+.all-testimonials .filters-container .filters .checkbox-input {
+  display: grid;
+  grid-template-areas: "checkbox";
+}
+.all-testimonials .filters-container .filters .checkbox-input > * {
+  grid-area: checkbox;
+}
+.all-testimonials .filters-container .filters .checkbox-input input {
+  opacity: 0;
+  width: 1em;
+  height: 1em;
+}
+.all-testimonials .filters-container .filters .checkbox-input input:focus + .checkbox-control {
+  box-shadow: 0 0 0 0.05em #fff, 0 0 0.15em 0.1em currentColor;
+}
+.all-testimonials .filters-container .filters .checkbox-input input:checked + .checkbox-control svg {
+  transform: scale(1);
+}
+.all-testimonials .filters-container .filters .checkbox-input input:checked + .checkbox-control svg path {
+  stroke: #000000;
+}
+.all-testimonials .filters-container .filters .checkbox-input input:disabled + .checkbox-control {
+  color: #CCCCCC;
+}
+.all-testimonials .filters-container .filters label {
+  font-family: "Posterama Text";
+}
+.all-testimonials .testimonials-list {
+  padding: 5px 0;
+  width: 82%;
+  display: flex;
+  flex-direction: row;
+  align-content: flex-start;
+  min-height: calc(100vh - 106px);
+}
+.all-testimonials .testimonials-list .video-testimonial {
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  width: 30%;
+  margin: 5px;
+  position: relative;
+  background-color: #FFFFFF;
+  box-shadow: none;
+  border: 1px solid #F1F2F3;
+  transition: all 0.3s ease-in-out;
+}
+.all-testimonials .testimonials-list .video-testimonial:hover {
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+.all-testimonials .testimonials-list .video-testimonial p {
+  color: #000000;
+  font-family: "Posterama Text";
+  line-height: 1;
+  font-weight: bold;
+}
+.all-testimonials .testimonials-list .video-testimonial .testimonial-categories {
+  padding-top: 15px;
+}
+.all-testimonials .testimonials-list .video-testimonial .testimonial-categories li {
+  display: inline-block;
+  padding: 10px 2px;
+}
+.all-testimonials .testimonials-list .video-testimonial .testimonial-categories li a {
+  position: relative;
+  color: #000000;
+  font-family: "Posterama Text";
+  line-height: 1;
+  font-weight: bold;
+  padding-bottom: 5px;
+  border: 1px solid #000000;
+  border-radius: 25px;
+  padding: 8px 15px;
+}
+.all-testimonials .testimonials-list .video-testimonial .testimonial-categories li a:hover {
+  background-color: #fe1375;
+  border-color: #fe1375;
+  color: #FFFFFF;
+}
+.all-testimonials .testimonials-list .video-testimonial .testimonial-categories li a:hover:after {
+  width: calc(100% - calc(15px + 15px));
+}
+.all-testimonials .testimonials-list .video-testimonial .testimonial-categories li a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 50%;
+  transform: translateX(50%);
+  width: 0;
+  height: 3px;
+  background-color: #FFFFFF;
+  transition: all 0.3s cubic-bezier(0.77, 0, 0.175, 1);
+  bottom: 3px;
+}
+.all-testimonials .testimonials-list .video-testimonial .video .about .author-info {
+  font-family: "Posterama Text";
 }
 
 .footer-title {
+  /*
   font-family: "Bitter";
+  */
+  font-family: "Posterama Text";
   font-weight: bold;
   font-size: 24px;
   line-height: 29px;
@@ -1939,7 +2215,10 @@ footer .footer-container .mid-footer .footer-title {
   color: #666666;
 }
 .footer-element .footer-article .article-info .article-info-title {
+  /*
   font-family: "Bitter";
+  */
+  font-family: "Posterama Text";
   font-weight: bold;
   font-size: 14px;
   line-height: 16.8px;

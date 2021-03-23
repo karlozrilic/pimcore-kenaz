@@ -1,0 +1,167 @@
+.all-testimonials {
+    display: flex;
+    flex-direction: row;
+    padding: 10px 0;
+    max-height: fit-content;
+    transition: max-height 1s; 
+    .filters-container {
+        width: calc(18% - 15px);
+        padding-top: 10px;
+        margin-right: 15px;
+        .filters-title {
+            width: 100%;
+            height: fit-content;
+            padding: 10px 15px;
+            h4 {
+                margin: 0;
+                font-family: "Posterama Text";
+                font-weight: bold;
+            }
+        }
+        .filters {
+            padding: 15px;
+            .checkbox {
+                display: grid;
+                align-items: center;
+                grid-template-columns: min-content auto;
+                grid-gap: 0.5em;
+                font-size: 1.1rem;
+                .radio-label {
+                    position: relative;
+                    width: fit-content;
+                    &:after {
+                        @include animatedUnderline($black);
+                    }
+                }
+                &:hover {
+                    cursor: pointer;
+                    .checkbox-input {
+                        input {
+                            &:not(:checked) + .checkbox-control svg {
+                                path {
+                                    stroke: $lightGrey;
+                                }
+                            }
+                        }
+                        .checkbox-control {
+                            svg {
+                                transform: scale(1);
+                                path {
+                                    stroke: $darkGrey;
+                                }
+                            }
+                        }
+                    }
+                    .radio-label {
+                        &:after {
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+            .checkbox-control {
+                display: inline-grid;
+                width: 1em;
+                height: 1em;
+                /*border-radius: 0.25em;*/
+                border: 0.1em solid currentColor;
+                svg {
+                  transition: transform 0.1s ease-in 25ms;
+                  transform: scale(0);
+                  transform-origin: bottom left;
+                }
+            }
+            .checkbox-input {
+                display: grid;
+                grid-template-areas: "checkbox";
+                > * {
+                    grid-area: checkbox;
+                }
+                input {
+                    opacity: 0;
+                    width: 1em;
+                    height: 1em;
+                    &:focus + .checkbox-control {
+                        box-shadow: 0 0 0 0.05em #fff, 0 0 0.15em 0.1em currentColor;
+                    }
+                    &:checked + .checkbox-control svg {
+                        transform: scale(1);
+                        path {
+                            stroke: $black;
+                        }
+                    }
+                    &:disabled + .checkbox-control {
+                        color: $lighterGrey;
+                    }
+                }
+            }
+            label {
+                font-family: "Posterama Text";
+            }
+        }
+    }
+    .testimonials-list {
+        padding: 5px 0;
+        width: 82%;
+        display: flex;
+        flex-direction: row;
+        align-content: flex-start;
+        min-height: calc(100vh - 106px);
+        .video-testimonial {
+            height: fit-content;
+            width: 30%;
+            margin: 5px;
+            position: relative;
+            background-color: $white;
+            box-shadow: none;
+            border: 1px solid $darkWhite;
+            transition: all .3s ease-in-out;
+            &:hover {
+                box-shadow: 0 0 15px rgb(0 0 0 / 30%);
+            }
+            p {
+                color: $black;
+                font-family: "Posterama Text";
+                line-height: 1;
+                font-weight: bold;
+            }
+            .testimonial-categories {
+                padding-top: 15px;
+                li {
+                    display: inline-block;
+                    padding: 10px 2px;
+                    a {
+                        position: relative;
+                        color: $black;
+                        font-family: "Posterama Text";
+                        line-height: 1;
+                        font-weight: bold;
+                        padding-bottom: 5px;
+                        border: 1px solid $black;
+                        border-radius: 25px;
+                        padding: 8px 15px;
+                        &:hover {
+                            background-color: $factoryRed;
+                            border-color: $factoryRed;
+                            color: $white;
+                            &:after {
+                                width: calc(100% - calc(15px + 15px));
+                            }
+                        }
+                        &::after {
+                            @include animatedUnderline($white);
+                            bottom: 3px;
+                        }
+                    }
+                }
+            }
+            .video {
+                .about {
+                    .author-info {
+                        font-family: "Posterama Text";
+                    }
+                }
+            }
+        }
+    }
+}

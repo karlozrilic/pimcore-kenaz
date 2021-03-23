@@ -7,7 +7,7 @@ namespace AppBundle\Repositories;
 use Pimcore\Model\DataObject\Folder;
 use Pimcore\Model\DataObject\Category;
 use Pimcore\Model\DataObject\Category\Listing;
-use Pimcore\Model\DataObject\VideoTestemonial;
+use Pimcore\Model\DataObject\VideoTestimonial;
 use Zend\Paginator\Paginator;
 
 class CategoryRepository
@@ -63,7 +63,7 @@ class CategoryRepository
 
     public function getCategoriesForVideoTestimonials(array $videoTestimonialIds)
     {
-        $videoTestimonialRelationsTable = 'object_relations_' . VideoTestemonial::classId();
+        $videoTestimonialRelationsTable = 'object_relations_' . VideoTestimonial::classId();
         $list = Category::getList();
 
         $list->setCondition(

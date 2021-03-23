@@ -45,7 +45,7 @@ class FooterHeaderController extends BaseController
     public function headerCategoryAction(Request $request) {
         return [
             'categories' => $this->categoryRepository->getCategories($request->get('id')),
-            'current_url' => $request->server->get("SCRIPT_URL")
+            'current_category_id' => explode("=", $request->server->get('REDIRECT_QUERY_STRING'))[1]
         ];
     }
 

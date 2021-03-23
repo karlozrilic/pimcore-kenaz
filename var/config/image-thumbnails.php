@@ -156,7 +156,7 @@ return [
         "forcePictureTag" => FALSE,
         "id" => "commentImage"
     ],
-    "authorImageTestemonial" => [
+    "authorImageTestimonial" => [
         "items" => [
             [
                 "method" => "resize",
@@ -169,7 +169,7 @@ return [
         "medias" => [
 
         ],
-        "name" => "authorImageTestemonial",
+        "name" => "authorImageTestimonial",
         "description" => "",
         "group" => "",
         "format" => "SOURCE",
@@ -179,12 +179,12 @@ return [
         "preserveMetaData" => FALSE,
         "rasterizeSVG" => FALSE,
         "downloadable" => FALSE,
-        "modificationDate" => 1615548039,
-        "creationDate" => 1615547857,
+        "modificationDate" => 1616158754,
+        "creationDate" => 1616158742,
         "forcePictureTag" => FALSE,
-        "id" => "authorImageTestemonial"
+        "id" => "authorImageTestimonial"
     ],
-    "authorImageTestemonialBigger" => [
+    "authorImageTestimonialBigger" => [
         "items" => [
             [
                 "method" => "resize",
@@ -197,7 +197,7 @@ return [
         "medias" => [
 
         ],
-        "name" => "authorImageTestemonialBigger",
+        "name" => "authorImageTestimonialBigger",
         "description" => "",
         "group" => "",
         "format" => "SOURCE",
@@ -207,9 +207,9 @@ return [
         "preserveMetaData" => FALSE,
         "rasterizeSVG" => FALSE,
         "downloadable" => FALSE,
-        "modificationDate" => 1615552714,
-        "creationDate" => 1615552704,
+        "modificationDate" => 1616158772,
+        "creationDate" => 1616158765,
         "forcePictureTag" => FALSE,
-        "id" => "authorImageTestemonialBigger"
+        "id" => "authorImageTestimonialBigger"
     ]
 ];
