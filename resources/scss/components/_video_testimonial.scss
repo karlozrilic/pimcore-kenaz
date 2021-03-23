@@ -77,11 +77,18 @@
                 .video-play-button {
                     background-color: transparent;
                     border: none;
-                    i {
+                    .fa-circle {
+                        color: $white;
+                        font-size: 1.9rem;
+                    }
+                    .fa-play-circle {
                         font-size: 2rem;
                         border-radius: 50px;
-                        background-color: $lighterGrey;
-                        mix-blend-mode: luminosity;
+                        color: $factoryBlue;
+                        transition: all .3s ease-in-out;
+                        &:hover {
+                            color: $factoryRed;
+                        }
                     }
                 }
             }
@@ -345,11 +352,18 @@
                 .video-play-button {
                     background-color: transparent;
                     border: none;
-                    i {
+                    .fa-circle {
+                        color: $white;
+                        font-size: 1.9rem;
+                    }
+                    .fa-play-circle {
                         font-size: 2rem;
                         border-radius: 50px;
-                        background-color: $lighterGrey;
-                        mix-blend-mode: luminosity;
+                        color: $factoryBlue;
+                        transition: all .3s ease-in-out;
+                        &:hover {
+                            color: $factoryRed;
+                        }
                     }
                 }
             }

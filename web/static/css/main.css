@@ -539,7 +539,10 @@ aside .aside-social .social-networks .social-network .social-number {
   width: 50%;
   display: flex;
   align-items: center;
-  background-color: #4D4382;
+  /*
+  background-color: $purple;
+  */
+  background-color: #003da6;
   padding: 0 10px;
   font-family: "Varela Round";
   font-size: 14px;
@@ -715,11 +718,18 @@ video {
   background-color: transparent;
   border: none;
 }
-.testimonials .video-testimonial .video .buttons .video-play-button i {
+.testimonials .video-testimonial .video .buttons .video-play-button .fa-circle {
+  color: #FFFFFF;
+  font-size: 1.9rem;
+}
+.testimonials .video-testimonial .video .buttons .video-play-button .fa-play-circle {
   font-size: 2rem;
   border-radius: 50px;
-  background-color: #CCCCCC;
-  mix-blend-mode: luminosity;
+  color: #003da6;
+  transition: all 0.3s ease-in-out;
+}
+.testimonials .video-testimonial .video .buttons .video-play-button .fa-play-circle:hover {
+  color: #fe1375;
 }
 .testimonials .video-testimonial .video .about {
   position: absolute;
@@ -1035,11 +1045,18 @@ video {
   background-color: transparent;
   border: none;
 }
-.list-of-testimonials .video-testimonial .video .buttons .video-play-button i {
+.list-of-testimonials .video-testimonial .video .buttons .video-play-button .fa-circle {
+  color: #FFFFFF;
+  font-size: 1.9rem;
+}
+.list-of-testimonials .video-testimonial .video .buttons .video-play-button .fa-play-circle {
   font-size: 2rem;
   border-radius: 50px;
-  background-color: #CCCCCC;
-  mix-blend-mode: luminosity;
+  color: #003da6;
+  transition: all 0.3s ease-in-out;
+}
+.list-of-testimonials .video-testimonial .video .buttons .video-play-button .fa-play-circle:hover {
+  color: #fe1375;
 }
 .list-of-testimonials .video-testimonial .video .about {
   position: absolute;
@@ -1650,7 +1667,10 @@ header {
   font-family: "Varela Round", sans-serif;
   font-size: 14px;
   line-height: 17px;
-  background-color: #4D4382;
+  /*
+  background-color: $purple;
+  */
+  background-color: #003da6;
   color: #FFFFFF;
   width: -webkit-fit-content;
   width: -moz-fit-content;
@@ -1843,7 +1863,10 @@ header {
   font-family: "Varela Round", sans-serif;
   font-size: 14px;
   line-height: 17px;
-  background-color: #4D4382;
+  /*
+  background-color: $purple;
+  */
+  background-color: #003da6;
   color: #FFFFFF;
   width: -webkit-fit-content;
   width: -moz-fit-content;

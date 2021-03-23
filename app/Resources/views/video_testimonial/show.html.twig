@@ -18,7 +18,12 @@
                 <source src="{{ el.getVideo().getData()|raw }}">
             </video>
             <div class="buttons">
-                <button class="video-play-button"><i class="material-icons-two-tone">play_circle</i></button>
+                <button class="video-play-button">
+                    <span class="fa-stack" style="vertical-align: top;">
+                        <i class="fas fa-circle fa-stack-2x"></i>
+                        <i class="fal fa-play-circle fa-stack-1x"></i>
+                    </span>
+                </button>
             </div>
             <div class="about">
                 <img src="{{ el.getAuthor().getProfileImage().getThumbnail('authorImageTestimonial') }}" alt="Author image" />
@@ -44,7 +49,12 @@
                 <source src="{{ el.getVideo().getData()|raw }}">
             </video>
             <div class="buttons">
-                <button class="video-play-button"><i class="material-icons">play_circle_outline</i></button>
+                <button class="video-play-button">
+                    <span class="fa-stack" style="vertical-align: top;">
+                        <i class="fas fa-circle fa-stack-2x"></i>
+                        <i class="fal fa-play-circle fa-stack-1x"></i>
+                    </span>
+                </button>
             </div>
             <div class="about">
                 <img src="{{ el.getAuthor().getProfileImage().getThumbnail('authorImageTestimonial') }}" alt="Author image" />
@@ -66,7 +76,7 @@
                 {{ el.getDescription("en") }}
             </h3>
             <div class="content">
-                <video controls autoplay class="modal-video">
+                <video controls autoplay disablepictureinpicture controlsList="nofullscreen nodownload" class="modal-video">
                     <source src="{{ el.getVideo().getData()|raw }}">
                 </video>
             </div>

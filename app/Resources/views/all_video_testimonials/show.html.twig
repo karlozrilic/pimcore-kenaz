@@ -17,9 +17,6 @@
                 </span>
                 <span class="radio-label">{{ category }}</span>
             </label>
-            <!--
-            <input class="input" type="checkbox" id="{{ category|lower }}" name="{{ category|lower }}" value={{ key }} {% if key in filterCategories %}checked{% endif %}>
-            <label for="{{ category|lower }}">{{ category }}</label><br>-->
             {% endfor %}
         </div>
     </div>
@@ -32,7 +29,12 @@
                     <source src="{{ testemonial['video']|raw }}">
                 </video>
                 <div class="buttons">
-                    <button class="video-play-button" data-open-index={{ loop.index - 1 }}><i class="material-icons">play_circle_outline</i></button>
+                    <button class="video-play-button" data-open-index={{ loop.index - 1 }}>
+                        <span class="fa-stack" style="vertical-align: top;">
+                            <i class="fas fa-circle fa-stack-2x"></i>
+                            <i class="fal fa-play-circle fa-stack-1x"></i>
+                        </span>
+                    </button>
                 </div>
                 <div class="about">
                     <img src="{{ testemonial['author_image'] }}" alt="Author image" />
@@ -63,7 +65,7 @@
                     {{ testemonial['description'] }}
                 </h3>
                 <div class="content">
-                    <video controls autoplay class="modal-video">
+                    <video controls autoplay disablepictureinpicture controlsList="nofullscreen nodownload" class="modal-video">
                         <source src="{{ testemonial['video']|raw }}">
                     </video>
                 </div>

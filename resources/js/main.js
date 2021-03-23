@@ -310,7 +310,7 @@ $(() => {
                     json: true,
                     categories: filterList
                 }
-            }
+            };
             try {
                 const response = await axios.get(VIDEO_TESTIMONIALS_BASE_URL, axiosOptions);
                 const data = await response.data;
@@ -328,7 +328,7 @@ $(() => {
                 return data;
             } catch (error) {
                 console.log(error);
-            }
+            };
             /*
             return axios.get(VIDEO_TESTIMONIALS_BASE_URL, {
                 params: {
@@ -360,7 +360,12 @@ $(() => {
                         <source src="${video}">
                     </video>
                     <div class="buttons">
-                        <button class="video-play-button" data-open-index=${index}><i class="material-icons">play_circle_outline</i></button>
+                        <button class="video-play-button" data-open-index=${index}>
+                            <span class="fa-stack" style="vertical-align: top;">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fal fa-play-circle fa-stack-1x"></i>
+                            </span>
+                        </button>
                     </div>
                     <div class="about">
                         <img src="${author_image}" alt="Author image" />
@@ -391,7 +396,7 @@ $(() => {
                             ${description}
                         </h3>
                         <div class="content">
-                            <video controls autoplay class="modal-video">
+                            <video controls autoplay disablepictureinpicture controlsList="nofullscreen nodownload" class="modal-video">
                                 <source src="${video}">
                             </video>
                         </div>
@@ -413,7 +418,7 @@ $(() => {
                     </div>
                 </div>
             `
-        }
+        };
 
         const maketestimonialFiltersTemplate = ([categoryId, categoryName], filterCategories) => {
             return `
