@@ -221,6 +221,11 @@
                             font-size: $standardFontSize;
                             line-height: 22px;
                             padding-bottom: 15px;
+                            /* new */
+                            p {
+                                font-family: "Posterama Text";
+                            }
+                            /**/
                         }
                         a {
                             @include button();

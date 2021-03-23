@@ -1,7 +1,7 @@
 <div class="{{ category[0].getKey()|lower }}">
     <div class="main-article-top">
         <h1>{{ category[0].getKey() }}</h1>
-        <a href="/category/{{ category[0].getTitle|lower }}">See all</a>
+        <a href="{{ path(category[0])}}">See all</a>
     </div>
     <div class="articles {% if category[0].getMin > 3 or (category[0].getMax > 3 and news|length > 3) %}wrap{% endif %}">
     {% for post in news[:category[0].getMax] %}
