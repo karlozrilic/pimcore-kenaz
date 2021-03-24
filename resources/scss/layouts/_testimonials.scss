@@ -66,9 +66,12 @@
                 /*border-radius: 0.25em;*/
                 border: 0.1em solid currentColor;
                 svg {
-                  transition: transform 0.1s ease-in 25ms;
-                  transform: scale(0);
-                  transform-origin: bottom left;
+                    transition: transform 0.1s ease-in 25ms;
+                    transform: scale(0);
+                    transform-origin: bottom left;
+                    path {
+                        stroke: $lightGrey;
+                    }
                 }
             }
             .checkbox-input {

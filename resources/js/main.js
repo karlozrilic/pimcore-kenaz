@@ -217,7 +217,6 @@ $(() => {
 
         $(testimonialsList).on("click", ".video-play-button", (event) => {
             const index = $(event.currentTarget).data("open-index");
-            $(document).trigger("dataChanged");
             $(modals[index]).css("display", "block");
             $(modals[index]).removeClass("out");
             videos[index].play();
@@ -225,7 +224,6 @@ $(() => {
 
         $(modalContainer).on("click", ".modal-close", (event) => {
             const index = $(event.currentTarget).data("index");
-            $(document).trigger("dataChanged");
             $(modals[index]).addClass("out");
             setTimeout(() => {
                 videos[index].pause();
@@ -294,13 +292,12 @@ $(() => {
                     }
                 });
                 */
-                
+
                 $(filters).empty();
                 Object.entries(data.categories_data).forEach((category) => {
                     $(filters).append(maketestimonialFiltersTemplate(category, data.filter_categories));
                 });
-                
-                
+                $(document).trigger("dataChanged");
             });
         };
 

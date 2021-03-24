@@ -1703,12 +1703,12 @@ header {
   font-family: "Varela Round", sans-serif;
   font-size: 14px;
   line-height: 17px;
-  color: #4D4382;
+  color: #003da6;
   background-color: #DDDDDD;
   padding: 8px 12px;
 }
 .center-articles .main-articles .category-articles .page-numbers ul li a.active {
-  background-color: #4D4382;
+  background-color: #003da6;
   color: #FFFFFF;
 }
 .center-articles .main-articles .category-articles .page-numbers ul li a:hover {
@@ -1966,6 +1966,9 @@ header {
   transition: transform 0.1s ease-in 25ms;
   transform: scale(0);
   transform-origin: bottom left;
+}
+.all-testimonials .filters-container .filters .checkbox-control svg path {
+  stroke: #999999;
 }
 .all-testimonials .filters-container .filters .checkbox-input {
   display: grid;

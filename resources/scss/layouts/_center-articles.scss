@@ -250,7 +250,7 @@
                             @include pages();
                             padding: 8px 12px;
                             &.active {
-                                background-color: $purple;
+                                background-color: $factoryBlue;
                                 color: $white;
                             }
                             &:hover {

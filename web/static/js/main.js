@@ -2091,7 +2091,6 @@ $(function () {
     });
     $(testimonialsList).on("click", ".video-play-button", function (event) {
       var index = $(event.currentTarget).data("open-index");
-      $(document).trigger("dataChanged");
       $(_modals[index]).css("display", "block");
       $(_modals[index]).removeClass("out");
 
@@ -2099,7 +2098,6 @@ $(function () {
     });
     $(modalContainer).on("click", ".modal-close", function (event) {
       var index = $(event.currentTarget).data("index");
-      $(document).trigger("dataChanged");
       $(_modals[index]).addClass("out");
       setTimeout(function () {
         _videos[index].pause();
@@ -2173,6 +2171,7 @@ $(function () {
         Object.entries(data.categories_data).forEach(function (category) {
           $(filters).append(maketestimonialFiltersTemplate(category, data.filter_categories));
         });
+        $(document).trigger("dataChanged");
       });
     };
 
