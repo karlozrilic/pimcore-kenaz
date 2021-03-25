@@ -7,7 +7,7 @@
     }) }}
 
     <div class="post-banner-image">
-        <img src="{{ post.getFeaturedImage() }}" alt="Banner image" />
+        <img src="{% if post.getFeaturedImage() %}{{ post.getFeaturedImage() }}{% else %}{{ document.getProperty('noImage') }}{% endif %}" alt="Banner image" />
         <div class="banner-image-text">
             <div class="text">
                 <p>{{ post.getPublishDate()|date('F j, Y') }}</p>
@@ -16,7 +16,7 @@
         </div>
     </div>
     <div class="center-articles">
-        <div class="main-articles">
+        <div class="main-articles no-aside">
             <div class="article">
                 {{ post.getContent()|raw }}
                 <img class="social" src="/static/img/social/social.png" alt="Social" />
@@ -29,7 +29,7 @@
             <div class="author-section">
                 <div class="title">About the Author</div>
                 <div class="author-content">
-                    <img src="{{ post.getAuthor().getProfileImage().getThumbnail('authorImage')  }}" alt="Author image" />
+                    <img src="{% if post.getAuthor().getProfileImage() %}{{ post.getAuthor().getProfileImage().getThumbnail('authorImage')  }}{% else %}{{ document.getProperty('noImage').getThumbnail('authorImage') }}{% endif %}" alt="Author image" />
                     <p class="about-author">
                         {{ post.getAuthor().getAboutAuthor()}}
                     </p>
@@ -80,7 +80,6 @@
                 </div>
             </div>
         </div>
-        {{ pimcore_inc('/snippets/aside') }}
     </div>
 </div>
 {{ pimcore_inc('/snippets/video-testemonial', {'singleCategory': false, 'categoryList': post.getCategory()}) }}

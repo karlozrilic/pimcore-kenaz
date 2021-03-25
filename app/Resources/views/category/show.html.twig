@@ -4,7 +4,7 @@
     {{ pimcore_areablock("bannerBig", {
         "allowed": ["random-banner"]
     }) }}
-
+    
     <div class="article-slider">
         <div class="arrows">
             <img class='a-left control-c prev slick-prev' id="article-slider-prev" src='/static/img/icons/whiteArrow.png' alt="Previous arrow">
@@ -12,7 +12,7 @@
         </div>
         {% for article in carousell %}
         <div class="artcle">
-            <img class="slider-image" src="{{ article.getFeaturedImage().getThumbnail("tst") }}" alt="Slider image" />
+            <img class="slider-image" src="{% if article.getFeaturedImage() %}{{ article.getFeaturedImage() }}{% else %}{{ document.getProperty('noImage') }}{% endif %}" alt="Slider image" />
             <div class="image-info">
                 <div class="article-info">
                     <div class="article-date">{{ article.getPublishDate|date("F d, Y") }}</div>
@@ -28,7 +28,7 @@
     <div class="center-articles">
         <div class="main-articles">
             <div class="category-articles">
-                <h1 class="category-title">{{ category.getTitle }}</h1>
+                <h1 class="category-title">{{ category.getTitle() }}</h1>
                 {% for post in posts.getCurrentItems() %}
                 <div class="category-article">
                     <h2 class="title">{{ post.getTitle() }}</h2>
@@ -38,12 +38,12 @@
                         <div class="comments">{{ post.comments|length }} Comments</div>
                     </div>
                     <div class="body">
-                        <img src="{{ post.getFeaturedImageSmall().getThumbnail('categoryPostImage') }}" alt="Article image" />
+                        <img src="{% if post.getFeaturedImage() %}{{ post.getFeaturedImage().getThumbnail('categoryPostImage') }}{% else %}{{ document.getProperty('noImage').getThumbnail('categoryPostImage') }}{% endif %}" alt="Article image" />
                         <div class="text-button">
                             <div class="text">
-                                {{ post.getContent()|slice(0, 500)|raw}} {% if post.getContent|raw|length > 500 %}...{% endif %}
+                                {{ post.getContent()|striptags('<br><p><ul><li><a><span><strong>')|slice(0, 500)|raw}} {% if post.getContent|striptags|length > 500 %}...{% endif %}</strong>
                             </div>
-                            <a href="{{ path(post) }}">Read article</a>
+                            <a class="article-link" href="{{ path(post) }}">Read article</a>
                         </div>
                     </div>
                 </div>

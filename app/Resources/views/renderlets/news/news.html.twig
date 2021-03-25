@@ -7,7 +7,7 @@
     {% for post in news[:category[0].getMax] %}
         {% if category[0].getMin <= 3 and (category[0].getMax <= 3 or news|length <= 3) %}
         <a class="medium-article" href="{{ path(post) }}">
-            <img src="{{ post.getFeaturedImageSmall }}" alt="Article image" />
+            <img src="{% if post.getFeaturedImage() %}{{ post.getFeaturedImage() }}{% else %}{{ document.getProperty('noImage') }}{% endif %}" alt="Article image" />
             <div class="article-date-and-views">
                 <p>{{ post.getPublishDate|date("F d, Y") }}</p>
                 <p>{{ post.getComments|length }}</p>
@@ -16,7 +16,7 @@
         </a>
         {% else %}
         <a class="small-article" href="{{ path(post) }}">
-            <img src="{{ post.getFeaturedImageSmall }}" alt="Article image" />
+            <img src="{% if post.getFeaturedImage() %}{{ post.getFeaturedImage() }}{% else %}{{ document.getProperty('noImage') }}{% endif %}" alt="Article image" />
             <div class="article-side">
                 <div class="article-date-and-views">
                     <p>{{ post.getPublishDate|date("F d, Y") }}</p>

@@ -14,7 +14,7 @@
     <div class="video-testimonial tab-{{ loop.index  }} z-ind-{{ loop.index }}">
         <p>{{ el.getDescription("en")|truncate(35, '...') }}</p>
         <div class="video">
-            <video autoplay muted loop class="testimonial-video">
+            <video muted loop class="testimonial-video">
                 <source src="{{ el.getVideo().getData()|raw }}">
             </video>
             <div class="buttons">
@@ -26,7 +26,7 @@
                 </button>
             </div>
             <div class="about">
-                <img src="{{ el.getAuthor().getProfileImage().getThumbnail('authorImageTestimonial') }}" alt="Author image" />
+                <img src="{% if el.getAuthor().getProfileImage() %}{{ el.getAuthor().getProfileImage().getThumbnail('authorImageTestimonial') }}{% else %}{{ document.getProperty('noImage').getThumbnail('authorImageTestimonial') }}{% endif %}" alt="Author image" />
                 <div class="author-info">
                     <div class="name">
                         <span>Answered by:</span>
@@ -57,7 +57,7 @@
                 </button>
             </div>
             <div class="about">
-                <img src="{{ el.getAuthor().getProfileImage().getThumbnail('authorImageTestimonial') }}" alt="Author image" />
+                <img src="{% if el.getAuthor().getProfileImage() %}{{ el.getAuthor().getProfileImage().getThumbnail('authorImageTestimonial') }}{% else %}{{ document.getProperty('noImage').getThumbnail('authorImageTestimonial') }}{% endif %}" alt="Author image" />
                 <div class="author-info">
                     <div class="name">
                         <span>Answered by:</span>
@@ -81,7 +81,7 @@
                 </video>
             </div>
             <div class="author">
-                <img src="{{ el.getAuthor().getProfileImage().getThumbnail('authorImageTestimonialBigger') }}" alt="Author image" />
+                <img src="{% if el.getAuthor().getProfileImage() %}{{ el.getAuthor().getProfileImage().getThumbnail('authorImageTestimonialBigger') }}{% else %}{{ document.getProperty('noImage').getThumbnail('authorImageTestimonial') }}{% endif %}" alt="Author image" />
                 <div class="author-info">
                     <div class="name">
                         {{ el.getAuthor().getFirstName() }}

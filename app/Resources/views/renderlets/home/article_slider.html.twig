@@ -5,7 +5,7 @@
     </div>
     {% for article in articles %}
     <div class="artcle">
-        <img class="slider-image" src="{{ article.getFeaturedImage().getThumbnail("tst") }}" alt="Slider image" />
+        <img class="slider-image" src="{% if article.getFeaturedImage() %}{{ article.getFeaturedImage() }}{% else %}{{ document.getProperty('noImage') }}{% endif %}" alt="Slider image" />
         <div class="image-info">
             <div class="article-info">
                 <div class="article-date">{{ article.getPublishDate|date("F d, Y") }}</div>

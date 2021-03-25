@@ -21,11 +21,11 @@ return [
         "key" => "categoryDefaultDocument",
         "type" => "document",
         "data" => "",
-        "config" => NULL,
+        "config" => "",
         "ctype" => "document",
         "inheritable" => TRUE,
         "creationDate" => 1609883597,
-        "modificationDate" => 1615194313
+        "modificationDate" => 1616667884
     ],
     3 => [
         "id" => 3,

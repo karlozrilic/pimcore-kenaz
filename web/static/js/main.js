@@ -2096,6 +2096,15 @@ $(function () {
 
       _videos[index].play();
     });
+    /* Play testemonial video only on hover */
+
+    $(testimonialsList).on("mouseenter", ".video-testimonial", function (event) {
+      $(event.currentTarget).find("video")[0].play();
+    });
+    $(testimonialsList).on("mouseleave", ".video-testimonial", function (event) {
+      $(event.currentTarget).find("video")[0].pause();
+      $(event.currentTarget).find("video")[0].currentTime = 0;
+    });
     $(modalContainer).on("click", ".modal-close", function (event) {
       var index = $(event.currentTarget).data("index");
       $(_modals[index]).addClass("out");
@@ -2258,7 +2267,7 @@ $(function () {
           description = _ref2.description,
           video = _ref2.video,
           categories = _ref2.categories;
-      return "\n            <div class=\"video-testimonial\">\n                <p>".concat(truncate(description, 35), "</p>\n                <div class=\"video\">\n                    <video autoplay muted loop class=\"testimonial-video\">\n                        <source src=\"").concat(video, "\">\n                    </video>\n                    <div class=\"buttons\">\n                        <button class=\"video-play-button\" data-open-index=").concat(index, ">\n                            <span class=\"fa-stack\" style=\"vertical-align: top;\">\n                                <i class=\"fas fa-circle fa-stack-2x\"></i>\n                                <i class=\"fal fa-play-circle fa-stack-1x\"></i>\n                            </span>\n                        </button>\n                    </div>\n                    <div class=\"about\">\n                        <img src=\"").concat(author_image, "\" alt=\"Author image\" />\n                        <div class=\"author-info\">\n                            <div class=\"name\">\n                                <span>Answered by:</span>\n                                ").concat(author_name, "\n                            </div>\n                            <div class=\"job-title\">Job title</div>\n                        </div>\n                    </div>\n                </div>\n                <ul class=\"testimonial-categories\">\n                    ").concat(categories.map(function (category) {
+      return "\n            <div class=\"video-testimonial\">\n                <p>".concat(truncate(description, 35), "</p>\n                <div class=\"video\">\n                    <video muted loop class=\"testimonial-video\">\n                        <source src=\"").concat(video, "\">\n                    </video>\n                    <div class=\"buttons\">\n                        <button class=\"video-play-button\" data-open-index=").concat(index, ">\n                            <span class=\"fa-stack\" style=\"vertical-align: top;\">\n                                <i class=\"fas fa-circle fa-stack-2x\"></i>\n                                <i class=\"fal fa-play-circle fa-stack-1x\"></i>\n                            </span>\n                        </button>\n                    </div>\n                    <div class=\"about\">\n                        <img src=\"").concat(author_image, "\" alt=\"Author image\" />\n                        <div class=\"author-info\">\n                            <div class=\"name\">\n                                <span>Answered by:</span>\n                                ").concat(author_name, "\n                            </div>\n                            <div class=\"job-title\">Job title</div>\n                        </div>\n                    </div>\n                </div>\n                <ul class=\"testimonial-categories\">\n                    ").concat(categories.map(function (category) {
         return "<li><a href=\"".concat(category.link, "\">").concat(category.title, "</a></li>");
       }).join(''), "\n                </ul>\n            </div>\n            ");
     };

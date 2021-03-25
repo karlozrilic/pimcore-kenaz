@@ -13,7 +13,6 @@ Fields Summary:
 - featuredImage [image]
 - category [manyToManyObjectRelation]
 - tags [manyToManyObjectRelation]
-- featuredImageSmall [image]
 - SEO [objectbricks]
 - comments [manyToManyObjectRelation]
 - author [manyToOneRelation]
@@ -25,7 +24,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'post',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1614853762,
+   'modificationDate' => 1616666927,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -306,30 +305,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'visibleGridView' => false,
                  'visibleSearch' => false,
               )),
-              5 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
-                 'fieldtype' => 'image',
-                 'width' => '',
-                 'height' => '',
-                 'uploadPath' => '/posts',
-                 'queryColumnType' => 'int(11)',
-                 'columnType' => 'int(11)',
-                 'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
-                 'name' => 'featuredImageSmall',
-                 'title' => 'featuredImageSmall',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'datatype' => 'data',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-              )),
             ),
              'locked' => false,
              'icon' => '',
@@ -496,7 +471,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'mandatory' => true,
                  'noteditable' => false,
                  'index' => false,
-                 'locked' => NULL,
+                 'locked' => false,
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',

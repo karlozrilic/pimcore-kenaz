@@ -25,7 +25,7 @@
         <div class="video-testimonial">
             <p>{{ testemonial['description']|truncate(35, '...') }}</p>
             <div class="video">
-                <video autoplay muted loop playsinline class="testimonial-video">
+                <video muted loop playsinline class="testimonial-video" id="{{ loop.index }}">
                     <source src="{{ testemonial['video']|raw }}">
                 </video>
                 <div class="buttons">

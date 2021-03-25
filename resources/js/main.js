@@ -222,6 +222,15 @@ $(() => {
             videos[index].play();
         });
 
+        /* Play testemonial video only on hover */
+        $(testimonialsList).on("mouseenter", ".video-testimonial", (event) => {
+            $(event.currentTarget).find("video")[0].play();
+        });
+        $(testimonialsList).on("mouseleave", ".video-testimonial", (event) => {
+            $(event.currentTarget).find("video")[0].pause();
+            $(event.currentTarget).find("video")[0].currentTime = 0;
+        });
+
         $(modalContainer).on("click", ".modal-close", (event) => {
             const index = $(event.currentTarget).data("index");
             $(modals[index]).addClass("out");
@@ -238,9 +247,9 @@ $(() => {
                     setTimeout(() => {
                         videos[index].pause();
                         videos[index].currentTime = 0;
-                    }, 400)
+                    }, 400);
                 }
-            })
+            });
         });
 
         window.onpopstate = () => {
@@ -353,7 +362,7 @@ $(() => {
             <div class="video-testimonial">
                 <p>${truncate(description, 35)}</p>
                 <div class="video">
-                    <video autoplay muted loop class="testimonial-video">
+                    <video muted loop class="testimonial-video">
                         <source src="${video}">
                     </video>
                     <div class="buttons">

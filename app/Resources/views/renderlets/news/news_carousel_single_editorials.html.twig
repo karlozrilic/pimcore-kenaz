@@ -9,7 +9,7 @@
     <div class="articles editorials-slider">
     {% for post in news %}
         <a class="medium-article" href="{{ path(post) }}">
-            <img src="{{ post.getFeaturedImage }}" alt="Article image" />
+            <img src="{% if post.getFeaturedImage() %}{{ post.getFeaturedImage() }}{% else %}{{ document.getProperty('noImage') }}{% endif %}" alt="Article image" />
             <div class="article-date-and-views">
                 <p>{{ post.getPublishDate|date('F d, Y') }}</p>
             </div>

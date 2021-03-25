@@ -172,3 +172,26 @@
     background-color: $color;
     transition: all .3s cubic-bezier(.77, 0, .175, 1);
 }
+
+@mixin postDefault {
+    ul {
+        display: block;
+        list-style-type: disc;
+        margin-block-start: 1em;
+        margin-block-end: 1em;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+        padding-inline-start: 40px;
+        li {
+            display: list-item;
+            text-align: -webkit-match-parent;
+            list-style-type: disc;
+        }
+    }
+    a {
+        color: blue;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
