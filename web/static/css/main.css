@@ -856,8 +856,6 @@ video {
 .video-testimonial-modal .modal-content .content video {
   width: 100%;
   height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
   border-radius: 10px;
 }
 .video-testimonial-modal .modal-content .author {

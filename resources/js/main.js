@@ -402,7 +402,7 @@ $(() => {
                             ${description}
                         </h3>
                         <div class="content">
-                            <video controls disablepictureinpicture controlsList="nofullscreen nodownload" class="modal-video">
+                            <video controls disablepictureinpicture controlsList="nodownload" class="modal-video">
                                 <source src="${video}">
                             </video>
                         </div>
