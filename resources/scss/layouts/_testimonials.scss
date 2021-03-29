@@ -164,6 +164,14 @@
                         font-family: "Posterama Text";
                     }
                 }
+                .duration {
+                    position: absolute;
+                    top: 1em;
+                    left: 1em;
+                    background-color: rgba(0, 0, 0, 0.6);
+                    color: white;
+                    padding: 2px 5px 0;
+                }
             }
         }
     }

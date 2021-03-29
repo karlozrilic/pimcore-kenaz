@@ -20,7 +20,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'banner',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1614174955,
+   'modificationDate' => 1616999373,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',

@@ -284,6 +284,7 @@ $(() => {
                 $(testimonialsList).empty();
                 data.video_testimonials.forEach((testimonial, index) => {
                     $(testimonialsList).append(maketestimonialTemplate(testimonial, index));
+                    console.log(testimonial);
                     $(modalContainer).append(makeTestemonialModalTemplate(testimonial, index));
                 });
 
@@ -357,7 +358,7 @@ $(() => {
             */
         };
 
-        const maketestimonialTemplate = ({author_name, author_image, description, video, categories}, index) => {
+        const maketestimonialTemplate = ({author_name, author_image, author_job_position, description, video, categories, video_settings: { duration }}, index) => {
             return `
             <div class="video-testimonial">
                 <p>${truncate(description, 35)}</p>
@@ -365,6 +366,9 @@ $(() => {
                     <video muted loop class="testimonial-video">
                         <source src="${video}">
                     </video>
+                    <div class="duration">
+                        ${secondsToMinutes(Math.floor(duration))}
+                    </div>
                     <div class="buttons">
                         <button class="video-play-button" data-open-index=${index}>
                             <span class="fa-stack" style="vertical-align: top;">
@@ -380,7 +384,7 @@ $(() => {
                                 <span>Answered by:</span>
                                 ${author_name}
                             </div>
-                            <div class="job-title">Job title</div>
+                            <div class="job-title">${author_job_position}</div>
                         </div>
                     </div>
                 </div>
@@ -393,7 +397,7 @@ $(() => {
             `
         };
 
-        const makeTestemonialModalTemplate = ({author_name, author_surname, author_image, description, video, categories, video_settings}, index) => {
+        const makeTestemonialModalTemplate = ({author_name, author_surname, author_image, author_job_position, description, video, categories, video_settings}, index) => {
             return `
                 <div class="video-testimonial-modal out" data-index=${index}>
                     <div class="modal-content ${video_settings.videoWidth > video_settings.videoHeight ? "width" : "height"}">
@@ -413,7 +417,7 @@ $(() => {
                                     ${author_name}
                                     ${author_surname}
                                 </div>
-                                <div class="job-title">Job title</div>
+                                <div class="job-title">${author_job_position}</div>
                             </div>
                         </div>
                         <div class="modal-tags">
@@ -456,6 +460,15 @@ $(() => {
             }
             return trimmedString;
         };
+
+        const secondsToMinutes = (seconds) => {
+            seconds = Number(seconds);
+        
+            var m = Math.floor(seconds % 3600 / 60);
+            var s = Math.floor(seconds % 3600 % 60);
+        
+            return ('0' + m).slice(-2) + ":" + ('0' + s).slice(-2);
+        }
         
     }
 

@@ -93,6 +93,7 @@ class VideoTestimonialController extends FrontendController
                 'author_name' => $videoTestimonial->getAuthor()->getFirstName(),
                 'author_surname' => $videoTestimonial->getAuthor()->getLastName(),
                 'author_image' => "/authors/" . explode("/authors/", $videoTestimonial->getAuthor()->getProfileImage()->getThumbnail('authorImageTestimonial')->getFileSystemPath())[1],
+                'author_job_position' => $videoTestimonial->getAuthor()->getJobPosition(),
                 'description' => $videoTestimonial->getDescription(),
                 'video' => explode("/assets", $videoTestimonial->getVideo()->getData()->getFileSystemPath())[1],
                 'video_settings' => $videoTestimonial->getVideo()->getData()->getCustomSettings(),

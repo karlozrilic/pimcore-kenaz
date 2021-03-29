@@ -19,7 +19,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'videoTestimonial',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1616161152,
+   'modificationDate' => 1616768541,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',

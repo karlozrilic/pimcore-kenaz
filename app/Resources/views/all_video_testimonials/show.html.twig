@@ -28,6 +28,10 @@
                 <video muted loop playsinline class="testimonial-video" id="{{ loop.index }}">
                     <source src="{{ testemonial['video']|raw }}">
                 </video>
+                <div class="duration">
+                    {% set time = testemonial['video_settings'].duration|round(0, 'floor')|number_format(0, '.')  %}
+                    {{ time|date('G:s', '+00:00 GMT') }}
+                </div>
                 <div class="buttons">
                     <button class="video-play-button" data-open-index={{ loop.index - 1 }}>
                         <span class="fa-stack" style="vertical-align: top;">
@@ -43,7 +47,7 @@
                             <span>Answered by:</span>
                             {{ testemonial['author_name'] }}
                         </div>
-                        <div class="job-title">Job title</div>
+                        <div class="job-title">{{ testemonial['author_job_position'] }}</div>
                     </div>
                 </div>
             </div>
@@ -76,7 +80,7 @@
                             {{ testemonial['author_name'] }}
                             {{ testemonial['author_surname'] }}
                         </div>
-                        <div class="job-title">Job title</div>
+                        <div class="job-title">{{ testemonial['author_job_position'] }}</div>
                     </div>
                 </div>
                 <div class="modal-tags">

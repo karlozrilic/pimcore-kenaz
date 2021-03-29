@@ -2132,6 +2132,14 @@ header {
 .all-testimonials .testimonials-list .video-testimonial .video .about .author-info {
   font-family: "Posterama Text";
 }
+.all-testimonials .testimonials-list .video-testimonial .video .duration {
+  position: absolute;
+  top: 1em;
+  left: 1em;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 2px 5px 0;
+}
 
 .footer-title {
   /*

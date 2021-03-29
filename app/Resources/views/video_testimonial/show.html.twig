@@ -32,7 +32,7 @@
                         <span>Answered by:</span>
                         {{ el.getAuthor().getFirstName() }}
                     </div>
-                    <div class="job-title">Job title</div>
+                    <div class="job-title">{{ el.getAuthor().getJobPosition() }}</div>
                 </div>
             </div>
         </div>
@@ -63,7 +63,7 @@
                         <span>Answered by:</span>
                         {{ el.getAuthor().getFirstName() }}
                     </div>
-                    <div class="job-title">Job title</div>
+                    <div class="job-title">{{ el.getAuthor().getJobPosition() }}</div>
                 </div>
             </div>
         </div>
@@ -87,7 +87,7 @@
                         {{ el.getAuthor().getFirstName() }}
                         {{ el.getAuthor().getLastName() }}
                     </div>
-                    <div class="job-title">Job title</div>
+                    <div class="job-title">{{ el.getAuthor().getJobPosition() }}</div>
                 </div>
             </div>
             <div class="modal-tags">

@@ -10,6 +10,7 @@ Fields Summary:
 - lastName [input]
 - profileImage [image]
 - aboutAuthor [textarea]
+- jobPosition [input]
 */ 
 
 
@@ -18,7 +19,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'author',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1614174955,
+   'modificationDate' => 1617006447,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -176,6 +177,34 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'invisible' => false,
              'visibleGridView' => false,
              'visibleSearch' => false,
+          )),
+          4 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+             'fieldtype' => 'input',
+             'width' => NULL,
+             'defaultValue' => NULL,
+             'queryColumnType' => 'varchar',
+             'columnType' => 'varchar',
+             'columnLength' => 190,
+             'phpdocType' => 'string',
+             'regex' => '',
+             'unique' => false,
+             'showCharCount' => false,
+             'name' => 'jobPosition',
+             'title' => 'Job position',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'datatype' => 'data',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'defaultValueGenerator' => '',
           )),
         ),
          'locked' => false,
