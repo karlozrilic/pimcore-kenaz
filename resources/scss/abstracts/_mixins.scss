@@ -195,3 +195,147 @@
         }
     }
 }
+
+@mixin minimizedTestimonials {
+    &.minimized {
+        bottom: 0px;
+        width: 350px;
+        height: 100px;
+        .video-testimonial {
+            display: none;
+        }
+        .video-testimonial-minimized {
+            position: absolute;
+            top: 0;
+            width: 350px;
+            height: 56px;
+            display: none;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+            &.visible {
+                display: flex;
+            }
+            .description {
+                position: relative;
+                max-height: 56px;
+                height: fit-content;
+                width: 240px;
+                padding: 12px 14px;
+                background-color: $modalBckg;
+                border-radius: 5px;
+                p {
+                    color: $white;
+                    font-family: "Posterama Text";
+                    line-height: 1;
+                    font-weight: bold;
+                }
+                &::after {
+                    content: "";
+                    position: absolute;
+                    bottom: 15px;
+                    right: -6px;
+                    display: block;
+                    width: 0;
+                    border-style: solid;
+                    border-width: 6px 0 6px 6px;
+                    border-color: transparent $modalBckg;
+                }
+                
+            }
+            .video-and-controls {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                position: relative;
+                width: 110px;
+                height: fit-content;
+                .control-buttons {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: flex-end;
+                    align-content: center;
+                    align-items: center;
+                    max-height: 24px;
+                    //z-index: 1;
+                    position: absolute;
+                    top: -25px;
+                    right: 0;
+                    button {
+                        background-color: $white;
+                        border-radius: 50%;
+                        padding: 10px;
+                        border: .8px solid black;
+                        width: 20px;
+                        height: 20px;
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        justify-content: center;
+                        i {
+                            color: black;
+                        }
+                        &:hover {
+                            opacity: 0.8;
+                        }
+                    }
+                    .maximize-testimonial {
+                        font-size: 2em;
+                    }
+                    .close-testimonial {
+                        font-size: 1.4em;
+                        margin-left: 5px;
+                    }
+                }
+                .video {
+                    position: relative;
+                    overflow: hidden;
+                    border-radius: 100%;
+                    width: 56px;
+                    height: 56px;
+                    &:after {
+                        display: none;
+                    }
+                    video {
+                        object-fit: cover;
+                        transform: scale(1.2);
+                        width: 100%;
+                        height: 100%;
+                    }
+                    .buttons {
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        width: fit-content;
+                        height: fit-content;
+                        .video-play-button-minimized {
+                            background-color: transparent;
+                            border: none;
+                            .fa-stack {
+                                height: 24px;
+                            }
+                            .fa-circle {
+                                color: $white;
+                                font-size: 1.5rem;
+                            }
+                            .fa-play-circle {
+                                font-size: 1.5rem;
+                                line-height: 1;
+                                border-radius: 50px;
+                                color: $factoryBlue;
+                                transition: all .3s ease-in-out;
+                                &:hover {
+                                    color: $factoryRed;
+                                }
+                            }
+                        }
+                    }
+                    .about {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,6 +1,6 @@
 .testimonials {
     position: fixed;
-    top: calc(100% - 450px);
+    bottom: 50px;
     right: 1em;
     width: 220px;
     height: 400px;
@@ -8,12 +8,16 @@
     flex-direction: column;
     align-items: center;
     z-index: 1;
+    @include minimizedTestimonials();
+    .video-testimonial-minimized {
+        display: none;
+    }
     .video-testimonial {
         position: absolute;
         top: 0;
         width: 220px;
-        height: 360px;
-        background-color: #253342;
+        height: 380px; // 360px
+        background-color: $modalBckg;
         color: $white;
         padding: 20px;
         border-radius: 10px;
@@ -41,14 +45,38 @@
             top: 20px;
             transform: scale(0.8, 1);
         }
-        p {
-            color: $white;
-            /*
-            font-family: "Varela Round";
-            */
-            font-family: "Posterama Text";
-            line-height: 1;
-            font-weight: bold;
+        .control-buttons {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            align-content: center;
+            align-items: center;
+            max-height: 24px;
+            button {
+                border: none;
+                background-color: transparent;
+                padding-left: 10px;
+                i {
+                    color: white;
+                }
+            }
+            .minimize-testimonial {
+                font-size: 1.8em;
+            }
+            .close-testimonial {
+                font-size: 1.2em;
+            }
+        }
+        .description {
+            p {
+                color: $white;
+                /*
+                font-family: "Varela Round";
+                */
+                font-family: "Posterama Text";
+                line-height: 1;
+                font-weight: bold;
+            }
         }
         .video {
             position: relative;

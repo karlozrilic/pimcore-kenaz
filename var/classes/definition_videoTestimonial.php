@@ -11,6 +11,7 @@ Fields Summary:
 - localizedfields [localizedfields]
 -- description [textarea]
 -- category [manyToManyObjectRelation]
+- verticalVideo [booleanSelect]
 */ 
 
 
@@ -19,7 +20,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'videoTestimonial',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1616768541,
+   'modificationDate' => 1617012763,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -235,6 +236,49 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'invisible' => false,
              'visibleGridView' => true,
              'visibleSearch' => true,
+          )),
+          3 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+             'fieldtype' => 'booleanSelect',
+             'yesLabel' => 'yes',
+             'noLabel' => 'no',
+             'emptyLabel' => 'empty',
+             'options' => 
+            array (
+              0 => 
+              array (
+                'key' => 'empty',
+                'value' => 0,
+              ),
+              1 => 
+              array (
+                'key' => 'yes',
+                'value' => 1,
+              ),
+              2 => 
+              array (
+                'key' => 'no',
+                'value' => -1,
+              ),
+            ),
+             'width' => '',
+             'queryColumnType' => 'tinyint(1) null',
+             'columnType' => 'tinyint(1) null',
+             'phpdocType' => 'bool',
+             'name' => 'verticalVideo',
+             'title' => 'Vertical video',
+             'tooltip' => 'Check if video is vertical',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'datatype' => 'data',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
           )),
         ),
          'locked' => false,

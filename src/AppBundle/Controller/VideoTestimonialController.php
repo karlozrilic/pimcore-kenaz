@@ -97,6 +97,7 @@ class VideoTestimonialController extends FrontendController
                 'description' => $videoTestimonial->getDescription(),
                 'video' => explode("/assets", $videoTestimonial->getVideo()->getData()->getFileSystemPath())[1],
                 'video_settings' => $videoTestimonial->getVideo()->getData()->getCustomSettings(),
+                'is_video_vertical' => $videoTestimonial->getVerticalVideo(),
                 'categories' => $this->getCat($videoTestimonial->getCategory())
             ];
         }

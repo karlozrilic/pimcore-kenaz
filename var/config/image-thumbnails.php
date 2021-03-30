@@ -179,7 +179,7 @@ return [
         "preserveMetaData" => FALSE,
         "rasterizeSVG" => FALSE,
         "downloadable" => FALSE,
-        "modificationDate" => 1616158754,
+        "modificationDate" => 1617013152,
         "creationDate" => 1616158742,
         "forcePictureTag" => FALSE,
         "id" => "authorImageTestimonial"

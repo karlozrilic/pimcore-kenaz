@@ -43,14 +43,20 @@
 <div class="testimonials">
     {% for el in array %}
     <div class="video-testimonial tab-{{ loop.index  }} z-ind-{{ loop.index }}">
-        <p>{{ el.getDescription("en")|truncate(35, '...') }}</p>
+        <div class="control-buttons">
+            <button class="minimize-testimonial"><i class="fal fa-angle-down"></i></button>
+            <button class="close-testimonial"><i class="fal fa-times"></i></button>
+        </div>
+        <div class="description">
+            <p>{{ el.getDescription("en")|truncate(35, '...') }}</p>
+        </div>
         <div class="video">
             <video {% if loop.index == 1 %}autoplay{% endif %} muted loop class="testimonial-video">
                 <source src="{{ el.getVideo().getData()|raw }}">
             </video>
             <div class="buttons">
                 <button class="video-play-button">
-                    <span class="fa-stack" style="vertical-align: top;">
+                    <span class="fa-stack" style="vertical-align: middle;">
                         <i class="fas fa-circle fa-stack-2x"></i>
                         <i class="fal fa-play-circle fa-stack-1x"></i>
                     </span>
@@ -68,9 +74,45 @@
             </div>
         </div>
     </div>
+
+    <div class="video-testimonial-minimized {% if loop.index == 1 %}visible{% endif %}">
+        <div class="description">
+            <p>{{ el.getDescription("en")|truncate(35, '...') }}</p>
+        </div>
+        <div class="video-and-controls">
+            <div class="control-buttons">
+                <button class="maximize-testimonial"><i class="fal fa-angle-up"></i></button>
+                <button class="close-testimonial"><i class="fal fa-times"></i></button>
+            </div>
+            <div class="video">
+                <video {% if loop.index == 1 %}autoplay{% endif %} muted loop class="testimonial-video-minimized">
+                    <source src="{{ el.getVideo().getData()|raw }}">
+                </video>
+                <div class="buttons">
+                    <button class="video-play-button-minimized">
+                        <span class="fa-stack" style="vertical-align: middle;">
+                            <i class="fas fa-circle fa-stack-2x"></i>
+                            <i class="fal fa-play-circle fa-stack-1x"></i>
+                        </span>
+                    </button>
+                </div>
+                <div class="about">
+                    <img src="{% if el.getAuthor().getProfileImage() %}{{ el.getAuthor().getProfileImage().getThumbnail('authorImageTestimonial') }}{% else %}{{ document.getProperty('noImage').getThumbnail('authorImageTestimonial') }}{% endif %}" alt="Author image" />
+                    <div class="author-info">
+                        <div class="name">
+                            <span>Answered by:</span>
+                            {{ el.getAuthor().getFirstName() }}
+                        </div>
+                        <div class="job-title">{{ el.getAuthor().getJobPosition() }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
     <div class="video-testimonial-modal out">
-        {% set customSettings = el.getVideo().getData().getCustomSettings() %}
-        <div class="modal-content {% if customSettings['videoWidth'] > customSettings['videoHeight'] %}width{% else %}height{% endif %}">
+        <div class="modal-content {% if el.getVerticalVideo() %}height{% else %}width{% endif %}">
             <button class="close modal-close"><i class="material-icons">close</i></button>
             <h3 class="description">
                 {{ el.getDescription("en") }}

@@ -636,7 +636,7 @@ video {
 
 .testimonials {
   position: fixed;
-  top: calc(100% - 450px);
+  bottom: 50px;
   right: 1em;
   width: 220px;
   height: 400px;
@@ -645,11 +645,162 @@ video {
   align-items: center;
   z-index: 1;
 }
+.testimonials.minimized {
+  bottom: 0px;
+  width: 350px;
+  height: 100px;
+}
+.testimonials.minimized .video-testimonial {
+  display: none;
+}
+.testimonials.minimized .video-testimonial-minimized {
+  position: absolute;
+  top: 0;
+  width: 350px;
+  height: 56px;
+  display: none;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+.testimonials.minimized .video-testimonial-minimized.visible {
+  display: flex;
+}
+.testimonials.minimized .video-testimonial-minimized .description {
+  position: relative;
+  max-height: 56px;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  width: 240px;
+  padding: 12px 14px;
+  background-color: #253342;
+  border-radius: 5px;
+}
+.testimonials.minimized .video-testimonial-minimized .description p {
+  color: #FFFFFF;
+  font-family: "Posterama Text";
+  line-height: 1;
+  font-weight: bold;
+}
+.testimonials.minimized .video-testimonial-minimized .description::after {
+  content: "";
+  position: absolute;
+  bottom: 15px;
+  right: -6px;
+  display: block;
+  width: 0;
+  border-style: solid;
+  border-width: 6px 0 6px 6px;
+  border-color: transparent #253342;
+}
+.testimonials.minimized .video-testimonial-minimized .video-and-controls {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  position: relative;
+  width: 110px;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+.testimonials.minimized .video-testimonial-minimized .video-and-controls .control-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-content: center;
+  align-items: center;
+  max-height: 24px;
+  position: absolute;
+  top: -25px;
+  right: 0;
+}
+.testimonials.minimized .video-testimonial-minimized .video-and-controls .control-buttons button {
+  background-color: #FFFFFF;
+  border-radius: 50%;
+  padding: 10px;
+  border: 0.8px solid black;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.testimonials.minimized .video-testimonial-minimized .video-and-controls .control-buttons button i {
+  color: black;
+}
+.testimonials.minimized .video-testimonial-minimized .video-and-controls .control-buttons button:hover {
+  opacity: 0.8;
+}
+.testimonials.minimized .video-testimonial-minimized .video-and-controls .control-buttons .maximize-testimonial {
+  font-size: 2em;
+}
+.testimonials.minimized .video-testimonial-minimized .video-and-controls .control-buttons .close-testimonial {
+  font-size: 1.4em;
+  margin-left: 5px;
+}
+.testimonials.minimized .video-testimonial-minimized .video-and-controls .video {
+  position: relative;
+  overflow: hidden;
+  border-radius: 100%;
+  width: 56px;
+  height: 56px;
+}
+.testimonials.minimized .video-testimonial-minimized .video-and-controls .video:after {
+  display: none;
+}
+.testimonials.minimized .video-testimonial-minimized .video-and-controls .video video {
+  -o-object-fit: cover;
+     object-fit: cover;
+  transform: scale(1.2);
+  width: 100%;
+  height: 100%;
+}
+.testimonials.minimized .video-testimonial-minimized .video-and-controls .video .buttons {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+.testimonials.minimized .video-testimonial-minimized .video-and-controls .video .buttons .video-play-button-minimized {
+  background-color: transparent;
+  border: none;
+}
+.testimonials.minimized .video-testimonial-minimized .video-and-controls .video .buttons .video-play-button-minimized .fa-stack {
+  height: 24px;
+}
+.testimonials.minimized .video-testimonial-minimized .video-and-controls .video .buttons .video-play-button-minimized .fa-circle {
+  color: #FFFFFF;
+  font-size: 1.5rem;
+}
+.testimonials.minimized .video-testimonial-minimized .video-and-controls .video .buttons .video-play-button-minimized .fa-play-circle {
+  font-size: 1.5rem;
+  line-height: 1;
+  border-radius: 50px;
+  color: #003da6;
+  transition: all 0.3s ease-in-out;
+}
+.testimonials.minimized .video-testimonial-minimized .video-and-controls .video .buttons .video-play-button-minimized .fa-play-circle:hover {
+  color: #fe1375;
+}
+.testimonials.minimized .video-testimonial-minimized .video-and-controls .video .about {
+  display: none;
+}
+.testimonials .video-testimonial-minimized {
+  display: none;
+}
 .testimonials .video-testimonial {
   position: absolute;
   top: 0;
   width: 220px;
-  height: 360px;
+  height: 380px;
   background-color: #253342;
   color: #FFFFFF;
   padding: 20px;
@@ -679,7 +830,29 @@ video {
   top: 20px;
   transform: scale(0.8, 1);
 }
-.testimonials .video-testimonial p {
+.testimonials .video-testimonial .control-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-content: center;
+  align-items: center;
+  max-height: 24px;
+}
+.testimonials .video-testimonial .control-buttons button {
+  border: none;
+  background-color: transparent;
+  padding-left: 10px;
+}
+.testimonials .video-testimonial .control-buttons button i {
+  color: white;
+}
+.testimonials .video-testimonial .control-buttons .minimize-testimonial {
+  font-size: 1.8em;
+}
+.testimonials .video-testimonial .control-buttons .close-testimonial {
+  font-size: 1.2em;
+}
+.testimonials .video-testimonial .description p {
   color: #FFFFFF;
   /*
   font-family: "Varela Round";

@@ -30,7 +30,11 @@
                 </video>
                 <div class="duration">
                     {% set time = testemonial['video_settings'].duration|round(0, 'floor')|number_format(0, '.')  %}
-                    {{ time|date('G:s', '+00:00 GMT') }}
+                    {% if testemonial['video_settings'].duration|round(0, 'floor') >= 60 %}
+                        {{ time|date('G:s') }}
+                    {% else %}
+                        {{ time|date('G:s', '+00:00 GMT') }}
+                    {% endif %}
                 </div>
                 <div class="buttons">
                     <button class="video-play-button" data-open-index={{ loop.index - 1 }}>
@@ -62,8 +66,7 @@
     <div class="testemonial-modals">
         {% for testemonial in videoTestimonials  %}
         <div class="video-testimonial-modal out" data-index={{ loop.index - 1 }}>
-            {% set customSettings = testemonial['video_settings'] %}
-            <div class="modal-content {% if customSettings['videoWidth'] > customSettings['videoHeight'] %}width{% else %}height{% endif %}">
+            <div class="modal-content {% if testemonial['is_video_vertical'] %}height{% else %}width{% endif %}">
                 <button class="close modal-close" data-index={{ loop.index - 1 }}><i class="material-icons">close</i></button>
                 <h3 class="description">
                     {{ testemonial['description'] }}

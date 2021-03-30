@@ -1953,32 +1953,75 @@ $(function () {
 
   if (categoryPage.exists() || postPage.exists() && numberOftestimonials > 0) {
     var interval;
+    var minimized = false;
+    var minimisedByUser = false;
     var intervalDelay = 5000;
-    var isIntervalRunning = false;
+    var testimonialsContainer = $(".testimonials");
+    var modals = $(".video-testimonial-modal");
+    var modalsClose = $(".modal-close");
+    var openModals = $(".video-play-button");
+    var openModalsMin = $(".video-play-button-minimized");
+    var videos = $(".modal-video");
+    var minimizeTestimonials = $(".minimize-testimonial");
+    var maximizeTestimonials = $(".maximize-testimonial");
+    var closeTestimonials = $(".close-testimonial");
+    var testimonials = $('.video-testimonial');
+    var testimonialVideos = $(".testimonial-video");
 
-    if (numberOftestimonials > 1) {
-      $(window).focus(function () {
-        clearInterval(interval);
+    if ($(window).width() <= 960) {
+      $(maximizeTestimonials).css("display", "none");
 
-        if (!isIntervalRunning) {
-          interval = setInterval(intervalFunction, intervalDelay);
-        }
-      }).blur(function () {
+      if (!minimized) {
+        $(testimonialsContainer).addClass("minimized");
+        minimized = true;
         clearInterval(interval);
-        isIntervalRunning = false;
-      }).ready(function () {
-        clearInterval(interval);
-
-        if (!isIntervalRunning) {
-          interval = setInterval(intervalFunction, intervalDelay);
-        }
-      });
+        interval = setInterval(intervalFunctionMinimized, intervalDelay);
+      }
     }
+    /*
+    setInterval(() => {
+        console.log(minimized)
+    }, 1000)
+    */
+
+
+    $(window).resize(function () {
+      testimonials = $('.video-testimonial');
+      testimonialVideos = $(".testimonial-video");
+
+      if ($(window).width() <= 960) {
+        $(maximizeTestimonials).css("display", "none");
+
+        if (!minimized) {
+          minimize();
+        }
+      } else {
+        $(maximizeTestimonials).removeAttr("style");
+
+        if (minimized && !minimisedByUser) {
+          maximize();
+        }
+      }
+    });
+    $(window).focus(function () {
+      clearInterval(interval);
+
+      if (numberOftestimonials > 1) {
+        interval = minimized ? setInterval(intervalFunctionMinimized, intervalDelay) : setInterval(intervalFunction, intervalDelay);
+      }
+    }).blur(function () {
+      clearInterval(interval);
+    }).ready(function () {
+      clearInterval(interval);
+
+      if (numberOftestimonials > 1) {
+        interval = minimized ? setInterval(intervalFunctionMinimized, intervalDelay) : setInterval(intervalFunction, intervalDelay);
+      }
+    });
 
     var intervalFunction = function intervalFunction() {
-      isIntervalRunning = true;
-      var testimonials = $('.video-testimonial');
-      var testimonialVideos = $(".testimonial-video");
+      testimonials = $('.video-testimonial');
+      testimonialVideos = $(".testimonial-video");
       $(testimonialVideos).each(function (index, element) {
         if (index == 1) {
           element.play();
@@ -1989,13 +2032,13 @@ $(function () {
           }, 2000);
         }
       });
-      $(testimonials).first().animate({
+      $(testimonials).first().stop().animate({
         top: "400px"
       }, {
         duration: 1000,
         queue: false,
         progress: function progress(animation, _progress, remainingMs) {
-          if (remainingMs <= 200) {
+          if (remainingMs <= 150) {
             $(testimonials).each(function (index, element) {
               $(element).removeClass("z-ind-".concat(index + 1)).addClass("z-ind-".concat(index == 0 ? numberOftestimonials : index));
             });
@@ -2024,10 +2067,11 @@ $(function () {
               });
             }
           });
+          $(testimonialsMin).first().insertAfter($(testimonialsMin).last());
           $(testimonials).first().insertAfter($(testimonials).last());
         }
       });
-      $(testimonials).eq(1).animate({
+      $(testimonials).eq(1).stop().animate({
         top: "0px"
       }, {
         duration: 1000,
@@ -2040,10 +2084,99 @@ $(function () {
       });
     };
 
-    var modals = $(".video-testimonial-modal");
-    var modalsClose = $(".modal-close");
-    var openModals = $(".video-play-button");
-    var videos = $(".modal-video");
+    var intervalFunctionMinimized = function intervalFunctionMinimized() {
+      var testimonialsMin = $('.video-testimonial-minimized');
+      var testimonialVideosMin = $(".testimonial-video-minimized");
+      $(testimonialVideosMin).each(function (index, element) {
+        if (index == 1) {
+          element.play();
+        } else {
+          setTimeout(function () {
+            element.pause();
+            element.currentTime = 0;
+          }, 2000);
+        }
+      });
+      $(testimonialsContainer).first().stop().animate({
+        bottom: "-150px"
+      }, {
+        duration: 1000,
+        done: function done() {
+          $(testimonialsMin).first().removeClass("visible");
+
+          if (numberOftestimonials > 2) {
+            $(testimonialsMin).eq(1).addClass("visible");
+          } else {
+            $(testimonialsMin).elast().addClass("visible");
+          }
+
+          $(testimonialsContainer).first().animate({
+            bottom: "0px"
+          }, {
+            duration: 1000,
+            done: function done() {
+              $(testimonials).first().insertAfter($(testimonials).last());
+              $(testimonialsMin).first().insertAfter($(testimonialsMin).last());
+              $(testimonialsContainer).removeAttr("style");
+            }
+          });
+        }
+      });
+    };
+
+    var minimize = function minimize() {
+      clearInterval(interval);
+      $(testimonialsContainer).stop().animate({
+        bottom: "-400px"
+      }, {
+        duration: 500,
+        done: function done() {
+          $(testimonialsContainer).addClass("minimized");
+          minimized = true;
+          $(testimonialsContainer).animate({
+            bottom: "0px"
+          }, {
+            duration: 1000,
+            done: function done() {
+              interval = setInterval(intervalFunctionMinimized, intervalDelay);
+            }
+          });
+        }
+      });
+    };
+
+    var maximize = function maximize() {
+      clearInterval(interval);
+      $(testimonialsContainer).stop().animate({
+        bottom: "-400px"
+      }, {
+        duration: 1000,
+        done: function done() {
+          $(testimonialsContainer).removeClass("minimized");
+          minimized = false;
+          $(testimonialsContainer).animate({
+            bottom: "50px"
+          }, {
+            duration: 500,
+            done: function done() {
+              interval = setInterval(intervalFunction, intervalDelay);
+            }
+          });
+        }
+      });
+    };
+
+    var closeTestemonials = function closeTestemonials() {
+      $(testimonialsContainer).stop().animate({
+        bottom: "-400px"
+      }, {
+        duration: 500,
+        done: function done() {
+          $(testimonialsContainer).css("display", "none");
+        }
+      });
+    };
+
     openModals.each(function (index, element) {
       $(element).on("click", function () {
         $(modals[index]).css("display", "block");
@@ -2051,12 +2184,38 @@ $(function () {
         videos[index].play();
       });
     });
+    openModalsMin.each(function (index, element) {
+      $(element).on("click", function () {
+        $(modals[index]).css("display", "block");
+        $(modals[index]).removeClass("out");
+        videos[index].play();
+      });
+    });
+    minimizeTestimonials.each(function (index, element) {
+      $(element).on("click", function () {
+        minimisedByUser = true;
+        minimize();
+      });
+    });
+    maximizeTestimonials.each(function (index, element) {
+      $(element).on("click", function () {
+        minimisedByUser = false;
+        maximize();
+      });
+    });
+    closeTestimonials.each(function (index, element) {
+      $(element).on("click", function () {
+        closeTestemonials();
+      });
+    });
     modalsClose.each(function (index, element) {
       $(element).on("click", function () {
         $(modals[index]).addClass("out");
+        videos[index].muted = true;
         setTimeout(function () {
           videos[index].pause();
           videos[index].currentTime = 0;
+          videos[index].muted = false;
         }, 400);
       });
     });
@@ -2064,9 +2223,11 @@ $(function () {
       modals.each(function (index, element) {
         if (event.target == element) {
           $(element).addClass("out");
+          videos[index].muted = true;
           setTimeout(function () {
             videos[index].pause();
             videos[index].currentTime = 0;
+            videos[index].muted = false;
           }, 400);
         }
       });
@@ -2108,20 +2269,24 @@ $(function () {
     $(modalContainer).on("click", ".modal-close", function (event) {
       var index = $(event.currentTarget).data("index");
       $(_modals[index]).addClass("out");
+      _videos[index].muted = true;
       setTimeout(function () {
         _videos[index].pause();
 
         _videos[index].currentTime = 0;
+        _videos[index].muted = false;
       }, 400);
     });
     $(window).on("click", function (event) {
       $(".video-testimonial-modal").each(function (index, element) {
         if (event.target == element) {
           $(element).addClass("out");
+          _videos[index].muted = true;
           setTimeout(function () {
             _videos[index].pause();
 
             _videos[index].currentTime = 0;
+            _videos[index].muted = false;
           }, 400);
         }
       });
@@ -2159,7 +2324,6 @@ $(function () {
         $(testimonialsList).empty();
         data.video_testimonials.forEach(function (testimonial, index) {
           $(testimonialsList).append(maketestimonialTemplate(testimonial, index));
-          console.log(testimonial);
           $(modalContainer).append(makeTestemonialModalTemplate(testimonial, index));
         });
         /*
@@ -2283,8 +2447,8 @@ $(function () {
           description = _ref3.description,
           video = _ref3.video,
           categories = _ref3.categories,
-          video_settings = _ref3.video_settings;
-      return "\n                <div class=\"video-testimonial-modal out\" data-index=".concat(index, ">\n                    <div class=\"modal-content ").concat(video_settings.videoWidth > video_settings.videoHeight ? "width" : "height", "\">\n                        <button class=\"close modal-close\" data-index=").concat(index, "><i class=\"material-icons\">close</i></button>\n                        <h3 class=\"description\">\n                            ").concat(description, "\n                        </h3>\n                        <div class=\"content\">\n                            <video controls disablepictureinpicture controlsList=\"nodownload\" class=\"modal-video\">\n                                <source src=\"").concat(video, "\">\n                            </video>\n                        </div>\n                        <div class=\"author\">\n                            <img src=\"").concat(author_image, "\" alt=\"Author image\" />\n                            <div class=\"author-info\">\n                                <div class=\"name\">\n                                    ").concat(author_name, "\n                                    ").concat(author_surname, "\n                                </div>\n                                <div class=\"job-title\">").concat(author_job_position, "</div>\n                            </div>\n                        </div>\n                        <div class=\"modal-tags\">\n                        ").concat(categories.map(function (category) {
+          is_video_vertical = _ref3.is_video_vertical;
+      return "\n                <div class=\"video-testimonial-modal out\" data-index=".concat(index, ">\n                    <div class=\"modal-content ").concat(is_video_vertical ? "height" : "width", "\">\n                        <button class=\"close modal-close\" data-index=").concat(index, "><i class=\"material-icons\">close</i></button>\n                        <h3 class=\"description\">\n                            ").concat(description, "\n                        </h3>\n                        <div class=\"content\">\n                            <video controls disablepictureinpicture controlsList=\"nodownload\" class=\"modal-video\">\n                                <source src=\"").concat(video, "\">\n                            </video>\n                        </div>\n                        <div class=\"author\">\n                            <img src=\"").concat(author_image, "\" alt=\"Author image\" />\n                            <div class=\"author-info\">\n                                <div class=\"name\">\n                                    ").concat(author_name, "\n                                    ").concat(author_surname, "\n                                </div>\n                                <div class=\"job-title\">").concat(author_job_position, "</div>\n                            </div>\n                        </div>\n                        <div class=\"modal-tags\">\n                        ").concat(categories.map(function (category) {
         return "<a class=\"tag-pill\" href=\"".concat(category.link, "\">").concat(category.title, "</a>");
       }).join(''), "\n                        </div>\n                    </div>\n                </div>\n            ");
     };

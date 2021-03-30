@@ -79,31 +79,73 @@ $(() => {
     }
     if (categoryPage.exists() || postPage.exists() && numberOftestimonials > 0) {
         let interval;
+        let minimized = false;
+        let minimisedByUser = false;
         const intervalDelay = 5000;
-        let isIntervalRunning = false;
+        const testimonialsContainer = $(".testimonials");
 
-        if (numberOftestimonials > 1) {
-            $(window).focus(() => {
+        const modals = $(".video-testimonial-modal");
+        const modalsClose = $(".modal-close");
+        const openModals = $(".video-play-button");
+        const openModalsMin = $(".video-play-button-minimized")
+        const videos = $(".modal-video");
+        const minimizeTestimonials = $(".minimize-testimonial");
+        const maximizeTestimonials = $(".maximize-testimonial");
+        const closeTestimonials = $(".close-testimonial");
+
+        let testimonials = $('.video-testimonial');
+        let testimonialVideos = $(".testimonial-video");
+
+        if ($(window).width() <= 960) {
+            $(maximizeTestimonials).css("display", "none");
+            if (!minimized) {
+                $(testimonialsContainer).addClass("minimized");
+                minimized = true;
                 clearInterval(interval);
-                if (!isIntervalRunning) {
-                    interval = setInterval(intervalFunction, intervalDelay);
-                }
-            }).blur(() => {
-                clearInterval(interval);
-                isIntervalRunning = false;
-            }).ready(() => {
-                clearInterval(interval);
-                if (!isIntervalRunning) {
-                    interval = setInterval(intervalFunction, intervalDelay);
-                }
-            })
+                interval = setInterval(intervalFunctionMinimized, intervalDelay);
+            }
         }
 
-        const intervalFunction = () => {
-            isIntervalRunning = true;
-            const testimonials = $('.video-testimonial');
-            const testimonialVideos = $(".testimonial-video");
+        /*
+        setInterval(() => {
+            console.log(minimized)
+        }, 1000)
+        */
 
+        $(window).resize(() => {
+            testimonials = $('.video-testimonial');
+            testimonialVideos = $(".testimonial-video");
+            if ($(window).width() <= 960) {
+                $(maximizeTestimonials).css("display", "none");
+                if (!minimized) {
+                    minimize();
+                }
+            } else {
+                $(maximizeTestimonials).removeAttr("style");
+                if (minimized && !minimisedByUser) {
+                    maximize();
+                }
+            }
+        });
+
+        $(window).focus(() => {
+            clearInterval(interval);
+            if (numberOftestimonials > 1) {
+                interval = minimized ? setInterval(intervalFunctionMinimized, intervalDelay) : setInterval(intervalFunction, intervalDelay);
+            }
+        }).blur(() => {
+            clearInterval(interval);
+        }).ready(() => {
+            clearInterval(interval);
+            if (numberOftestimonials > 1) {
+                interval = minimized ? setInterval(intervalFunctionMinimized, intervalDelay) : setInterval(intervalFunction, intervalDelay);
+            }
+        })
+
+        const intervalFunction = () => {
+            testimonials = $('.video-testimonial');
+            testimonialVideos = $(".testimonial-video");
+            
             $(testimonialVideos).each((index, element) => {
                 if (index == 1) {
                     element.play();
@@ -113,15 +155,15 @@ $(() => {
                         element.currentTime = 0;
                     }, 2000)
                 }
-            })
+            });
 
-            $(testimonials).first().animate({
+            $(testimonials).first().stop().animate({
                 top: "400px"
             }, {
                 duration: 1000,
                 queue: false,
                 progress: (animation, progress, remainingMs) => {
-                    if (remainingMs <= 200) {
+                    if (remainingMs <= 150) {
                         $(testimonials).each((index, element) => {
                             $(element).removeClass(`z-ind-${index+1}`).addClass(`z-ind-${index == 0 ? numberOftestimonials : index}`);
                         });
@@ -146,11 +188,14 @@ $(() => {
                                 $(element).removeAttr("style");
                             });
                         }
-                    })
+                    });
+
+                    $(testimonialsMin).first().insertAfter($(testimonialsMin).last());
+
                     $(testimonials).first().insertAfter($(testimonials).last());
                 }
-            })
-            $(testimonials).eq(1).animate({
+            });
+            $(testimonials).eq(1).stop().animate({
                 top: "0px"
             }, {
                 duration: 1000,
@@ -163,39 +208,160 @@ $(() => {
             })
         };
 
-        const modals = $(".video-testimonial-modal");
-        const modalsClose = $(".modal-close");
-        const openModals = $(".video-play-button");
-        const videos = $(".modal-video");
+        const intervalFunctionMinimized = () => {
+            const testimonialsMin = $('.video-testimonial-minimized');
+            const testimonialVideosMin = $(".testimonial-video-minimized");
+        
+            $(testimonialVideosMin).each((index, element) => {
+                if (index == 1) {
+                    element.play();
+                } else {
+                    setTimeout(() => {
+                        element.pause();
+                        element.currentTime = 0;
+                    }, 2000)
+                }
+            });
+
+            $(testimonialsContainer).first().stop().animate({
+                bottom: "-150px"
+            }, {
+                duration: 1000,
+                done: () => {
+                    $(testimonialsMin).first().removeClass("visible");
+                    if (numberOftestimonials > 2) {
+                        $(testimonialsMin).eq(1).addClass("visible");
+                    } else {
+                        $(testimonialsMin).elast().addClass("visible");
+                    }
+                    $(testimonialsContainer).first().animate({
+                        bottom: "0px"
+                    }, {
+                        duration: 1000,
+                        done: () => {
+                            $(testimonials).first().insertAfter($(testimonials).last());
+
+                            $(testimonialsMin).first().insertAfter($(testimonialsMin).last());
+                            $(testimonialsContainer).removeAttr("style");
+                        }
+                    })
+                }
+            });
+        };
+
+        const minimize = () => {
+            clearInterval(interval);
+            $(testimonialsContainer).stop().animate({
+                bottom: "-400px"
+            }, {
+                duration: 500,
+                done: () => {
+                    $(testimonialsContainer).addClass("minimized");
+                    minimized = true;
+                    $(testimonialsContainer).animate({
+                        bottom: "0px"
+                    }, {
+                        duration: 1000,
+                        done: () => {
+                            interval = setInterval(intervalFunctionMinimized, intervalDelay);
+                        }
+                    });
+                }
+            });
+        };
+
+        const maximize = () => {
+            clearInterval(interval);
+            $(testimonialsContainer).stop().animate({
+                bottom: "-400px"
+            }, {
+                duration: 1000,
+                done: () => {
+                    $(testimonialsContainer).removeClass("minimized");
+                    minimized = false;
+                    $(testimonialsContainer).animate({
+                        bottom: "50px"
+                    }, {
+                        duration: 500,
+                        done: () => {
+                            interval = setInterval(intervalFunction, intervalDelay);
+                        }
+                    });
+                }
+            });
+        };
+
+        const closeTestemonials = () => {
+            $(testimonialsContainer).stop().animate({
+                bottom: "-400px"
+            }, {
+                duration: 500,
+                done: () => {
+                    $(testimonialsContainer).css("display", "none");
+                }
+            });
+        };
 
         openModals.each((index, element) => {
             $(element).on("click", () => {
                 $(modals[index]).css("display", "block");
                 $(modals[index]).removeClass("out");
                 videos[index].play();
-            })
+            });
+        });
+
+        openModalsMin.each((index, element) => {
+            $(element).on("click", () => {
+                $(modals[index]).css("display", "block");
+                $(modals[index]).removeClass("out");
+                videos[index].play();
+            });
+        });
+
+        minimizeTestimonials.each((index, element) => {
+            $(element).on("click", () => {
+                minimisedByUser = true;
+                minimize();
+            });
+        });
+
+        maximizeTestimonials.each((index, element) => {
+            $(element).on("click", () => {
+                minimisedByUser = false;
+                maximize();
+            });
+        })
+
+        closeTestimonials.each((index, element) => {
+            $(element).on("click", () => {
+                closeTestemonials();
+            });
         });
 
         modalsClose.each((index, element) => {
             $(element).on("click", () => {
                 $(modals[index]).addClass("out");
+                videos[index].muted = true;
                 setTimeout(() => {
                     videos[index].pause();
                     videos[index].currentTime = 0;
+                    videos[index].muted = false;
                 }, 400)
-            })
+            });
         });
 
         $(window).on("click", (event) => {
             modals.each((index, element) => {
                 if (event.target == element) {
                     $(element).addClass("out");
+                    videos[index].muted = true;
                     setTimeout(() => {
                         videos[index].pause();
                         videos[index].currentTime = 0;
+                        videos[index].muted = false;
                     }, 400)
                 }
-            })
+            });
         });
     }
     if (testimonialsPage.exists()) {
@@ -234,9 +400,11 @@ $(() => {
         $(modalContainer).on("click", ".modal-close", (event) => {
             const index = $(event.currentTarget).data("index");
             $(modals[index]).addClass("out");
+            videos[index].muted = true;
             setTimeout(() => {
                 videos[index].pause();
                 videos[index].currentTime = 0;
+                videos[index].muted = false;
             }, 400);
         });
 
@@ -244,9 +412,11 @@ $(() => {
             $(".video-testimonial-modal").each((index, element) => {
                 if (event.target == element) {
                     $(element).addClass("out");
+                    videos[index].muted = true;
                     setTimeout(() => {
                         videos[index].pause();
                         videos[index].currentTime = 0;
+                        videos[index].muted = false;
                     }, 400);
                 }
             });
@@ -284,7 +454,6 @@ $(() => {
                 $(testimonialsList).empty();
                 data.video_testimonials.forEach((testimonial, index) => {
                     $(testimonialsList).append(maketestimonialTemplate(testimonial, index));
-                    console.log(testimonial);
                     $(modalContainer).append(makeTestemonialModalTemplate(testimonial, index));
                 });
 
@@ -397,10 +566,10 @@ $(() => {
             `
         };
 
-        const makeTestemonialModalTemplate = ({author_name, author_surname, author_image, author_job_position, description, video, categories, video_settings}, index) => {
+        const makeTestemonialModalTemplate = ({author_name, author_surname, author_image, author_job_position, description, video, categories, is_video_vertical}, index) => {
             return `
                 <div class="video-testimonial-modal out" data-index=${index}>
-                    <div class="modal-content ${video_settings.videoWidth > video_settings.videoHeight ? "width" : "height"}">
+                    <div class="modal-content ${is_video_vertical ? "height" : "width" }">
                         <button class="close modal-close" data-index=${index}><i class="material-icons">close</i></button>
                         <h3 class="description">
                             ${description}
