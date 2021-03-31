@@ -81,6 +81,7 @@ $(() => {
         let interval;
         let minimized = false;
         let minimisedByUser = false;
+        let closed = false;
         const intervalDelay = 5000;
         const testimonialsContainer = $(".testimonials");
 
@@ -117,12 +118,12 @@ $(() => {
             testimonialVideos = $(".testimonial-video");
             if ($(window).width() <= 960) {
                 $(maximizeTestimonials).css("display", "none");
-                if (!minimized) {
+                if (!minimized && !closed) {
                     minimize();
                 }
             } else {
                 $(maximizeTestimonials).removeAttr("style");
-                if (minimized && !minimisedByUser) {
+                if (minimized && !minimisedByUser && !closed) {
                     maximize();
                 }
             }
@@ -130,14 +131,15 @@ $(() => {
 
         $(window).focus(() => {
             clearInterval(interval);
-            if (numberOftestimonials > 1) {
+            if (numberOftestimonials > 1 && !closed) {
                 interval = minimized ? setInterval(intervalFunctionMinimized, intervalDelay) : setInterval(intervalFunction, intervalDelay);
             }
         }).blur(() => {
+            console.log("blured");
             clearInterval(interval);
         }).ready(() => {
             clearInterval(interval);
-            if (numberOftestimonials > 1) {
+            if (numberOftestimonials > 1 && !closed) {
                 interval = minimized ? setInterval(intervalFunctionMinimized, intervalDelay) : setInterval(intervalFunction, intervalDelay);
             }
         })
@@ -163,7 +165,7 @@ $(() => {
                 duration: 1000,
                 queue: false,
                 progress: (animation, progress, remainingMs) => {
-                    if (remainingMs <= 150) {
+                    if (remainingMs <= 200) {
                         $(testimonials).each((index, element) => {
                             $(element).removeClass(`z-ind-${index+1}`).addClass(`z-ind-${index == 0 ? numberOftestimonials : index}`);
                         });
@@ -189,8 +191,6 @@ $(() => {
                             });
                         }
                     });
-
-                    $(testimonialsMin).first().insertAfter($(testimonialsMin).last());
 
                     $(testimonials).first().insertAfter($(testimonials).last());
                 }
@@ -232,7 +232,7 @@ $(() => {
                     if (numberOftestimonials > 2) {
                         $(testimonialsMin).eq(1).addClass("visible");
                     } else {
-                        $(testimonialsMin).elast().addClass("visible");
+                        $(testimonialsMin).last().addClass("visible");
                     }
                     $(testimonialsContainer).first().animate({
                         bottom: "0px"
@@ -263,7 +263,7 @@ $(() => {
                     }, {
                         duration: 1000,
                         done: () => {
-                            interval = setInterval(intervalFunctionMinimized, intervalDelay);
+                            changeInterval(intervalFunctionMinimized);
                         }
                     });
                 }
@@ -284,7 +284,7 @@ $(() => {
                     }, {
                         duration: 500,
                         done: () => {
-                            interval = setInterval(intervalFunction, intervalDelay);
+                            changeInterval(intervalFunction);
                         }
                     });
                 }
@@ -292,6 +292,7 @@ $(() => {
         };
 
         const closeTestemonials = () => {
+            closed = true;
             $(testimonialsContainer).stop().animate({
                 bottom: "-400px"
             }, {
@@ -300,6 +301,12 @@ $(() => {
                     $(testimonialsContainer).css("display", "none");
                 }
             });
+        };
+
+        const changeInterval = (intervalFunc) => {
+            if (numberOftestimonials > 1 && !closed) {
+                interval = setInterval(intervalFunc, intervalDelay);
+            }
         };
 
         openModals.each((index, element) => {

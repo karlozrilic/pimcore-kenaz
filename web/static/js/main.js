@@ -1955,6 +1955,7 @@ $(function () {
     var interval;
     var minimized = false;
     var minimisedByUser = false;
+    var closed = false;
     var intervalDelay = 5000;
     var testimonialsContainer = $(".testimonials");
     var modals = $(".video-testimonial-modal");
@@ -1992,13 +1993,13 @@ $(function () {
       if ($(window).width() <= 960) {
         $(maximizeTestimonials).css("display", "none");
 
-        if (!minimized) {
+        if (!minimized && !closed) {
           minimize();
         }
       } else {
         $(maximizeTestimonials).removeAttr("style");
 
-        if (minimized && !minimisedByUser) {
+        if (minimized && !minimisedByUser && !closed) {
           maximize();
         }
       }
@@ -2006,15 +2007,16 @@ $(function () {
     $(window).focus(function () {
       clearInterval(interval);
 
-      if (numberOftestimonials > 1) {
+      if (numberOftestimonials > 1 && !closed) {
         interval = minimized ? setInterval(intervalFunctionMinimized, intervalDelay) : setInterval(intervalFunction, intervalDelay);
       }
     }).blur(function () {
+      console.log("blured");
       clearInterval(interval);
     }).ready(function () {
       clearInterval(interval);
 
-      if (numberOftestimonials > 1) {
+      if (numberOftestimonials > 1 && !closed) {
         interval = minimized ? setInterval(intervalFunctionMinimized, intervalDelay) : setInterval(intervalFunction, intervalDelay);
       }
     });
@@ -2038,7 +2040,7 @@ $(function () {
         duration: 1000,
         queue: false,
         progress: function progress(animation, _progress, remainingMs) {
-          if (remainingMs <= 150) {
+          if (remainingMs <= 200) {
             $(testimonials).each(function (index, element) {
               $(element).removeClass("z-ind-".concat(index + 1)).addClass("z-ind-".concat(index == 0 ? numberOftestimonials : index));
             });
@@ -2067,7 +2069,6 @@ $(function () {
               });
             }
           });
-          $(testimonialsMin).first().insertAfter($(testimonialsMin).last());
           $(testimonials).first().insertAfter($(testimonials).last());
         }
       });
@@ -2107,7 +2108,7 @@ $(function () {
           if (numberOftestimonials > 2) {
             $(testimonialsMin).eq(1).addClass("visible");
           } else {
-            $(testimonialsMin).elast().addClass("visible");
+            $(testimonialsMin).last().addClass("visible");
           }
 
           $(testimonialsContainer).first().animate({
@@ -2138,7 +2139,7 @@ $(function () {
           }, {
             duration: 1000,
             done: function done() {
-              interval = setInterval(intervalFunctionMinimized, intervalDelay);
+              changeInterval(intervalFunctionMinimized);
             }
           });
         }
@@ -2159,7 +2160,7 @@ $(function () {
           }, {
             duration: 500,
             done: function done() {
-              interval = setInterval(intervalFunction, intervalDelay);
+              changeInterval(intervalFunction);
             }
           });
         }
@@ -2167,6 +2168,7 @@ $(function () {
     };
 
     var closeTestemonials = function closeTestemonials() {
+      closed = true;
       $(testimonialsContainer).stop().animate({
         bottom: "-400px"
       }, {
@@ -2175,6 +2177,12 @@ $(function () {
           $(testimonialsContainer).css("display", "none");
         }
       });
+    };
+
+    var changeInterval = function changeInterval(intervalFunc) {
+      if (numberOftestimonials > 1 && !closed) {
+        interval = setInterval(intervalFunc, intervalDelay);
+      }
     };
 
     openModals.each(function (index, element) {
