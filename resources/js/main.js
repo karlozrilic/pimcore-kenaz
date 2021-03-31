@@ -80,7 +80,7 @@ $(() => {
     if (categoryPage.exists() || postPage.exists() && numberOftestimonials > 0) {
         let interval;
         let minimized = false;
-        let minimisedByUser = false;
+        let minimizedByUser = false;
         let closed = false;
         const intervalDelay = 5000;
         const testimonialsContainer = $(".testimonials");
@@ -123,7 +123,7 @@ $(() => {
                 }
             } else {
                 $(maximizeTestimonials).removeAttr("style");
-                if (minimized && !minimisedByUser && !closed) {
+                if (minimized && !minimizedByUser && !closed) {
                     maximize();
                 }
             }
@@ -327,14 +327,14 @@ $(() => {
 
         minimizeTestimonials.each((index, element) => {
             $(element).on("click", () => {
-                minimisedByUser = true;
+                minimizedByUser = true;
                 minimize();
             });
         });
 
         maximizeTestimonials.each((index, element) => {
             $(element).on("click", () => {
-                minimisedByUser = false;
+                minimizedByUser = false;
                 maximize();
             });
         })

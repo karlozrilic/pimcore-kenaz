@@ -1954,7 +1954,7 @@ $(function () {
   if (categoryPage.exists() || postPage.exists() && numberOftestimonials > 0) {
     var interval;
     var minimized = false;
-    var minimisedByUser = false;
+    var minimizedByUser = false;
     var closed = false;
     var intervalDelay = 5000;
     var testimonialsContainer = $(".testimonials");
@@ -1999,7 +1999,7 @@ $(function () {
       } else {
         $(maximizeTestimonials).removeAttr("style");
 
-        if (minimized && !minimisedByUser && !closed) {
+        if (minimized && !minimizedByUser && !closed) {
           maximize();
         }
       }
@@ -2201,13 +2201,13 @@ $(function () {
     });
     minimizeTestimonials.each(function (index, element) {
       $(element).on("click", function () {
-        minimisedByUser = true;
+        minimizedByUser = true;
         minimize();
       });
     });
     maximizeTestimonials.each(function (index, element) {
       $(element).on("click", function () {
-        minimisedByUser = false;
+        minimizedByUser = false;
         maximize();
       });
     });
