@@ -2347,6 +2347,9 @@ header {
 .all-testimonials .page-list .pages .page-button:hover::after {
   width: 50%;
 }
+.all-testimonials .page-list .pages .page-button.active::after {
+  width: 50%;
+}
 
 .footer-title {
   /*

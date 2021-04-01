@@ -404,7 +404,6 @@ $(() => {
             $(pageButtons).each((index, element) => {
                 $(element).removeClass("active");
             });
-            $(event.currentTarget).addClass("active");
             handleFilterChange(filterList, pageNumber);
         });
 
@@ -494,7 +493,7 @@ $(() => {
 
                 $(pageButtons).empty();
                 for (let el = 1; el <= data.number_of_pages; el++) {
-                    $(pageButtons).append(pageNumbersTemplate(el));
+                    $(pageButtons).append(pageNumbersTemplate(el, page));
                 }
 
                 $(filters).empty();
@@ -647,9 +646,9 @@ $(() => {
             */
         };
 
-        const pageNumbersTemplate = (numberOfPage) => {
+        const pageNumbersTemplate = (numberOfPage, currentPageNumber) => {
             return `
-                <button class="page-button" data-page-number=${numberOfPage}>${numberOfPage}</button>
+                <button class="page-button ${currentPageNumber === numberOfPage ? "active" : ""}" data-page-number=${numberOfPage}>${numberOfPage}</button>
             `
         }
 

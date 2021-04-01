@@ -200,6 +200,11 @@
                         width: 50%;
                     }
                 }
+                &.active {
+                    &::after {
+                        width: 50%;
+                    }
+                }
             }
         }
     }

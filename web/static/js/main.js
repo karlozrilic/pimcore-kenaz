@@ -2273,7 +2273,6 @@ $(function () {
       $(pageButtons).each(function (index, element) {
         $(element).removeClass("active");
       });
-      $(event.currentTarget).addClass("active");
       handleFilterChange(filterList, pageNumber);
     });
     /* Play testemonial video only on hover */
@@ -2364,7 +2363,7 @@ $(function () {
         $(pageButtons).empty();
 
         for (var el = 1; el <= data.number_of_pages; el++) {
-          $(pageButtons).append(pageNumbersTemplate(el));
+          $(pageButtons).append(pageNumbersTemplate(el, page));
         }
 
         $(filters).empty();
@@ -2502,8 +2501,8 @@ $(function () {
       */
     };
 
-    var pageNumbersTemplate = function pageNumbersTemplate(numberOfPage) {
-      return "\n                <button class=\"page-button\" data-page-number=".concat(numberOfPage, ">").concat(numberOfPage, "</button>\n            ");
+    var pageNumbersTemplate = function pageNumbersTemplate(numberOfPage, currentPageNumber) {
+      return "\n                <button class=\"page-button ".concat(currentPageNumber === numberOfPage ? "active" : "", "\" data-page-number=").concat(numberOfPage, ">").concat(numberOfPage, "</button>\n            ");
     };
 
     var truncate = function truncate(string, length) {
