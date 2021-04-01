@@ -556,7 +556,7 @@ $(() => {
         const maketestimonialTemplate = ({author_name, author_image, author_job_position, description, video, categories, video_settings: { duration }}, index) => {
             return `
             <div class="video-testimonial">
-                <p>${truncate(description, 35)}</p>
+                <p>${description.length > 35 ? truncate(description, 35) : description}</p>
                 <div class="video">
                     <video muted loop class="testimonial-video">
                         <source src="${video}">
@@ -656,8 +656,14 @@ $(() => {
             let trimmedString = "";
             if (string.length > trimmedString.length) {
                 trimmedString = string.substr(0, length);
+                const spaceIndex = string.replace(trimmedString, "").indexOf(" ");
 
-                trimmedString += string.substr(trimmedString.length, string.replace(trimmedString, "").indexOf(" ")) + "...";
+                if (spaceIndex < 0) {
+                    trimmedString = string;
+                } else {
+                    trimmedString += string.substr(trimmedString.length, spaceIndex) + "...";
+                }
+
             }
             return trimmedString;
         };

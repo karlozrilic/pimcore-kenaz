@@ -43,6 +43,7 @@ class AllVideoTestimonialsController extends FrontendController
         $this->view->categoriesData = $data['categoriesData'];
         $this->view->filterCategories = $data['filterCategories'];
         $this->view->numberOfPages = $data['numberOfPages'];
+        $this->view->currentPageNumber = $data['currentPageNumber'];
     }
 
 }

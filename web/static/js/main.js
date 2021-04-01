@@ -2468,7 +2468,7 @@ $(function () {
           video = _ref2.video,
           categories = _ref2.categories,
           duration = _ref2.video_settings.duration;
-      return "\n            <div class=\"video-testimonial\">\n                <p>".concat(truncate(description, 35), "</p>\n                <div class=\"video\">\n                    <video muted loop class=\"testimonial-video\">\n                        <source src=\"").concat(video, "\">\n                    </video>\n                    <div class=\"duration\">\n                        ").concat(secondsToMinutes(Math.floor(duration)), "\n                    </div>\n                    <div class=\"buttons\">\n                        <button class=\"video-play-button\" data-open-index=").concat(index, ">\n                            <span class=\"fa-stack\" style=\"vertical-align: top;\">\n                                <i class=\"fas fa-circle fa-stack-2x\"></i>\n                                <i class=\"fal fa-play-circle fa-stack-1x\"></i>\n                            </span>\n                        </button>\n                    </div>\n                    <div class=\"about\">\n                        <img src=\"").concat(author_image, "\" alt=\"Author image\" />\n                        <div class=\"author-info\">\n                            <div class=\"name\">\n                                <span>Answered by:</span>\n                                ").concat(author_name, "\n                            </div>\n                            <div class=\"job-title\">").concat(author_job_position, "</div>\n                        </div>\n                    </div>\n                </div>\n                <ul class=\"testimonial-categories\">\n                    ").concat(categories.map(function (category) {
+      return "\n            <div class=\"video-testimonial\">\n                <p>".concat(description.length > 35 ? truncate(description, 35) : description, "</p>\n                <div class=\"video\">\n                    <video muted loop class=\"testimonial-video\">\n                        <source src=\"").concat(video, "\">\n                    </video>\n                    <div class=\"duration\">\n                        ").concat(secondsToMinutes(Math.floor(duration)), "\n                    </div>\n                    <div class=\"buttons\">\n                        <button class=\"video-play-button\" data-open-index=").concat(index, ">\n                            <span class=\"fa-stack\" style=\"vertical-align: top;\">\n                                <i class=\"fas fa-circle fa-stack-2x\"></i>\n                                <i class=\"fal fa-play-circle fa-stack-1x\"></i>\n                            </span>\n                        </button>\n                    </div>\n                    <div class=\"about\">\n                        <img src=\"").concat(author_image, "\" alt=\"Author image\" />\n                        <div class=\"author-info\">\n                            <div class=\"name\">\n                                <span>Answered by:</span>\n                                ").concat(author_name, "\n                            </div>\n                            <div class=\"job-title\">").concat(author_job_position, "</div>\n                        </div>\n                    </div>\n                </div>\n                <ul class=\"testimonial-categories\">\n                    ").concat(categories.map(function (category) {
         return "<li><a href=\"".concat(category.link, "\">").concat(category.title, "</a></li>");
       }).join(''), "\n                </ul>\n            </div>\n            ");
     };
@@ -2510,7 +2510,13 @@ $(function () {
 
       if (string.length > trimmedString.length) {
         trimmedString = string.substr(0, length);
-        trimmedString += string.substr(trimmedString.length, string.replace(trimmedString, "").indexOf(" ")) + "...";
+        var spaceIndex = string.replace(trimmedString, "").indexOf(" ");
+
+        if (spaceIndex < 0) {
+          trimmedString = string;
+        } else {
+          trimmedString += string.substr(trimmedString.length, spaceIndex) + "...";
+        }
       }
 
       return trimmedString;

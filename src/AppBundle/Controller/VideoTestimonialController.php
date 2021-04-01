@@ -126,13 +126,15 @@ class VideoTestimonialController extends FrontendController
             $this->view->categoriesData = $categoriesData;
             $this->view->filterCategories = $filterCategories;
             $this->view->numberOfPages = $paginator->getPageRange();
+            $this->view->currentPageNumber = $paginator->getCurrentPageNumber();
         }
 
         return [
             'videoTestimonials' => $videoTestimonialsData,
             'categoriesData' => $categoriesData,
             'filterCategories' => $filterCategories,
-            'numberOfPages' => $paginator->getPageRange()
+            'numberOfPages' => $paginator->getPageRange(),
+            'currentPageNumber' => $paginator->getCurrentPageNumber()
         ];
     }
 
