@@ -2330,6 +2330,7 @@ header {
   margin: 4px;
   min-width: 40px;
   min-height: 40px;
+  border-radius: 10px;
 }
 .all-testimonials .page-list .pages .page-button::after {
   content: "";
