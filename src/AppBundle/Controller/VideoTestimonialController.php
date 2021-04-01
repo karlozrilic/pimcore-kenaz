@@ -10,6 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Pimcore\Model\DataObject\Category;
 use Symfony\Component\Routing\Annotation\Route;
+use Zend\Paginator\Paginator;
 
 class VideoTestimonialController extends FrontendController
 {
@@ -71,6 +72,8 @@ class VideoTestimonialController extends FrontendController
     {
         $locale = $request->getLocale();
         $filterCategories = $request->get('categories', []);
+        $pageNumber = $request->get('page', 1);
+        $limit = 6;
 
         $videoTestimonials = $this->videoTestimonialRepository->filterList([
             'categories' => $filterCategories,
@@ -87,8 +90,13 @@ class VideoTestimonialController extends FrontendController
 
         $videoTestimonialsData = [];
 
+        $paginator = new Paginator($videoTestimonials);
+        $paginator->setCurrentPageNumber($pageNumber);
+        $paginator->setItemCountPerPage($limit);
+        $paginator->setPageRange(ceil(count($videoTestimonials)/$limit));
+
         /** @var VideoTestimonial $videoTestimonial */
-        foreach ($videoTestimonials as $videoTestimonial) {
+        foreach ($paginator->getCurrentItems() as $videoTestimonial) {
             $videoTestimonialsData[] = [
                 'author_name' => $videoTestimonial->getAuthor()->getFirstName(),
                 'author_surname' => $videoTestimonial->getAuthor()->getLastName(),
@@ -108,7 +116,8 @@ class VideoTestimonialController extends FrontendController
             return $this->json([
                 'video_testimonials' => $videoTestimonialsData,
                 'categories_data' => $categoriesData,
-                'filter_categories' => $filterCategories
+                'filter_categories' => $filterCategories,
+                'number_of_pages' => $paginator->getPageRange()
             ]);
         }
         
@@ -116,12 +125,14 @@ class VideoTestimonialController extends FrontendController
             $this->view->videoTestimonials = $videoTestimonialsData;
             $this->view->categoriesData = $categoriesData;
             $this->view->filterCategories = $filterCategories;
+            $this->view->numberOfPages = $paginator->getPageRange();
         }
 
         return [
             'videoTestimonials' => $videoTestimonialsData,
             'categoriesData' => $categoriesData,
-            'filterCategories' => $filterCategories
+            'filterCategories' => $filterCategories,
+            'numberOfPages' => $paginator->getPageRange()
         ];
     }
 

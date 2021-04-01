@@ -103,74 +103,101 @@
             }
         }
     }
-    .testimonials-list {
+    .page-list {
         padding: 5px 0;
         width: 82%;
         display: flex;
-        flex-direction: row;
-        align-content: flex-start;
-        min-height: calc(100vh - 106px);
-        .video-testimonial {
-            height: fit-content;
-            width: 30%;
-            margin: 5px;
-            position: relative;
-            background-color: $white;
-            box-shadow: none;
-            border: 1px solid $darkWhite;
-            transition: all .3s ease-in-out;
-            &:hover {
-                box-shadow: 0 0 15px rgb(0 0 0 / 30%);
-            }
-            p {
-                color: $black;
-                font-family: "Posterama Text";
-                line-height: 1;
-                font-weight: bold;
-            }
-            .testimonial-categories {
-                padding-top: 15px;
-                li {
-                    display: inline-block;
-                    padding: 10px 2px;
-                    a {
-                        position: relative;
-                        color: $black;
-                        font-family: "Posterama Text";
-                        line-height: 1;
-                        font-weight: bold;
-                        padding-bottom: 5px;
-                        border: 1px solid $black;
-                        border-radius: 25px;
-                        padding: 8px 15px;
-                        &:hover {
-                            background-color: $factoryRed;
-                            border-color: $factoryRed;
-                            color: $white;
-                            &:after {
-                                width: calc(100% - calc(15px + 15px));
+        flex-direction: column;
+        .testimonials-list {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            align-content: flex-start;
+            min-height: calc(100vh - 106px);
+            .video-testimonial {
+                height: fit-content;
+                width: 30%;
+                margin: 5px;
+                position: relative;
+                background-color: $white;
+                box-shadow: none;
+                border: 1px solid $darkWhite;
+                transition: all .3s ease-in-out;
+                &:hover {
+                    box-shadow: 0 0 15px rgb(0 0 0 / 30%);
+                }
+                p {
+                    color: $black;
+                    font-family: "Posterama Text";
+                    line-height: 1;
+                    font-weight: bold;
+                }
+                .testimonial-categories {
+                    padding-top: 15px;
+                    li {
+                        display: inline-block;
+                        padding: 10px 2px;
+                        a {
+                            position: relative;
+                            color: $black;
+                            font-family: "Posterama Text";
+                            line-height: 1;
+                            font-weight: bold;
+                            padding-bottom: 5px;
+                            border: 1px solid $black;
+                            border-radius: 25px;
+                            padding: 8px 15px;
+                            &:hover {
+                                background-color: $factoryRed;
+                                border-color: $factoryRed;
+                                color: $white;
+                                &:after {
+                                    width: calc(100% - calc(15px + 15px));
+                                }
+                            }
+                            &::after {
+                                @include animatedUnderline($white);
+                                bottom: 3px;
                             }
                         }
-                        &::after {
-                            @include animatedUnderline($white);
-                            bottom: 3px;
+                    }
+                }
+                .video {
+                    .about {
+                        .author-info {
+                            font-family: "Posterama Text";
                         }
+                    }
+                    .duration {
+                        position: absolute;
+                        top: 1em;
+                        left: 1em;
+                        background-color: rgba(0, 0, 0, 0.6);
+                        color: white;
+                        padding: 2px 5px 0;
                     }
                 }
             }
-            .video {
-                .about {
-                    .author-info {
-                        font-family: "Posterama Text";
-                    }
+        }
+        .pages {
+            display: flex;
+            flex-direction: row;
+            .page-button {
+                position: relative;
+                border: none;
+                background-color: $factoryBlue;
+                color: $white;
+                margin: 4px;
+                min-width: 40px;
+                min-height: 40px;
+                &::after {
+                    @include animatedUnderline($factoryRed);
+                    bottom: 10px;
                 }
-                .duration {
-                    position: absolute;
-                    top: 1em;
-                    left: 1em;
-                    background-color: rgba(0, 0, 0, 0.6);
-                    color: white;
-                    padding: 2px 5px 0;
+                &:hover {
+                    &::after {
+                        width: 50%;
+                    }
                 }
             }
         }

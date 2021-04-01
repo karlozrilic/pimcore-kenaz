@@ -374,9 +374,13 @@ $(() => {
     if (testimonialsPage.exists()) {
 
         const filters = $(".filters");
+        const pageButtons = $(".pages");
         /*const filters = $(".filters :input");*/
         const testimonialsList = $(".testimonials-list");
-        let filterList = [];
+
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        let filterList = urlParams.getAll('categories[]');
 
         const modalContainer = $(".testemonial-modals");
 
@@ -393,6 +397,15 @@ $(() => {
             $(modals[index]).css("display", "block");
             $(modals[index]).removeClass("out");
             videos[index].play();
+        });
+
+        $(pageButtons).on("click", ".page-button", (event) => {
+            const pageNumber = $(event.currentTarget).data("page-number");
+            $(pageButtons).each((index, element) => {
+                $(element).removeClass("active");
+            });
+            $(event.currentTarget).addClass("active");
+            handleFilterChange(filterList, pageNumber);
         });
 
         /* Play testemonial video only on hover */
@@ -455,8 +468,8 @@ $(() => {
             }
         });
 
-        const handleFilterChange = (filterList) => {
-            filter(filterList).then((data) => {
+        const handleFilterChange = (filterList, page = 1) => {
+            filter(filterList, page).then((data) => {
                 $(modalContainer).empty();
                 $(testimonialsList).empty();
                 data.video_testimonials.forEach((testimonial, index) => {
@@ -479,6 +492,11 @@ $(() => {
                 });
                 */
 
+                $(pageButtons).empty();
+                for (let el = 1; el <= data.number_of_pages; el++) {
+                    $(pageButtons).append(pageNumbersTemplate(el));
+                }
+
                 $(filters).empty();
                 Object.entries(data.categories_data).forEach((category) => {
                     $(filters).append(maketestimonialFiltersTemplate(category, data.filter_categories));
@@ -487,11 +505,12 @@ $(() => {
             });
         };
 
-        const filter = async (filterList) => {
+        const filter = async (filterList, page = 1) => {
             const axiosOptions = {
                 params: {
                     json: true,
-                    categories: filterList
+                    categories: filterList,
+                    page: page
                 }
             };
             try {
@@ -502,7 +521,8 @@ $(() => {
                 const url = axios.getUri({
                     url: VIDEO_TESTIMONIALS_LIST_URL, 
                     params: {
-                        categories: filterList
+                        categories: filterList,
+                        page: page
                     }
                 });
                 const values = Object.values(response.data.filter_categories);
@@ -626,6 +646,12 @@ $(() => {
             `
             */
         };
+
+        const pageNumbersTemplate = (numberOfPage) => {
+            return `
+                <button class="page-button" data-page-number=${numberOfPage}>${numberOfPage}</button>
+            `
+        }
 
         const truncate = (string, length) => {
             let trimmedString = "";

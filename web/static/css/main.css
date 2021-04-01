@@ -2235,15 +2235,20 @@ header {
 .all-testimonials .filters-container .filters label {
   font-family: "Posterama Text";
 }
-.all-testimonials .testimonials-list {
+.all-testimonials .page-list {
   padding: 5px 0;
   width: 82%;
+  display: flex;
+  flex-direction: column;
+}
+.all-testimonials .page-list .testimonials-list {
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-content: flex-start;
   min-height: calc(100vh - 106px);
 }
-.all-testimonials .testimonials-list .video-testimonial {
+.all-testimonials .page-list .testimonials-list .video-testimonial {
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
@@ -2255,23 +2260,23 @@ header {
   border: 1px solid #F1F2F3;
   transition: all 0.3s ease-in-out;
 }
-.all-testimonials .testimonials-list .video-testimonial:hover {
+.all-testimonials .page-list .testimonials-list .video-testimonial:hover {
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
 }
-.all-testimonials .testimonials-list .video-testimonial p {
+.all-testimonials .page-list .testimonials-list .video-testimonial p {
   color: #000000;
   font-family: "Posterama Text";
   line-height: 1;
   font-weight: bold;
 }
-.all-testimonials .testimonials-list .video-testimonial .testimonial-categories {
+.all-testimonials .page-list .testimonials-list .video-testimonial .testimonial-categories {
   padding-top: 15px;
 }
-.all-testimonials .testimonials-list .video-testimonial .testimonial-categories li {
+.all-testimonials .page-list .testimonials-list .video-testimonial .testimonial-categories li {
   display: inline-block;
   padding: 10px 2px;
 }
-.all-testimonials .testimonials-list .video-testimonial .testimonial-categories li a {
+.all-testimonials .page-list .testimonials-list .video-testimonial .testimonial-categories li a {
   position: relative;
   color: #000000;
   font-family: "Posterama Text";
@@ -2282,15 +2287,15 @@ header {
   border-radius: 25px;
   padding: 8px 15px;
 }
-.all-testimonials .testimonials-list .video-testimonial .testimonial-categories li a:hover {
+.all-testimonials .page-list .testimonials-list .video-testimonial .testimonial-categories li a:hover {
   background-color: #fe1375;
   border-color: #fe1375;
   color: #FFFFFF;
 }
-.all-testimonials .testimonials-list .video-testimonial .testimonial-categories li a:hover:after {
+.all-testimonials .page-list .testimonials-list .video-testimonial .testimonial-categories li a:hover:after {
   width: calc(100% - calc(15px + 15px));
 }
-.all-testimonials .testimonials-list .video-testimonial .testimonial-categories li a::after {
+.all-testimonials .page-list .testimonials-list .video-testimonial .testimonial-categories li a::after {
   content: "";
   position: absolute;
   bottom: 0;
@@ -2302,16 +2307,44 @@ header {
   transition: all 0.3s cubic-bezier(0.77, 0, 0.175, 1);
   bottom: 3px;
 }
-.all-testimonials .testimonials-list .video-testimonial .video .about .author-info {
+.all-testimonials .page-list .testimonials-list .video-testimonial .video .about .author-info {
   font-family: "Posterama Text";
 }
-.all-testimonials .testimonials-list .video-testimonial .video .duration {
+.all-testimonials .page-list .testimonials-list .video-testimonial .video .duration {
   position: absolute;
   top: 1em;
   left: 1em;
   background-color: rgba(0, 0, 0, 0.6);
   color: white;
   padding: 2px 5px 0;
+}
+.all-testimonials .page-list .pages {
+  display: flex;
+  flex-direction: row;
+}
+.all-testimonials .page-list .pages .page-button {
+  position: relative;
+  border: none;
+  background-color: #003da6;
+  color: #FFFFFF;
+  margin: 4px;
+  min-width: 40px;
+  min-height: 40px;
+}
+.all-testimonials .page-list .pages .page-button::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 50%;
+  transform: translateX(50%);
+  width: 0;
+  height: 3px;
+  background-color: #fe1375;
+  transition: all 0.3s cubic-bezier(0.77, 0, 0.175, 1);
+  bottom: 10px;
+}
+.all-testimonials .page-list .pages .page-button:hover::after {
+  width: 50%;
 }
 
 .footer-title {

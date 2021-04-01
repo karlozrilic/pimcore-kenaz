@@ -2244,10 +2244,13 @@ $(function () {
 
   if (testimonialsPage.exists()) {
     var filters = $(".filters");
+    var pageButtons = $(".pages");
     /*const filters = $(".filters :input");*/
 
     var testimonialsList = $(".testimonials-list");
-    var filterList = [];
+    var queryString = window.location.search;
+    var urlParams = new URLSearchParams(queryString);
+    var filterList = urlParams.getAll('categories[]');
     var modalContainer = $(".testemonial-modals");
 
     var _modals = $(".video-testimonial-modal");
@@ -2264,6 +2267,14 @@ $(function () {
       $(_modals[index]).removeClass("out");
 
       _videos[index].play();
+    });
+    $(pageButtons).on("click", ".page-button", function (event) {
+      var pageNumber = $(event.currentTarget).data("page-number");
+      $(pageButtons).each(function (index, element) {
+        $(element).removeClass("active");
+      });
+      $(event.currentTarget).addClass("active");
+      handleFilterChange(filterList, pageNumber);
     });
     /* Play testemonial video only on hover */
 
@@ -2327,7 +2338,8 @@ $(function () {
     });
 
     var handleFilterChange = function handleFilterChange(filterList) {
-      filter(filterList).then(function (data) {
+      var page = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
+      filter(filterList, page).then(function (data) {
         $(modalContainer).empty();
         $(testimonialsList).empty();
         data.video_testimonials.forEach(function (testimonial, index) {
@@ -2349,6 +2361,12 @@ $(function () {
         });
         */
 
+        $(pageButtons).empty();
+
+        for (var el = 1; el <= data.number_of_pages; el++) {
+          $(pageButtons).append(pageNumbersTemplate(el));
+        }
+
         $(filters).empty();
         Object.entries(data.categories_data).forEach(function (category) {
           $(filters).append(maketestimonialFiltersTemplate(category, data.filter_categories));
@@ -2359,46 +2377,55 @@ $(function () {
 
     var filter = /*#__PURE__*/function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(filterList) {
-        var axiosOptions, response, data, url, values;
+        var page,
+            axiosOptions,
+            response,
+            data,
+            url,
+            values,
+            _args = arguments;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
+                page = _args.length > 1 && _args[1] !== undefined ? _args[1] : 1;
                 axiosOptions = {
                   params: {
                     json: true,
-                    categories: filterList
+                    categories: filterList,
+                    page: page
                   }
                 };
-                _context.prev = 1;
-                _context.next = 4;
+                _context.prev = 2;
+                _context.next = 5;
                 return axios__WEBPACK_IMPORTED_MODULE_1___default().get(VIDEO_TESTIMONIALS_BASE_URL, axiosOptions);
 
-              case 4:
+              case 5:
                 response = _context.sent;
-                _context.next = 7;
+                _context.next = 8;
                 return response.data;
 
-              case 7:
+              case 8:
                 data = _context.sent;
 
                 /* updating URL */
                 url = axios__WEBPACK_IMPORTED_MODULE_1___default().getUri({
                   url: VIDEO_TESTIMONIALS_LIST_URL,
                   params: {
-                    categories: filterList
+                    categories: filterList,
+                    page: page
                   }
                 });
                 values = Object.values(response.data.filter_categories);
                 window.history.pushState(values, "", url);
                 return _context.abrupt("return", data);
 
-              case 14:
-                _context.prev = 14;
-                _context.t0 = _context["catch"](1);
+              case 15:
+                _context.prev = 15;
+                _context.t0 = _context["catch"](2);
                 console.log(_context.t0);
 
-              case 17:
+              case 18:
                 ;
                 /*
                 return axios.get(VIDEO_TESTIMONIALS_BASE_URL, {
@@ -2421,12 +2448,12 @@ $(function () {
                 });
                 */
 
-              case 18:
+              case 19:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[1, 14]]);
+        }, _callee, null, [[2, 15]]);
       }));
 
       return function filter(_x) {
@@ -2473,6 +2500,10 @@ $(function () {
           <label for="${categoryName.toLowerCase()}">${categoryName}</label><br>
       `
       */
+    };
+
+    var pageNumbersTemplate = function pageNumbersTemplate(numberOfPage) {
+      return "\n                <button class=\"page-button\" data-page-number=".concat(numberOfPage, ">").concat(numberOfPage, "</button>\n            ");
     };
 
     var truncate = function truncate(string, length) {
