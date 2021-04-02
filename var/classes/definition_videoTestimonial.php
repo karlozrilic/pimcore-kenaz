@@ -11,7 +11,7 @@ Fields Summary:
 - localizedfields [localizedfields]
 -- description [textarea]
 -- category [manyToManyObjectRelation]
-- verticalVideo [booleanSelect]
+- verticalVideo [checkbox]
 */ 
 
 
@@ -20,7 +20,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'videoTestimonial',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1617012763,
+   'modificationDate' => 1617344239,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -238,32 +238,11 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'visibleSearch' => true,
           )),
           3 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
-             'fieldtype' => 'booleanSelect',
-             'yesLabel' => 'yes',
-             'noLabel' => 'no',
-             'emptyLabel' => 'empty',
-             'options' => 
-            array (
-              0 => 
-              array (
-                'key' => 'empty',
-                'value' => 0,
-              ),
-              1 => 
-              array (
-                'key' => 'yes',
-                'value' => 1,
-              ),
-              2 => 
-              array (
-                'key' => 'no',
-                'value' => -1,
-              ),
-            ),
-             'width' => '',
-             'queryColumnType' => 'tinyint(1) null',
-             'columnType' => 'tinyint(1) null',
+          Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+             'fieldtype' => 'checkbox',
+             'defaultValue' => 0,
+             'queryColumnType' => 'tinyint(1)',
+             'columnType' => 'tinyint(1)',
              'phpdocType' => 'bool',
              'name' => 'verticalVideo',
              'title' => 'Vertical video',
@@ -271,7 +250,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
-             'locked' => false,
+             'locked' => NULL,
              'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',
@@ -279,6 +258,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'invisible' => false,
              'visibleGridView' => false,
              'visibleSearch' => false,
+             'defaultValueGenerator' => '',
           )),
         ),
          'locked' => false,

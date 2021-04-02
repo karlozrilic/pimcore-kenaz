@@ -410,8 +410,8 @@ $(() => {
         /* Play testemonial video only on hover */
         $(testimonialsList).on("mouseenter", ".video-testimonial", (event) => {
             $(event.currentTarget).find("video")[0].play();
-        });
-        $(testimonialsList).on("mouseleave", ".video-testimonial", (event) => {
+        })
+        .on("mouseleave", ".video-testimonial", (event) => {
             $(event.currentTarget).find("video")[0].pause();
             $(event.currentTarget).find("video")[0].currentTime = 0;
         });

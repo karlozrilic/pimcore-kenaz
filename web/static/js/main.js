@@ -2279,8 +2279,7 @@ $(function () {
 
     $(testimonialsList).on("mouseenter", ".video-testimonial", function (event) {
       $(event.currentTarget).find("video")[0].play();
-    });
-    $(testimonialsList).on("mouseleave", ".video-testimonial", function (event) {
+    }).on("mouseleave", ".video-testimonial", function (event) {
       $(event.currentTarget).find("video")[0].pause();
       $(event.currentTarget).find("video")[0].currentTime = 0;
     });
