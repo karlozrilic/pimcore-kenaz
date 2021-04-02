@@ -2003,15 +2003,13 @@ $(function () {
           maximize();
         }
       }
-    });
-    $(window).focus(function () {
+    }).focus(function () {
       clearInterval(interval);
 
       if (numberOftestimonials > 1 && !closed) {
         interval = minimized ? setInterval(intervalFunctionMinimized, intervalDelay) : setInterval(intervalFunction, intervalDelay);
       }
     }).blur(function () {
-      console.log("blured");
       clearInterval(interval);
     }).ready(function () {
       clearInterval(interval);

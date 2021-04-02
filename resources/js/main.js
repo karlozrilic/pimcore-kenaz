@@ -127,22 +127,19 @@ $(() => {
                     maximize();
                 }
             }
-        });
-
-        $(window).focus(() => {
+        }).focus(() => {
             clearInterval(interval);
             if (numberOftestimonials > 1 && !closed) {
                 interval = minimized ? setInterval(intervalFunctionMinimized, intervalDelay) : setInterval(intervalFunction, intervalDelay);
             }
         }).blur(() => {
-            console.log("blured");
             clearInterval(interval);
         }).ready(() => {
             clearInterval(interval);
             if (numberOftestimonials > 1 && !closed) {
                 interval = minimized ? setInterval(intervalFunctionMinimized, intervalDelay) : setInterval(intervalFunction, intervalDelay);
             }
-        })
+        });
 
         const intervalFunction = () => {
             testimonials = $('.video-testimonial');
