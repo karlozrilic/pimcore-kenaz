@@ -1900,13 +1900,13 @@ var allVideoTestimonials = function allVideoTestimonials() {
     video.get(0).play();
   });
   var scrolledToBottom = false;
-  var currentPage = 2;
+  var currentPage = 1;
   $(window).scroll(function () {
     // End of the document reached?
     if ($(testimonialsList).position().top + $(testimonialsList).outerHeight(true) - $(this).height() <= $(this).scrollTop() && !scrolledToBottom) {
+      currentPage += 1;
       handleFilterChange(filterList, currentPage, true);
       scrolledToBottom = true;
-      currentPage += 1;
     }
   }).on("load", function () {
     $(previewVideos).each(function (index, element) {
@@ -1957,6 +1957,8 @@ var allVideoTestimonials = function allVideoTestimonials() {
   };
 
   $(filters).on("click", ".input", function (event) {
+    currentPage = 1;
+
     if (event.currentTarget.checked) {
       filterList.push($(event.currentTarget).val());
       handleFilterChange(filterList);
