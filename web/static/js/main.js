@@ -2246,8 +2246,7 @@ $(function () {
     /*const filters = $(".filters :input");*/
 
     var testimonialsList = $(".testimonials-list");
-    var queryString = window.location.search;
-    var urlParams = new URLSearchParams(queryString);
+    var urlParams = new URLSearchParams(window.location.search);
     var filterList = urlParams.getAll('categories[]');
     var modalContainer = $(".testemonial-modals");
 
@@ -2423,26 +2422,6 @@ $(function () {
 
               case 18:
                 ;
-                /*
-                return axios.get(VIDEO_TESTIMONIALS_BASE_URL, {
-                    params: {
-                        json: true,
-                        categories: filterList
-                    }
-                }).then((response) => {
-                    const url = axios.getUri({
-                        url: VIDEO_TESTIMONIALS_LIST_URL, 
-                        params: {
-                            categories: filterList
-                        }
-                    });
-                    const values = Object.values(response.data.filter_categories);
-                    window.history.pushState(values, "", url);
-                    return response.data
-                }).catch((error) => {
-                    console.log(error);
-                });
-                */
 
               case 19:
               case "end":
@@ -2490,12 +2469,6 @@ $(function () {
           categoryName = _ref5[1];
 
       return "\n                <label class=\"checkbox\">\n                    <span class=\"checkbox-input\">\n                        <input class=\"input\" type=\"checkbox\" name=\"".concat(categoryName.toLowerCase(), "\" id=\"").concat(categoryName.toLowerCase(), "\" value=").concat(categoryId, " ").concat(filterCategories.includes(categoryId) && "checked", ">\n                        <span class=\"checkbox-control\">\n                            <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' aria-hidden=\"true\" focusable=\"false\">\n                            <path fill='none' stroke='currentColor' stroke-width='3' d='M1.73 12.91l6.37 6.37L22.79 4.59' /></svg>\n                        </span>\n                    </span>\n                    <span class=\"radio-label\">").concat(categoryName, "</span>\n                </label>\n            ");
-      /*
-      return `
-          <input class="input" type="checkbox" id="${categoryName.toLowerCase()}" name="${categoryName.toLowerCase()}" value=${categoryId} ${filterCategories.includes(categoryId) && "checked"}>
-          <label for="${categoryName.toLowerCase()}">${categoryName}</label><br>
-      `
-      */
     };
 
     var pageNumbersTemplate = function pageNumbersTemplate(numberOfPage, currentPageNumber) {

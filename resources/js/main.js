@@ -375,8 +375,7 @@ $(() => {
         /*const filters = $(".filters :input");*/
         const testimonialsList = $(".testimonials-list");
 
-        const queryString = window.location.search;
-        const urlParams = new URLSearchParams(queryString);
+        const urlParams = new URLSearchParams(window.location.search);
         let filterList = urlParams.getAll('categories[]');
 
         const modalContainer = $(".testemonial-modals");
@@ -528,26 +527,6 @@ $(() => {
             } catch (error) {
                 console.log(error);
             };
-            /*
-            return axios.get(VIDEO_TESTIMONIALS_BASE_URL, {
-                params: {
-                    json: true,
-                    categories: filterList
-                }
-            }).then((response) => {
-                const url = axios.getUri({
-                    url: VIDEO_TESTIMONIALS_LIST_URL, 
-                    params: {
-                        categories: filterList
-                    }
-                });
-                const values = Object.values(response.data.filter_categories);
-                window.history.pushState(values, "", url);
-                return response.data
-            }).catch((error) => {
-                console.log(error);
-            });
-            */
         };
 
         const maketestimonialTemplate = ({author_name, author_image, author_job_position, description, video, categories, video_settings: { duration }}, index) => {
@@ -635,19 +614,13 @@ $(() => {
                     <span class="radio-label">${categoryName}</span>
                 </label>
             `
-            /*
-            return `
-                <input class="input" type="checkbox" id="${categoryName.toLowerCase()}" name="${categoryName.toLowerCase()}" value=${categoryId} ${filterCategories.includes(categoryId) && "checked"}>
-                <label for="${categoryName.toLowerCase()}">${categoryName}</label><br>
-            `
-            */
         };
 
         const pageNumbersTemplate = (numberOfPage, currentPageNumber) => {
             return `
                 <button class="page-button ${currentPageNumber === numberOfPage ? "active" : ""}" data-page-number=${numberOfPage}>${numberOfPage}</button>
             `
-        }
+        };
 
         const truncate = (string, length) => {
             let trimmedString = "";
@@ -672,7 +645,7 @@ $(() => {
             var s = Math.floor(seconds % 3600 % 60);
         
             return ('0' + m).slice(-2) + ":" + ('0' + s).slice(-2);
-        }
+        };
         
     }
 
