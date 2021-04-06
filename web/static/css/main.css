@@ -2359,9 +2359,9 @@ header {
   justify-content: center;
 }
 .all-testimonials .page-list .loading-container .loader {
-  border: 16px solid #f3f3f3;
+  border: 8px solid #f3f3f3;
   border-radius: 50%;
-  border-top: 16px solid #003da6;
+  border-top: 8px solid #003da6;
   width: 60px;
   height: 60px;
   -webkit-animation: spin 2s linear infinite;
