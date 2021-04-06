@@ -2246,8 +2246,7 @@ $(function () {
     /*const filters = $(".filters :input");*/
 
     var testimonialsList = $(".testimonials-list");
-    var queryString = window.location.search;
-    var urlParams = new URLSearchParams(queryString);
+    var urlParams = new URLSearchParams(window.location.search);
     var filterList = urlParams.getAll('categories[]');
     var modalContainer = $(".testemonial-modals");
 
