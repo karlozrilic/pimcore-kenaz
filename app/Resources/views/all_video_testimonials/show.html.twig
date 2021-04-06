@@ -26,7 +26,7 @@
             <div class="video-testimonial">
                 <p>{{ testemonial['description']|truncate(35, '...') }}</p>
                 <div class="video">
-                    <video muted loop playsinline class="testimonial-video" id="{{ loop.index }}">
+                    <video muted loop playsinline class="testimonial-video" id="{{ testemonial['testimonial_id']  }}">
                         <source src="{{ testemonial['video']|raw }}">
                     </video>
                     <div class="duration">
@@ -38,7 +38,7 @@
                         {% endif %}
                     </div>
                     <div class="buttons">
-                        <button class="video-play-button" data-open-index={{ loop.index - 1 }}>
+                        <button class="video-play-button" data-open-index={{ testemonial['testimonial_id'] }}>
                             <span class="fa-stack" style="vertical-align: top;">
                                 <i class="fas fa-circle fa-stack-2x"></i>
                                 <i class="fal fa-play-circle fa-stack-1x"></i>
@@ -64,22 +64,17 @@
             </div>
             {% endfor %}
         </div>
-        <div class="pages">
-            {% for i in range(1, numberOfPages) %}
-                <button class="page-button {% if i == currentPageNumber %}active{% endif %}" data-page-number={{ i }}>{{ i }}</button>
-            {% endfor %}
-        </div>
     </div>
     <div class="testemonial-modals">
         {% for testemonial in videoTestimonials  %}
-        <div class="video-testimonial-modal out" data-index={{ loop.index - 1 }}>
+        <div class="video-testimonial-modal out" data-index={{ testemonial['testimonial_id'] }}>
             <div class="modal-content {% if testemonial['is_video_vertical'] %}height{% else %}width{% endif %}">
-                <button class="close modal-close" data-index={{ loop.index - 1 }}><i class="material-icons">close</i></button>
+                <button class="close modal-close" data-close-index={{ testemonial['testimonial_id'] }}><i class="material-icons">close</i></button>
                 <h3 class="description">
                     {{ testemonial['description'] }}
                 </h3>
                 <div class="content">
-                    <video controls disablepictureinpicture controlsList="nodownload" class="modal-video">
+                    <video controls disablepictureinpicture controlsList="nodownload" class="modal-video" data-video-id={{ testemonial['testimonial_id'] }}>
                         <source src="{{ testemonial['video']|raw }}">
                     </video>
                 </div>

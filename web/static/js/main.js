@@ -2243,8 +2243,6 @@ $(function () {
   if (testimonialsPage.exists()) {
     var filters = $(".filters");
     var pageButtons = $(".pages");
-    /*const filters = $(".filters :input");*/
-
     var testimonialsList = $(".testimonials-list");
     var queryString = window.location.search;
     var urlParams = new URLSearchParams(queryString);
@@ -2261,18 +2259,33 @@ $(function () {
     });
     $(testimonialsList).on("click", ".video-play-button", function (event) {
       var index = $(event.currentTarget).data("open-index");
-      $(_modals[index]).css("display", "block");
-      $(_modals[index]).removeClass("out");
+      var modal = $(modalContainer).find("[data-index=".concat(index, "]"));
+      var video = $(modalContainer).find("[data-video-id=".concat(index, "]"));
+      $(modal).css("display", "block");
+      $(modal).removeClass("out");
+      console.log(video.get(0));
+      video.get(0).play();
+    });
+    var scrolledToBottom = false;
+    var currentPage = 2;
+    $(window).scroll(function () {
+      // End of the document reached?
+      if ($(testimonialsList).position().top + $(testimonialsList).outerHeight(true) - $(this).height() <= $(this).scrollTop() && !scrolledToBottom) {
+        handleFilterChange(filterList, currentPage, true);
+        scrolledToBottom = true;
+        currentPage += 1;
+      }
+    });
+    /*
+    $(pageButtons).on("click", ".page-button", (event) => {
+        const pageNumber = $(event.currentTarget).data("page-number");
+        $(pageButtons).each((index, element) => {
+            $(element).removeClass("active");
+        });
+        handleFilterChange(filterList, pageNumber);
+    });
+    */
 
-      _videos[index].play();
-    });
-    $(pageButtons).on("click", ".page-button", function (event) {
-      var pageNumber = $(event.currentTarget).data("page-number");
-      $(pageButtons).each(function (index, element) {
-        $(element).removeClass("active");
-      });
-      handleFilterChange(filterList, pageNumber);
-    });
     /* Play testemonial video only on hover */
 
     $(testimonialsList).on("mouseenter", ".video-testimonial", function (event) {
@@ -2282,14 +2295,15 @@ $(function () {
       $(event.currentTarget).find("video")[0].currentTime = 0;
     });
     $(modalContainer).on("click", ".modal-close", function (event) {
-      var index = $(event.currentTarget).data("index");
-      $(_modals[index]).addClass("out");
-      _videos[index].muted = true;
+      var index = $(event.currentTarget).data("close-index");
+      var modal = $(modalContainer).find("[data-index=".concat(index, "]"));
+      var video = $(modalContainer).find("[data-video-id=".concat(index, "]")).get(0);
+      $(modal).addClass("out");
+      video.muted = true;
       setTimeout(function () {
-        _videos[index].pause();
-
-        _videos[index].currentTime = 0;
-        _videos[index].muted = false;
+        video.pause();
+        video.currentTime = 0;
+        video.muted = false;
       }, 400);
     });
     $(window).on("click", function (event) {
@@ -2310,18 +2324,6 @@ $(function () {
     window.onpopstate = function () {
       location.reload();
     };
-    /*
-    $(filters).click((event) => {
-        if (event.target.checked) {
-            filterList.push($(event.target).val());
-            handleFilterChange(filterList);
-        } else {
-            filterList.splice(filterList.indexOf($(event.target).val()), 1);
-            handleFilterChange(filterList);
-        }
-    })
-    */
-
 
     $(filters).on("click", ".input", function (event) {
       if (event.currentTarget.checked) {
@@ -2335,39 +2337,25 @@ $(function () {
 
     var handleFilterChange = function handleFilterChange(filterList) {
       var page = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
+      var infiniteScroll = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
       filter(filterList, page).then(function (data) {
-        $(modalContainer).empty();
-        $(testimonialsList).empty();
-        data.video_testimonials.forEach(function (testimonial, index) {
-          $(testimonialsList).append(maketestimonialTemplate(testimonial, index));
-          $(modalContainer).append(makeTestemonialModalTemplate(testimonial, index));
-        });
-        /*
-        $(filters).each((index, filter) => {
-            const keysArray = Object.keys(data.categories_data);
-            if (keysArray.length === 0) {
-                $(filter).prop("disabled", false);
-            } else {
-                if (keysArray.includes($(filter).val())) {
-                    $(filter).prop("disabled", false);
-                } else {
-                    $(filter).prop("disabled", true);
-                }
-            }
-        });
-        */
-
-        $(pageButtons).empty();
-
-        for (var el = 1; el <= data.number_of_pages; el++) {
-          $(pageButtons).append(pageNumbersTemplate(el, page));
+        if (!infiniteScroll) {
+          $(modalContainer).empty();
+          $(testimonialsList).empty();
         }
 
-        $(filters).empty();
-        Object.entries(data.categories_data).forEach(function (category) {
-          $(filters).append(maketestimonialFiltersTemplate(category, data.filter_categories));
-        });
-        $(document).trigger("dataChanged");
+        if (data.number_of_pages >= page) {
+          data.video_testimonials.forEach(function (testimonial, index) {
+            $(testimonialsList).append(maketestimonialTemplate(testimonial));
+            $(modalContainer).append(makeTestemonialModalTemplate(testimonial));
+          });
+          $(filters).empty();
+          Object.entries(data.categories_data).forEach(function (category) {
+            $(filters).append(maketestimonialFiltersTemplate(category, data.filter_categories));
+          });
+          $(document).trigger("dataChanged");
+          scrolledToBottom = false;
+        }
       });
     };
 
@@ -2408,8 +2396,7 @@ $(function () {
                 url = axios__WEBPACK_IMPORTED_MODULE_1___default().getUri({
                   url: VIDEO_TESTIMONIALS_LIST_URL,
                   params: {
-                    categories: filterList,
-                    page: page
+                    categories: filterList
                   }
                 });
                 values = Object.values(response.data.filter_categories);
@@ -2437,21 +2424,23 @@ $(function () {
       };
     }();
 
-    var maketestimonialTemplate = function maketestimonialTemplate(_ref2, index) {
-      var author_name = _ref2.author_name,
+    var maketestimonialTemplate = function maketestimonialTemplate(_ref2) {
+      var testimonial_id = _ref2.testimonial_id,
+          author_name = _ref2.author_name,
           author_image = _ref2.author_image,
           author_job_position = _ref2.author_job_position,
           description = _ref2.description,
           video = _ref2.video,
           categories = _ref2.categories,
           duration = _ref2.video_settings.duration;
-      return "\n            <div class=\"video-testimonial\">\n                <p>".concat(description.length > 35 ? truncate(description, 35) : description, "</p>\n                <div class=\"video\">\n                    <video muted loop class=\"testimonial-video\">\n                        <source src=\"").concat(video, "\">\n                    </video>\n                    <div class=\"duration\">\n                        ").concat(secondsToMinutes(Math.floor(duration)), "\n                    </div>\n                    <div class=\"buttons\">\n                        <button class=\"video-play-button\" data-open-index=").concat(index, ">\n                            <span class=\"fa-stack\" style=\"vertical-align: top;\">\n                                <i class=\"fas fa-circle fa-stack-2x\"></i>\n                                <i class=\"fal fa-play-circle fa-stack-1x\"></i>\n                            </span>\n                        </button>\n                    </div>\n                    <div class=\"about\">\n                        <img src=\"").concat(author_image, "\" alt=\"Author image\" />\n                        <div class=\"author-info\">\n                            <div class=\"name\">\n                                <span>Answered by:</span>\n                                ").concat(author_name, "\n                            </div>\n                            <div class=\"job-title\">").concat(author_job_position, "</div>\n                        </div>\n                    </div>\n                </div>\n                <ul class=\"testimonial-categories\">\n                    ").concat(categories.map(function (category) {
+      return "\n            <div class=\"video-testimonial\">\n                <p>".concat(description.length > 35 ? truncate(description, 35) : description, "</p>\n                <div class=\"video\">\n                    <video muted loop playsinline class=\"testimonial-video\" id=").concat(testimonial_id, ">\n                        <source src=\"").concat(video, "\">\n                    </video>\n                    <div class=\"duration\">\n                        ").concat(secondsToMinutes(Math.floor(duration)), "\n                    </div>\n                    <div class=\"buttons\">\n                        <button class=\"video-play-button\" data-open-index=").concat(testimonial_id, ">\n                            <span class=\"fa-stack\" style=\"vertical-align: top;\">\n                                <i class=\"fas fa-circle fa-stack-2x\"></i>\n                                <i class=\"fal fa-play-circle fa-stack-1x\"></i>\n                            </span>\n                        </button>\n                    </div>\n                    <div class=\"about\">\n                        <img src=\"").concat(author_image, "\" alt=\"Author image\" />\n                        <div class=\"author-info\">\n                            <div class=\"name\">\n                                <span>Answered by:</span>\n                                ").concat(author_name, "\n                            </div>\n                            <div class=\"job-title\">").concat(author_job_position, "</div>\n                        </div>\n                    </div>\n                </div>\n                <ul class=\"testimonial-categories\">\n                    ").concat(categories.map(function (category) {
         return "<li><a href=\"".concat(category.link, "\">").concat(category.title, "</a></li>");
       }).join(''), "\n                </ul>\n            </div>\n            ");
     };
 
-    var makeTestemonialModalTemplate = function makeTestemonialModalTemplate(_ref3, index) {
-      var author_name = _ref3.author_name,
+    var makeTestemonialModalTemplate = function makeTestemonialModalTemplate(_ref3) {
+      var testimonial_id = _ref3.testimonial_id,
+          author_name = _ref3.author_name,
           author_surname = _ref3.author_surname,
           author_image = _ref3.author_image,
           author_job_position = _ref3.author_job_position,
@@ -2459,7 +2448,7 @@ $(function () {
           video = _ref3.video,
           categories = _ref3.categories,
           is_video_vertical = _ref3.is_video_vertical;
-      return "\n                <div class=\"video-testimonial-modal out\" data-index=".concat(index, ">\n                    <div class=\"modal-content ").concat(is_video_vertical ? "height" : "width", "\">\n                        <button class=\"close modal-close\" data-index=").concat(index, "><i class=\"material-icons\">close</i></button>\n                        <h3 class=\"description\">\n                            ").concat(description, "\n                        </h3>\n                        <div class=\"content\">\n                            <video controls disablepictureinpicture controlsList=\"nodownload\" class=\"modal-video\">\n                                <source src=\"").concat(video, "\">\n                            </video>\n                        </div>\n                        <div class=\"author\">\n                            <img src=\"").concat(author_image, "\" alt=\"Author image\" />\n                            <div class=\"author-info\">\n                                <div class=\"name\">\n                                    ").concat(author_name, "\n                                    ").concat(author_surname, "\n                                </div>\n                                <div class=\"job-title\">").concat(author_job_position, "</div>\n                            </div>\n                        </div>\n                        <div class=\"modal-tags\">\n                        ").concat(categories.map(function (category) {
+      return "\n                <div class=\"video-testimonial-modal out\" data-index=".concat(testimonial_id, ">\n                    <div class=\"modal-content ").concat(is_video_vertical ? "height" : "width", "\">\n                        <button class=\"close modal-close\" data-close-index=").concat(testimonial_id, "><i class=\"material-icons\">close</i></button>\n                        <h3 class=\"description\">\n                            ").concat(description, "\n                        </h3>\n                        <div class=\"content\">\n                            <video controls disablepictureinpicture controlsList=\"nodownload\" class=\"modal-video\" data-video-id=").concat(testimonial_id, ">\n                                <source src=\"").concat(video, "\">\n                            </video>\n                        </div>\n                        <div class=\"author\">\n                            <img src=\"").concat(author_image, "\" alt=\"Author image\" />\n                            <div class=\"author-info\">\n                                <div class=\"name\">\n                                    ").concat(author_name, "\n                                    ").concat(author_surname, "\n                                </div>\n                                <div class=\"job-title\">").concat(author_job_position, "</div>\n                            </div>\n                        </div>\n                        <div class=\"modal-tags\">\n                        ").concat(categories.map(function (category) {
         return "<a class=\"tag-pill\" href=\"".concat(category.link, "\">").concat(category.title, "</a>");
       }).join(''), "\n                        </div>\n                    </div>\n                </div>\n            ");
     };

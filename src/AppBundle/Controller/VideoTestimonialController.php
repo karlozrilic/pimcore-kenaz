@@ -73,7 +73,7 @@ class VideoTestimonialController extends FrontendController
         $locale = $request->getLocale();
         $filterCategories = $request->get('categories', []);
         $pageNumber = $request->get('page', 1);
-        $limit = 6;
+        $limit = 9;
 
         $videoTestimonials = $this->videoTestimonialRepository->filterList([
             'categories' => $filterCategories,
@@ -98,6 +98,7 @@ class VideoTestimonialController extends FrontendController
         /** @var VideoTestimonial $videoTestimonial */
         foreach ($paginator->getCurrentItems() as $videoTestimonial) {
             $videoTestimonialsData[] = [
+                'testimonial_id' => $videoTestimonial->getId(),
                 'author_name' => $videoTestimonial->getAuthor()->getFirstName(),
                 'author_surname' => $videoTestimonial->getAuthor()->getLastName(),
                 'author_image' => "/authors/" . explode("/authors/", $videoTestimonial->getAuthor()->getProfileImage()->getThumbnail('authorImageTestimonial')->getFileSystemPath())[1],
@@ -109,7 +110,7 @@ class VideoTestimonialController extends FrontendController
                 'categories' => $this->getCat($videoTestimonial->getCategory())
             ];
         }
-
+        
         ksort($categoriesData);
 
         if ($request->get('json')) {
