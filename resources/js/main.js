@@ -375,7 +375,8 @@ $(() => {
         /*const filters = $(".filters :input");*/
         const testimonialsList = $(".testimonials-list");
 
-        const urlParams = new URLSearchParams(window.location.search);
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
         let filterList = urlParams.getAll('categories[]');
 
         const modalContainer = $(".testemonial-modals");
