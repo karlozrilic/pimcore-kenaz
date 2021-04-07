@@ -1,36 +1,23 @@
 import axios from 'axios';
 
-const VIDEO_TESTIMONIALS_BASE_URL = "http://example.com/video-testimonials";
-const VIDEO_TESTIMONIALS_LIST_URL = "http://example.com/all-video-testimonials";
+const VIDEO_TESTIMONIALS_BASE_URL =  window.location.origin + "/video-testimonials";
+const VIDEO_TESTIMONIALS_LIST_URL = window.location.origin + "/all-video-testimonials";
 
 const allVideoTestimonials = () => {
-
+    
     const filters = $(".filters");
     const testimonialsList = $(".testimonials-list");
+    const modalContainer = $(".testemonial-modals");
     const loading = $(".loading-container");
-
     const previewVideos = $(".testimonial-video source");
 
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     let filterList = urlParams.getAll('categories[]');
-
-    const modalContainer = $(".testemonial-modals");
-
-    $(testimonialsList).on("click", ".video-play-button", (event) => {
-        const index = $(event.currentTarget).data("open-index");
-        const modal = $(modalContainer).find(`[data-index=${index}]`);
-        const video = $(modalContainer).find(`[data-video-id=${index}]`);
-        $(modal).css("display", "block");
-        $(modal).removeClass("out");
-        video.get(0).play();
-    });
-
     let scrolledToBottom = false;
     let currentPage = 1;
 
     $(window).scroll(function () {
-        // End of the document reached?
         if (($(testimonialsList).position().top + $(testimonialsList).outerHeight(true)) - $(this).height() <= $(this).scrollTop() && !scrolledToBottom) {
             currentPage += 1;
             handleFilterChange(filterList, currentPage, true);
@@ -44,31 +31,8 @@ const allVideoTestimonials = () => {
             const vid = element.parentElement;
             vid.load();
         });
-    });
-
-    /* Play testemonial video only on hover */
-    $(testimonialsList).on("mouseenter", ".video-testimonial", (event) => {
-        $(event.currentTarget).find("video")[0].play();
     })
-    .on("mouseleave", ".video-testimonial", (event) => {
-        $(event.currentTarget).find("video")[0].pause();
-        $(event.currentTarget).find("video")[0].currentTime = 0;
-    });
-
-    $(modalContainer).on("click", ".modal-close", (event) => {
-        const index = $(event.currentTarget).data("close-index");
-        const modal = $(modalContainer).find(`[data-index=${index}]`);
-        const video = $(modalContainer).find(`[data-video-id=${index}]`).get(0);
-        $(modal).addClass("out");
-        video.muted = true;
-        setTimeout(() => {
-            video.pause();
-            video.currentTime = 0;
-            video.muted = false;
-        }, 400);
-    });
-
-    $(window).on("click", (event) => {
+    .on("click", (event) => {
         $(".video-testimonial-modal").each((index, element) => {
             const videos = $(".modal-video");
             if (event.target == element) {
@@ -83,9 +47,38 @@ const allVideoTestimonials = () => {
         });
     });
 
+    $(testimonialsList).on("mouseenter", ".video-testimonial", (event) => {
+        $(event.currentTarget).find("video")[0].play();
+    })
+    .on("mouseleave", ".video-testimonial", (event) => {
+        $(event.currentTarget).find("video")[0].pause();
+        $(event.currentTarget).find("video")[0].currentTime = 0;
+    })
+    .on("click", ".video-play-button", (event) => {
+        const index = $(event.currentTarget).data("open-index");
+        const modal = $(modalContainer).find(`[data-index=${index}]`);
+        const video = $(modalContainer).find(`[data-video-id=${index}]`);
+        $(modal).css("display", "block");
+        $(modal).removeClass("out");
+        video.get(0).play();
+    });
+
     window.onpopstate = () => {
         location.reload();
     };
+
+    $(modalContainer).on("click", ".modal-close", (event) => {
+        const index = $(event.currentTarget).data("close-index");
+        const modal = $(modalContainer).find(`[data-index=${index}]`);
+        const video = $(modalContainer).find(`[data-video-id=${index}]`).get(0);
+        $(modal).addClass("out");
+        video.muted = true;
+        setTimeout(() => {
+            video.pause();
+            video.currentTime = 0;
+            video.muted = false;
+        }, 400);
+    });
         
     $(filters).on("click", ".input", (event) => {
         currentPage = 1;

@@ -1879,30 +1879,21 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 
-var VIDEO_TESTIMONIALS_BASE_URL = "http://example.com/video-testimonials";
-var VIDEO_TESTIMONIALS_LIST_URL = "http://example.com/all-video-testimonials";
+var VIDEO_TESTIMONIALS_BASE_URL = window.location.origin + "/video-testimonials";
+var VIDEO_TESTIMONIALS_LIST_URL = window.location.origin + "/all-video-testimonials";
 
 var allVideoTestimonials = function allVideoTestimonials() {
   var filters = $(".filters");
   var testimonialsList = $(".testimonials-list");
+  var modalContainer = $(".testemonial-modals");
   var loading = $(".loading-container");
   var previewVideos = $(".testimonial-video source");
   var queryString = window.location.search;
   var urlParams = new URLSearchParams(queryString);
   var filterList = urlParams.getAll('categories[]');
-  var modalContainer = $(".testemonial-modals");
-  $(testimonialsList).on("click", ".video-play-button", function (event) {
-    var index = $(event.currentTarget).data("open-index");
-    var modal = $(modalContainer).find("[data-index=".concat(index, "]"));
-    var video = $(modalContainer).find("[data-video-id=".concat(index, "]"));
-    $(modal).css("display", "block");
-    $(modal).removeClass("out");
-    video.get(0).play();
-  });
   var scrolledToBottom = false;
   var currentPage = 1;
   $(window).scroll(function () {
-    // End of the document reached?
     if ($(testimonialsList).position().top + $(testimonialsList).outerHeight(true) - $(this).height() <= $(this).scrollTop() && !scrolledToBottom) {
       currentPage += 1;
       handleFilterChange(filterList, currentPage, true);
@@ -1915,28 +1906,7 @@ var allVideoTestimonials = function allVideoTestimonials() {
       var vid = element.parentElement;
       vid.load();
     });
-  });
-  /* Play testemonial video only on hover */
-
-  $(testimonialsList).on("mouseenter", ".video-testimonial", function (event) {
-    $(event.currentTarget).find("video")[0].play();
-  }).on("mouseleave", ".video-testimonial", function (event) {
-    $(event.currentTarget).find("video")[0].pause();
-    $(event.currentTarget).find("video")[0].currentTime = 0;
-  });
-  $(modalContainer).on("click", ".modal-close", function (event) {
-    var index = $(event.currentTarget).data("close-index");
-    var modal = $(modalContainer).find("[data-index=".concat(index, "]"));
-    var video = $(modalContainer).find("[data-video-id=".concat(index, "]")).get(0);
-    $(modal).addClass("out");
-    video.muted = true;
-    setTimeout(function () {
-      video.pause();
-      video.currentTime = 0;
-      video.muted = false;
-    }, 400);
-  });
-  $(window).on("click", function (event) {
+  }).on("click", function (event) {
     $(".video-testimonial-modal").each(function (index, element) {
       var videos = $(".modal-video");
 
@@ -1951,11 +1921,36 @@ var allVideoTestimonials = function allVideoTestimonials() {
       }
     });
   });
+  $(testimonialsList).on("mouseenter", ".video-testimonial", function (event) {
+    $(event.currentTarget).find("video")[0].play();
+  }).on("mouseleave", ".video-testimonial", function (event) {
+    $(event.currentTarget).find("video")[0].pause();
+    $(event.currentTarget).find("video")[0].currentTime = 0;
+  }).on("click", ".video-play-button", function (event) {
+    var index = $(event.currentTarget).data("open-index");
+    var modal = $(modalContainer).find("[data-index=".concat(index, "]"));
+    var video = $(modalContainer).find("[data-video-id=".concat(index, "]"));
+    $(modal).css("display", "block");
+    $(modal).removeClass("out");
+    video.get(0).play();
+  });
 
   window.onpopstate = function () {
     location.reload();
   };
 
+  $(modalContainer).on("click", ".modal-close", function (event) {
+    var index = $(event.currentTarget).data("close-index");
+    var modal = $(modalContainer).find("[data-index=".concat(index, "]"));
+    var video = $(modalContainer).find("[data-video-id=".concat(index, "]")).get(0);
+    $(modal).addClass("out");
+    video.muted = true;
+    setTimeout(function () {
+      video.pause();
+      video.currentTime = 0;
+      video.muted = false;
+    }, 400);
+  });
   $(filters).on("click", ".input", function (event) {
     currentPage = 1;
 
