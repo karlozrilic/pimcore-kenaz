@@ -102,7 +102,6 @@ const allVideoTestimonials = () => {
                     $(testimonialsList).append(maketestimonialTemplate(testimonial));
                     $(modalContainer).append(makeTestemonialModalTemplate(testimonial));
                 });
-            
                 $(filters).empty();
                 Object.entries(data.categories_data).forEach((category) => {
                     $(filters).append(maketestimonialFiltersTemplate(category, data.filter_categories));
@@ -125,7 +124,6 @@ const allVideoTestimonials = () => {
         try {
             const response = await axios.get(VIDEO_TESTIMONIALS_BASE_URL, axiosOptions);
             const data = await response.data;
-
             /* updating URL */
             const url = axios.getUri({
                 url: VIDEO_TESTIMONIALS_LIST_URL, 
@@ -135,7 +133,6 @@ const allVideoTestimonials = () => {
             });
             const values = Object.values(response.data.filter_categories);
             window.history.pushState(values, "", url);
-
             return data;
         } catch (error) {
             console.log(error);
@@ -234,23 +231,19 @@ const allVideoTestimonials = () => {
         if (string.length > trimmedString.length) {
             trimmedString = string.substr(0, length);
             const spaceIndex = string.replace(trimmedString, "").indexOf(" ");
-
             if (spaceIndex < 0) {
                 trimmedString = string;
             } else {
                 trimmedString += string.substr(trimmedString.length, spaceIndex) + "...";
             }
-
         }
         return trimmedString;
     };
 
     const secondsToMinutes = (seconds) => {
         seconds = Number(seconds);
-        
-        var m = Math.floor(seconds % 3600 / 60);
-        var s = Math.floor(seconds % 3600 % 60);
-        
+        const m = Math.floor(seconds % 3600 / 60);
+        const s = Math.floor(seconds % 3600 % 60);
         return ('0' + m).slice(-2) + ":" + ('0' + s).slice(-2);
     };
 };
