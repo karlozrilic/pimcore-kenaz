@@ -27,19 +27,20 @@ const allVideoTestimonials = () => {
         $(previewVideos).each((index, element) => {
             const video_url = $(element).data("src");
             $(element).attr("src", video_url);
-            const vid = element.parentElement;
-            vid.load();
+            const video = element.parentElement;
+            video.load();
         });
     }).on("click", (event) => {
         $(".video-testimonial-modal").each((index, element) => {
-            const videos = $(".modal-video");
             if (event.target == element) {
                 $(element).addClass("out");
-                videos[index].muted = true;
+                const index = $(element).data("index");
+                const video = $(element).find(`[data-video-id=${index}]`).get(0);
+                video.muted = true;
                 setTimeout(() => {
-                    videos[index].pause();
-                    videos[index].currentTime = 0;
-                    videos[index].muted = false;
+                    video.pause();
+                    video.currentTime = 0;
+                    video.muted = false;
                 }, 400);
             }
         });

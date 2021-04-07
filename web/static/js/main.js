@@ -1903,20 +1903,22 @@ var allVideoTestimonials = function allVideoTestimonials() {
     $(previewVideos).each(function (index, element) {
       var video_url = $(element).data("src");
       $(element).attr("src", video_url);
-      var vid = element.parentElement;
-      vid.load();
+      var video = element.parentElement;
+      video.load();
     });
   }).on("click", function (event) {
     $(".video-testimonial-modal").each(function (index, element) {
-      var videos = $(".modal-video");
-
       if (event.target == element) {
         $(element).addClass("out");
-        videos[index].muted = true;
+
+        var _index = $(element).data("index");
+
+        var video = $(element).find("[data-video-id=".concat(_index, "]")).get(0);
+        video.muted = true;
         setTimeout(function () {
-          videos[index].pause();
-          videos[index].currentTime = 0;
-          videos[index].muted = false;
+          video.pause();
+          video.currentTime = 0;
+          video.muted = false;
         }, 400);
       }
     });
