@@ -18,7 +18,7 @@ const allVideoTestimonials = () => {
     let currentPage = 1;
 
     $(window).scroll(function () {
-        if (($(testimonialsList).position().top + $(testimonialsList).outerHeight(true)) - $(this).height() <= $(this).scrollTop() && !scrolledToBottom) {
+        if (($(testimonialsList).position().top + $(testimonialsList).outerHeight(true)) - $(this).height() <= ($(this).scrollTop() + 200) && !scrolledToBottom) {
             currentPage += 1;
             handleFilterChange(filterList, currentPage, true);
             scrolledToBottom = true;
