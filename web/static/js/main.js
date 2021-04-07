@@ -1881,6 +1881,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 var VIDEO_TESTIMONIALS_BASE_URL = window.location.origin + "/video-testimonials";
 var VIDEO_TESTIMONIALS_LIST_URL = window.location.origin + "/all-video-testimonials";
+var RESULTS_PER_PAGE = 9;
 
 var allVideoTestimonials = function allVideoTestimonials() {
   var filters = $(".filters");
@@ -1899,14 +1900,186 @@ var allVideoTestimonials = function allVideoTestimonials() {
       handleFilterChange(filterList, currentPage, true);
       scrolledToBottom = true;
     }
-  }).on("load", function () {
-    $(previewVideos).each(function (index, element) {
-      var video_url = $(element).data("src");
-      $(element).attr("src", video_url);
-      var video = element.parentElement;
-      video.load();
-    });
-  }).on("click", function (event) {
+  }).on("load", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+    var _loop, i, _ret;
+
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            _loop = /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _loop(_i) {
+              var video_url, video;
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _loop$(_context) {
+                while (1) {
+                  switch (_context.prev = _context.next) {
+                    case 0:
+                      if ($(previewVideos).eq(_i).get(0).src === "") {
+                        video_url = $(previewVideos).eq(_i).data("src");
+                        $(previewVideos).eq(_i).attr("src", video_url);
+                      }
+
+                      video = $(previewVideos).eq(_i).get(0).parentElement;
+
+                      if (!(video.readyState < 3)) {
+                        _context.next = 6;
+                        break;
+                      }
+
+                      video.load();
+                      _context.next = 9;
+                      break;
+
+                    case 6:
+                      _i++;
+                      i = _i;
+                      return _context.abrupt("return", "continue");
+
+                    case 9:
+                      _context.next = 11;
+                      return new Promise(function (resolve, reject) {
+                        setInterval(function () {
+                          if (video.readyState >= 3) {
+                            resolve(true);
+                          }
+                        }, 100);
+                      }).then(function (res) {
+                        if (res == true) {
+                          _i++;
+                        }
+                      });
+
+                    case 11:
+                      i = _i;
+
+                    case 12:
+                    case "end":
+                      return _context.stop();
+                  }
+                }
+              }, _loop);
+            });
+            i = 0;
+
+          case 2:
+            if (!(i < $(previewVideos).length)) {
+              _context2.next = 10;
+              break;
+            }
+
+            return _context2.delegateYield(_loop(i), "t0", 4);
+
+          case 4:
+            _ret = _context2.t0;
+
+            if (!(_ret === "continue")) {
+              _context2.next = 7;
+              break;
+            }
+
+            return _context2.abrupt("continue", 7);
+
+          case 7:
+            i;
+            _context2.next = 2;
+            break;
+
+          case 10:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee);
+  }))).on("contentAdded", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+    var videos, _loop2, _i2, _ret2;
+
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context4) {
+      while (1) {
+        switch (_context4.prev = _context4.next) {
+          case 0:
+            videos = $(".testimonial-video source").slice(RESULTS_PER_PAGE * (currentPage - 1));
+            _loop2 = /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _loop2(_i3) {
+              var video_url, video;
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _loop2$(_context3) {
+                while (1) {
+                  switch (_context3.prev = _context3.next) {
+                    case 0:
+                      if ($(videos).eq(_i3).get(0).src === "") {
+                        video_url = $(videos).eq(_i3).data("src");
+                        $(videos).eq(_i3).attr("src", video_url);
+                      }
+
+                      video = $(videos).eq(_i3).get(0).parentElement;
+
+                      if (!(video.readyState < 3)) {
+                        _context3.next = 6;
+                        break;
+                      }
+
+                      video.load();
+                      _context3.next = 9;
+                      break;
+
+                    case 6:
+                      _i3++;
+                      _i2 = _i3;
+                      return _context3.abrupt("return", "continue");
+
+                    case 9:
+                      _context3.next = 11;
+                      return new Promise(function (resolve, reject) {
+                        setInterval(function () {
+                          if (video.readyState >= 3) {
+                            resolve(true);
+                          }
+                        }, 100);
+                      }).then(function (res) {
+                        if (res == true) {
+                          _i3++;
+                        }
+                      });
+
+                    case 11:
+                      _i2 = _i3;
+
+                    case 12:
+                    case "end":
+                      return _context3.stop();
+                  }
+                }
+              }, _loop2);
+            });
+            _i2 = 0;
+
+          case 3:
+            if (!(_i2 < $(videos).length)) {
+              _context4.next = 11;
+              break;
+            }
+
+            return _context4.delegateYield(_loop2(_i2), "t0", 5);
+
+          case 5:
+            _ret2 = _context4.t0;
+
+            if (!(_ret2 === "continue")) {
+              _context4.next = 8;
+              break;
+            }
+
+            return _context4.abrupt("continue", 8);
+
+          case 8:
+            _i2;
+            _context4.next = 3;
+            break;
+
+          case 11:
+          case "end":
+            return _context4.stop();
+        }
+      }
+    }, _callee2);
+  }))).on("click", function (event) {
     $(".video-testimonial-modal").each(function (index, element) {
       if (event.target == element) {
         $(element).addClass("out");
@@ -1984,6 +2157,7 @@ var allVideoTestimonials = function allVideoTestimonials() {
           $(filters).append(maketestimonialFiltersTemplate(category, data.filter_categories));
         });
         scrolledToBottom = false;
+        $(window).trigger("contentAdded");
       } else {
         $(loading).empty();
       }
@@ -1991,19 +2165,19 @@ var allVideoTestimonials = function allVideoTestimonials() {
   };
 
   var filter = /*#__PURE__*/function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(filterList) {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(filterList) {
       var page,
           axiosOptions,
           response,
           data,
           url,
           values,
-          _args = arguments;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          _args5 = arguments;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context5) {
         while (1) {
-          switch (_context.prev = _context.next) {
+          switch (_context5.prev = _context5.next) {
             case 0:
-              page = _args.length > 1 && _args[1] !== undefined ? _args[1] : 1;
+              page = _args5.length > 1 && _args5[1] !== undefined ? _args5[1] : 1;
               axiosOptions = {
                 params: {
                   json: true,
@@ -2011,17 +2185,17 @@ var allVideoTestimonials = function allVideoTestimonials() {
                   page: page
                 }
               };
-              _context.prev = 2;
-              _context.next = 5;
+              _context5.prev = 2;
+              _context5.next = 5;
               return axios__WEBPACK_IMPORTED_MODULE_1___default().get(VIDEO_TESTIMONIALS_BASE_URL, axiosOptions);
 
             case 5:
-              response = _context.sent;
-              _context.next = 8;
+              response = _context5.sent;
+              _context5.next = 8;
               return response.data;
 
             case 8:
-              data = _context.sent;
+              data = _context5.sent;
 
               /* updating URL */
               url = axios__WEBPACK_IMPORTED_MODULE_1___default().getUri({
@@ -2032,62 +2206,62 @@ var allVideoTestimonials = function allVideoTestimonials() {
               });
               values = Object.values(response.data.filter_categories);
               window.history.pushState(values, "", url);
-              return _context.abrupt("return", data);
+              return _context5.abrupt("return", data);
 
             case 15:
-              _context.prev = 15;
-              _context.t0 = _context["catch"](2);
-              console.log(_context.t0);
+              _context5.prev = 15;
+              _context5.t0 = _context5["catch"](2);
+              console.log(_context5.t0);
 
             case 18:
               ;
 
             case 19:
             case "end":
-              return _context.stop();
+              return _context5.stop();
           }
         }
-      }, _callee, null, [[2, 15]]);
+      }, _callee3, null, [[2, 15]]);
     }));
 
     return function filter(_x) {
-      return _ref.apply(this, arguments);
+      return _ref3.apply(this, arguments);
     };
   }();
 
-  var maketestimonialTemplate = function maketestimonialTemplate(_ref2) {
-    var testimonial_id = _ref2.testimonial_id,
-        author_name = _ref2.author_name,
-        author_image = _ref2.author_image,
-        author_job_position = _ref2.author_job_position,
-        description = _ref2.description,
-        video = _ref2.video,
-        categories = _ref2.categories,
-        duration = _ref2.video_settings.duration;
+  var maketestimonialTemplate = function maketestimonialTemplate(_ref4) {
+    var testimonial_id = _ref4.testimonial_id,
+        author_name = _ref4.author_name,
+        author_image = _ref4.author_image,
+        author_job_position = _ref4.author_job_position,
+        description = _ref4.description,
+        video = _ref4.video,
+        categories = _ref4.categories,
+        duration = _ref4.video_settings.duration;
     return "\n        <div class=\"video-testimonial\">\n            <p>".concat(description.length > 35 ? truncate(description, 35) : description, "</p>\n            <div class=\"video\">\n                <video muted loop playsinline class=\"testimonial-video\" id=").concat(testimonial_id, ">\n                    <source src=\"").concat(video, "\">\n                </video>\n                <div class=\"duration\">\n                    ").concat(secondsToMinutes(Math.floor(duration)), "\n                </div>\n                <div class=\"buttons\">\n                    <button class=\"video-play-button\" data-open-index=").concat(testimonial_id, ">\n                        <span class=\"fa-stack\" style=\"vertical-align: top;\">\n                            <i class=\"fas fa-circle fa-stack-2x\"></i>\n                            <i class=\"fal fa-play-circle fa-stack-1x\"></i>\n                        </span>\n                    </button>\n                </div>\n                <div class=\"about\">\n                    <img src=\"").concat(author_image, "\" alt=\"Author image\" />\n                    <div class=\"author-info\">\n                        <div class=\"name\">\n                            <span>Answered by:</span>\n                            ").concat(author_name, "\n                        </div>\n                        <div class=\"job-title\">").concat(author_job_position, "</div>\n                    </div>\n                </div>\n            </div>\n            <ul class=\"testimonial-categories\">\n                ").concat(categories.map(function (category) {
       return "<li><a href=\"".concat(category.link, "\">").concat(category.title, "</a></li>");
     }).join(''), "\n            </ul>\n        </div>\n        ");
   };
 
-  var makeTestemonialModalTemplate = function makeTestemonialModalTemplate(_ref3) {
-    var testimonial_id = _ref3.testimonial_id,
-        author_name = _ref3.author_name,
-        author_surname = _ref3.author_surname,
-        author_image = _ref3.author_image,
-        author_job_position = _ref3.author_job_position,
-        description = _ref3.description,
-        video = _ref3.video,
-        categories = _ref3.categories,
-        is_video_vertical = _ref3.is_video_vertical;
+  var makeTestemonialModalTemplate = function makeTestemonialModalTemplate(_ref5) {
+    var testimonial_id = _ref5.testimonial_id,
+        author_name = _ref5.author_name,
+        author_surname = _ref5.author_surname,
+        author_image = _ref5.author_image,
+        author_job_position = _ref5.author_job_position,
+        description = _ref5.description,
+        video = _ref5.video,
+        categories = _ref5.categories,
+        is_video_vertical = _ref5.is_video_vertical;
     return "\n            <div class=\"video-testimonial-modal out\" data-index=".concat(testimonial_id, ">\n                <div class=\"modal-content ").concat(is_video_vertical ? "height" : "width", "\">\n                    <button class=\"close modal-close\" data-close-index=").concat(testimonial_id, "><i class=\"material-icons\">close</i></button>\n                    <h3 class=\"description\">\n                        ").concat(description, "\n                    </h3>\n                    <div class=\"content\">\n                        <video controls disablepictureinpicture controlsList=\"nodownload\" class=\"modal-video\" data-video-id=").concat(testimonial_id, ">\n                            <source src=\"").concat(video, "\">\n                        </video>\n                    </div>\n                    <div class=\"author\">\n                        <img src=\"").concat(author_image, "\" alt=\"Author image\" />\n                        <div class=\"author-info\">\n                            <div class=\"name\">\n                                ").concat(author_name, "\n                                ").concat(author_surname ? author_surname : "", "\n                            </div>\n                            <div class=\"job-title\">").concat(author_job_position, "</div>\n                        </div>\n                    </div>\n                    <div class=\"modal-tags\">\n                    ").concat(categories.map(function (category) {
       return "<a class=\"tag-pill\" href=\"".concat(category.link, "\">").concat(category.title, "</a>");
     }).join(''), "\n                    </div>\n                </div>\n            </div>\n        ");
   };
 
-  var maketestimonialFiltersTemplate = function maketestimonialFiltersTemplate(_ref4, filterCategories) {
-    var _ref5 = _slicedToArray(_ref4, 2),
-        categoryId = _ref5[0],
-        categoryName = _ref5[1];
+  var maketestimonialFiltersTemplate = function maketestimonialFiltersTemplate(_ref6, filterCategories) {
+    var _ref7 = _slicedToArray(_ref6, 2),
+        categoryId = _ref7[0],
+        categoryName = _ref7[1];
 
     return "\n            <label class=\"checkbox\">\n                <span class=\"checkbox-input\">\n                    <input class=\"input\" type=\"checkbox\" name=\"".concat(categoryName.toLowerCase(), "\" id=\"").concat(categoryName.toLowerCase(), "\" value=").concat(categoryId, " ").concat(filterCategories.includes(categoryId) && "checked", ">\n                    <span class=\"checkbox-control\">\n                        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' aria-hidden=\"true\" focusable=\"false\">\n                        <path fill='none' stroke='currentColor' stroke-width='3' d='M1.73 12.91l6.37 6.37L22.79 4.59' /></svg>\n                    </span>\n                </span>\n                <span class=\"radio-label\">").concat(categoryName, "</span>\n            </label>\n        ");
   };

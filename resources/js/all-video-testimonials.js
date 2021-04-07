@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const VIDEO_TESTIMONIALS_BASE_URL =  window.location.origin + "/video-testimonials";
 const VIDEO_TESTIMONIALS_LIST_URL = window.location.origin + "/all-video-testimonials";
+const RESULTS_PER_PAGE = 9;
 
 const allVideoTestimonials = () => {
     
@@ -23,13 +24,69 @@ const allVideoTestimonials = () => {
             handleFilterChange(filterList, currentPage, true);
             scrolledToBottom = true;
         }
-    }).on("load", () => {
-        $(previewVideos).each((index, element) => {
+    }).on("load", async () => {
+        for (let i = 0 ; i < $(previewVideos).length; i) {
+            if ($(previewVideos).eq(i).get(0).src === "") {
+                const video_url = $(previewVideos).eq(i).data("src");
+                $(previewVideos).eq(i).attr("src", video_url);
+            }
+            
+            const video = $(previewVideos).eq(i).get(0).parentElement;
+            if (video.readyState < 3) {
+                video.load();
+            } else {
+                i++;
+                continue;
+            }
+            
+            await new Promise((resolve, reject) => {
+                setInterval(() => {
+                    if (video.readyState >= 3) {
+                        resolve(true);
+                    }
+                }, 100)       
+            }).then((res) => {
+                if (res == true) {
+                    i++;
+                }
+            });
+        }
+        /*
+        $(previewVideos).each( async (index, element) => {
             const video_url = $(element).data("src");
             $(element).attr("src", video_url);
             const video = element.parentElement;
             video.load();
         });
+        */
+    }).on("contentAdded", async () => {
+        const videos = $(".testimonial-video source").slice(RESULTS_PER_PAGE * (currentPage-1));
+        for (let i = 0 ; i < $(videos).length; i) {
+            if ($(videos).eq(i).get(0).src === "") {
+                const video_url = $(videos).eq(i).data("src");
+                $(videos).eq(i).attr("src", video_url);
+            }
+            
+            const video = $(videos).eq(i).get(0).parentElement;
+            if (video.readyState < 3) {
+                video.load();
+            } else {
+                i++;
+                continue;
+            }
+            
+            await new Promise((resolve, reject) => {
+                setInterval(() => {
+                    if (video.readyState >= 3) {
+                        resolve(true);
+                    }
+                }, 100)       
+            }).then((res) => {
+                if (res == true) {
+                    i++;
+                }
+            });
+        }
     }).on("click", (event) => {
         $(".video-testimonial-modal").each((index, element) => {
             if (event.target == element) {
@@ -104,6 +161,7 @@ const allVideoTestimonials = () => {
                     $(filters).append(maketestimonialFiltersTemplate(category, data.filter_categories));
                 });
                 scrolledToBottom = false;
+                $(window).trigger("contentAdded");
             } else {
                 $(loading).empty();
             }
