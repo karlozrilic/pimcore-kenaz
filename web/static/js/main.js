@@ -2286,6 +2286,18 @@ var videoTestimonialsAnimation = function videoTestimonialsAnimation(numberOftes
     if (numberOftestimonials > 1 && !closed) {
       interval = minimized ? setInterval(intervalFunctionMinimized, intervalDelay) : setInterval(intervalFunction, intervalDelay);
     }
+  }).on("click", function (event) {
+    modals.each(function (index, element) {
+      if (event.target == element) {
+        $(element).addClass("out");
+        videos[index].muted = true;
+        setTimeout(function () {
+          videos[index].pause();
+          videos[index].currentTime = 0;
+          videos[index].muted = false;
+        }, 400);
+      }
+    });
   });
 
   var intervalFunction = function intervalFunction() {
@@ -2492,19 +2504,6 @@ var videoTestimonialsAnimation = function videoTestimonialsAnimation(numberOftes
         videos[index].currentTime = 0;
         videos[index].muted = false;
       }, 400);
-    });
-  });
-  $(window).on("click", function (event) {
-    modals.each(function (index, element) {
-      if (event.target == element) {
-        $(element).addClass("out");
-        videos[index].muted = true;
-        setTimeout(function () {
-          videos[index].pause();
-          videos[index].currentTime = 0;
-          videos[index].muted = false;
-        }, 400);
-      }
     });
   });
 };

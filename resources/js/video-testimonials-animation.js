@@ -54,6 +54,18 @@ const videoTestimonialsAnimation = (numberOftestimonials) => {
         if (numberOftestimonials > 1 && !closed) {
             interval = minimized ? setInterval(intervalFunctionMinimized, intervalDelay) : setInterval(intervalFunction, intervalDelay);
         }
+    }).on("click", (event) => {
+        modals.each((index, element) => {
+            if (event.target == element) {
+                $(element).addClass("out");
+                videos[index].muted = true;
+                setTimeout(() => {
+                    videos[index].pause();
+                    videos[index].currentTime = 0;
+                    videos[index].muted = false;
+                }, 400)
+            }
+        });
     });
 
     const intervalFunction = () => {
@@ -268,19 +280,6 @@ const videoTestimonialsAnimation = (numberOftestimonials) => {
         });
     });
 
-    $(window).on("click", (event) => {
-        modals.each((index, element) => {
-            if (event.target == element) {
-                $(element).addClass("out");
-                videos[index].muted = true;
-                setTimeout(() => {
-                    videos[index].pause();
-                    videos[index].currentTime = 0;
-                    videos[index].muted = false;
-                }, 400)
-            }
-        });
-    });
 }
 
 export default videoTestimonialsAnimation;

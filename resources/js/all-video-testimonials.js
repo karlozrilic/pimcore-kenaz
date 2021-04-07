@@ -23,16 +23,14 @@ const allVideoTestimonials = () => {
             handleFilterChange(filterList, currentPage, true);
             scrolledToBottom = true;
         }
-    })
-    .on("load", () => {
+    }).on("load", () => {
         $(previewVideos).each((index, element) => {
             const video_url = $(element).data("src");
             $(element).attr("src", video_url);
             const vid = element.parentElement;
             vid.load();
         });
-    })
-    .on("click", (event) => {
+    }).on("click", (event) => {
         $(".video-testimonial-modal").each((index, element) => {
             const videos = $(".modal-video");
             if (event.target == element) {
@@ -49,12 +47,10 @@ const allVideoTestimonials = () => {
 
     $(testimonialsList).on("mouseenter", ".video-testimonial", (event) => {
         $(event.currentTarget).find("video")[0].play();
-    })
-    .on("mouseleave", ".video-testimonial", (event) => {
+    }).on("mouseleave", ".video-testimonial", (event) => {
         $(event.currentTarget).find("video")[0].pause();
         $(event.currentTarget).find("video")[0].currentTime = 0;
-    })
-    .on("click", ".video-play-button", (event) => {
+    }).on("click", ".video-play-button", (event) => {
         const index = $(event.currentTarget).data("open-index");
         const modal = $(modalContainer).find(`[data-index=${index}]`);
         const video = $(modalContainer).find(`[data-video-id=${index}]`);
