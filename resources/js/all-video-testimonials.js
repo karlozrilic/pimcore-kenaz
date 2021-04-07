@@ -146,6 +146,7 @@ const allVideoTestimonials = () => {
     });
 
     const handleFilterChange = (filterList, page = 1, infiniteScroll = false) => {
+        $(testimonialsList).addClass("loading");
         filter(filterList, page).then((data) => {
             if (!infiniteScroll) {
                 $(modalContainer).empty();
@@ -162,6 +163,7 @@ const allVideoTestimonials = () => {
                 });
                 scrolledToBottom = false;
                 $(window).trigger("contentAdded");
+                $(testimonialsList).removeClass("loading");
             } else {
                 $(loading).empty();
             }
@@ -200,7 +202,7 @@ const allVideoTestimonials = () => {
             <p>${description.length > 35 ? truncate(description, 35) : description}</p>
             <div class="video">
                 <video muted loop playsinline class="testimonial-video" id=${testimonial_id}>
-                    <source src="${video}">
+                    <source data-src="${video}">
                 </video>
                 <div class="duration">
                     ${secondsToMinutes(Math.floor(duration))}
