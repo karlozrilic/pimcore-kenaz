@@ -98,6 +98,7 @@ class VideoTestimonialController extends FrontendController
         /** @var VideoTestimonial $videoTestimonial */
         foreach ($paginator->getCurrentItems() as $videoTestimonial) {
             $videoTestimonialsData[] = [
+                'testimonial_id' => $videoTestimonial->getId(),
                 'author_name' => $videoTestimonial->getAuthor()->getFirstName(),
                 'author_surname' => $videoTestimonial->getAuthor()->getLastName(),
                 'author_image' => "/authors/" . explode("/authors/", $videoTestimonial->getAuthor()->getProfileImage()->getThumbnail('authorImageTestimonial')->getFileSystemPath())[1],

@@ -22,23 +22,23 @@
     </div>
     <div class="page-list">
         <div class="testimonials-list list-of-testimonials">
-            {% for testemonial in videoTestimonials %}
+            {% for testimonial in videoTestimonials %}
             <div class="video-testimonial">
-                <p>{{ testemonial['description']|truncate(35, '...') }}</p>
+                <p>{{ testimonial['description']|truncate(35, '...') }}</p>
                 <div class="video">
-                    <video muted loop playsinline class="testimonial-video" id="{{ loop.index }}">
-                        <source src="{{ testemonial['video']|raw }}">
+                    <video muted loop playsinline class="testimonial-video" id="{{ testimonial['testimonial_id'] }}">
+                        <source src="{{ testimonial['video']|raw }}">
                     </video>
                     <div class="duration">
-                        {% set time = testemonial['video_settings'].duration|round(0, 'floor')|number_format(0, '.')  %}
-                        {% if testemonial['video_settings'].duration|round(0, 'floor') >= 60 %}
+                        {% set time = testimonial['video_settings'].duration|round(0, 'floor')|number_format(0, '.')  %}
+                        {% if testimonial['video_settings'].duration|round(0, 'floor') >= 60 %}
                             {{ time|date('G:s') }}
                         {% else %}
                             {{ time|date('G:s', '+00:00 GMT') }}
                         {% endif %}
                     </div>
                     <div class="buttons">
-                        <button class="video-play-button" data-open-index={{ loop.index - 1 }}>
+                        <button class="video-play-button" data-open-index={{ testimonial['testimonial_id'] }}>
                             <span class="fa-stack" style="vertical-align: top;">
                                 <i class="fas fa-circle fa-stack-2x"></i>
                                 <i class="fal fa-play-circle fa-stack-1x"></i>
@@ -46,18 +46,18 @@
                         </button>
                     </div>
                     <div class="about">
-                        <img src="{{ testemonial['author_image'] }}" alt="Author image" />
+                        <img src="{{ testimonial['author_image'] }}" alt="Author image" />
                         <div class="author-info">
                             <div class="name">
                                 <span>Answered by:</span>
-                                {{ testemonial['author_name'] }}
+                                {{ testimonial['author_name'] }}
                             </div>
-                            <div class="job-title">{{ testemonial['author_job_position'] }}</div>
+                            <div class="job-title">{{ testimonial['author_job_position'] }}</div>
                         </div>
                     </div>
                 </div>
                 <ul class="testimonial-categories">
-                    {% for category in testemonial['categories'] %}
+                    {% for category in testimonial['categories'] %}
                         <li><a href="{{category['link']}}">{{category['title']}}</a></li>
                     {% endfor %}
                 </ul>
@@ -70,31 +70,31 @@
             {% endfor %}
         </div>
     </div>
-    <div class="testemonial-modals">
-        {% for testemonial in videoTestimonials  %}
-        <div class="video-testimonial-modal out" data-index={{ loop.index - 1 }}>
-            <div class="modal-content {% if testemonial['is_video_vertical'] %}height{% else %}width{% endif %}">
-                <button class="close modal-close" data-index={{ loop.index - 1 }}><i class="material-icons">close</i></button>
+    <div class="testimonial-modals">
+        {% for testimonial in videoTestimonials  %}
+        <div class="video-testimonial-modal out" data-index={{ testimonial['testimonial_id'] }}>
+            <div class="modal-content {% if testimonial['is_video_vertical'] %}height{% else %}width{% endif %}">
+                <button class="close modal-close" data-close-index={{ testimonial['testimonial_id'] }}><i class="material-icons">close</i></button>
                 <h3 class="description">
-                    {{ testemonial['description'] }}
+                    {{ testimonial['description'] }}
                 </h3>
                 <div class="content">
-                    <video controls disablepictureinpicture controlsList="nodownload" class="modal-video">
-                        <source src="{{ testemonial['video']|raw }}">
+                    <video controls disablepictureinpicture controlsList="nodownload" class="modal-video" data-video-id={{ testimonial['testimonial_id'] }}>
+                        <source src="{{ testimonial['video']|raw }}">
                     </video>
                 </div>
                 <div class="author">
-                    <img src="{{ testemonial['author_image'] }}" alt="Author image" />
+                    <img src="{{ testimonial['author_image'] }}" alt="Author image" />
                     <div class="author-info">
                         <div class="name">
-                            {{ testemonial['author_name'] }}
-                            {{ testemonial['author_surname'] }}
+                            {{ testimonial['author_name'] }}
+                            {{ testimonial['author_surname'] }}
                         </div>
-                        <div class="job-title">{{ testemonial['author_job_position'] }}</div>
+                        <div class="job-title">{{ testimonial['author_job_position'] }}</div>
                     </div>
                 </div>
                 <div class="modal-tags">
-                {% for category in testemonial['categories'] %}
+                {% for category in testimonial['categories'] %}
                     <a class="tag-pill" href="{{ category['link'] }}">{{ category['title'] }}</a>
                 {% endfor %}
                 </div>

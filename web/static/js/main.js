@@ -1879,29 +1879,31 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 
-var VIDEO_TESTIMONIALS_BASE_URL = "http://example.com/video-testimonials";
-var VIDEO_TESTIMONIALS_LIST_URL = "http://example.com/all-video-testimonials";
+
+var VIDEO_TESTIMONIALS_BASE_URL = window.location.origin + "/video-testimonials";
+var VIDEO_TESTIMONIALS_LIST_URL = window.location.origin + "/all-video-testimonials";
 
 var allVideoTestimonials = function allVideoTestimonials() {
   var filters = $(".filters");
   var pageButtons = $(".pages");
   /*const filters = $(".filters :input");*/
 
+  var modalContainer = $(".testimonial-modals");
   var testimonialsList = $(".testimonials-list");
   var urlParams = new URLSearchParams(window.location.search);
   var filterList = urlParams.getAll('categories[]');
-  var modalContainer = $(".testemonial-modals");
-  var modals = $(".video-testimonial-modal");
-  var videos = $(".modal-video");
-  $(document).on("dataChanged", function () {
-    modals = $(".video-testimonial-modal");
-    videos = $(".modal-video");
-  });
-  $(testimonialsList).on("click", ".video-play-button", function (event) {
+  $(testimonialsList).on("mouseenter", ".video-testimonial", function (event) {
+    $(event.currentTarget).find("video")[0].play();
+  }).on("mouseleave", ".video-testimonial", function (event) {
+    $(event.currentTarget).find("video")[0].pause();
+    $(event.currentTarget).find("video")[0].currentTime = 0;
+  }).on("click", ".video-play-button", function (event) {
     var index = $(event.currentTarget).data("open-index");
-    $(modals[index]).css("display", "block");
-    $(modals[index]).removeClass("out");
-    videos[index].play();
+    var modal = $(modalContainer).find("[data-index=".concat(index, "]"));
+    var video = $(modalContainer).find("[data-video-id=".concat(index, "]")).get(0);
+    $(modal).css("display", "block");
+    $(modal).removeClass("out");
+    video.play();
   });
   $(pageButtons).on("click", ".page-button", function (event) {
     var pageNumber = $(event.currentTarget).data("page-number");
@@ -1910,33 +1912,31 @@ var allVideoTestimonials = function allVideoTestimonials() {
     });
     handleFilterChange(filterList, pageNumber);
   });
-  /* Play testemonial video only on hover */
-
-  $(testimonialsList).on("mouseenter", ".video-testimonial", function (event) {
-    $(event.currentTarget).find("video")[0].play();
-  }).on("mouseleave", ".video-testimonial", function (event) {
-    $(event.currentTarget).find("video")[0].pause();
-    $(event.currentTarget).find("video")[0].currentTime = 0;
-  });
   $(modalContainer).on("click", ".modal-close", function (event) {
-    var index = $(event.currentTarget).data("index");
-    $(modals[index]).addClass("out");
-    videos[index].muted = true;
+    var index = $(event.currentTarget).data("close-index");
+    var modal = $(modalContainer).find("[data-index=".concat(index, "]"));
+    var video = $(modalContainer).find("[data-video-id=".concat(index, "]")).get(0);
+    $(modal).addClass("out");
+    video.muted = true;
     setTimeout(function () {
-      videos[index].pause();
-      videos[index].currentTime = 0;
-      videos[index].muted = false;
+      video.pause();
+      video.currentTime = 0;
+      video.muted = false;
     }, 400);
   });
   $(window).on("click", function (event) {
     $(".video-testimonial-modal").each(function (index, element) {
       if (event.target == element) {
         $(element).addClass("out");
-        videos[index].muted = true;
+
+        var _index = $(element).data("index");
+
+        var video = $(element).find("[data-video-id=".concat(_index, "]")).get(0);
+        video.muted = true;
         setTimeout(function () {
-          videos[index].pause();
-          videos[index].currentTime = 0;
-          videos[index].muted = false;
+          video.pause();
+          video.currentTime = 0;
+          video.muted = false;
         }, 400);
       }
     });
@@ -2058,26 +2058,6 @@ var allVideoTestimonials = function allVideoTestimonials() {
 
             case 18:
               ;
-              /*
-              return axios.get(VIDEO_TESTIMONIALS_BASE_URL, {
-                  params: {
-                      json: true,
-                      categories: filterList
-                  }
-              }).then((response) => {
-                  const url = axios.getUri({
-                      url: VIDEO_TESTIMONIALS_LIST_URL, 
-                      params: {
-                          categories: filterList
-                      }
-                  });
-                  const values = Object.values(response.data.filter_categories);
-                  window.history.pushState(values, "", url);
-                  return response.data
-              }).catch((error) => {
-                  console.log(error);
-              });
-              */
 
             case 19:
             case "end":
@@ -2093,20 +2073,22 @@ var allVideoTestimonials = function allVideoTestimonials() {
   }();
 
   var maketestimonialTemplate = function maketestimonialTemplate(_ref2, index) {
-    var author_name = _ref2.author_name,
+    var testimonial_id = _ref2.testimonial_id,
+        author_name = _ref2.author_name,
         author_image = _ref2.author_image,
         author_job_position = _ref2.author_job_position,
         description = _ref2.description,
         video = _ref2.video,
         categories = _ref2.categories,
         duration = _ref2.video_settings.duration;
-    return "\n            <div class=\"video-testimonial\">\n                <p>".concat(description.length > 35 ? truncate(description, 35) : description, "</p>\n                <div class=\"video\">\n                    <video muted loop class=\"testimonial-video\">\n                        <source src=\"").concat(video, "\">\n                    </video>\n                    <div class=\"duration\">\n                        ").concat(secondsToMinutes(Math.floor(duration)), "\n                    </div>\n                    <div class=\"buttons\">\n                        <button class=\"video-play-button\" data-open-index=").concat(index, ">\n                            <span class=\"fa-stack\" style=\"vertical-align: top;\">\n                                <i class=\"fas fa-circle fa-stack-2x\"></i>\n                                <i class=\"fal fa-play-circle fa-stack-1x\"></i>\n                            </span>\n                        </button>\n                    </div>\n                    <div class=\"about\">\n                        <img src=\"").concat(author_image, "\" alt=\"Author image\" />\n                        <div class=\"author-info\">\n                            <div class=\"name\">\n                                <span>Answered by:</span>\n                                ").concat(author_name, "\n                            </div>\n                            <div class=\"job-title\">").concat(author_job_position, "</div>\n                        </div>\n                    </div>\n                </div>\n                <ul class=\"testimonial-categories\">\n                    ").concat(categories.map(function (category) {
+    return "\n        <div class=\"video-testimonial\">\n            <p>".concat(description.length > 35 ? truncate(description, 35) : description, "</p>\n            <div class=\"video\">\n                <video muted loop class=\"testimonial-video\">\n                    <source src=\"").concat(video, "\">\n                </video>\n                <div class=\"duration\">\n                    ").concat(secondsToMinutes(Math.floor(duration)), "\n                </div>\n                <div class=\"buttons\">\n                    <button class=\"video-play-button\" data-open-index=").concat(testimonial_id, ">\n                        <span class=\"fa-stack\" style=\"vertical-align: top;\">\n                            <i class=\"fas fa-circle fa-stack-2x\"></i>\n                            <i class=\"fal fa-play-circle fa-stack-1x\"></i>\n                        </span>\n                    </button>\n                </div>\n                <div class=\"about\">\n                    <img src=\"").concat(author_image, "\" alt=\"Author image\" />\n                    <div class=\"author-info\">\n                        <div class=\"name\">\n                            <span>Answered by:</span>\n                            ").concat(author_name, "\n                        </div>\n                        <div class=\"job-title\">").concat(author_job_position, "</div>\n                    </div>\n                </div>\n            </div>\n            <ul class=\"testimonial-categories\">\n                ").concat(categories.map(function (category) {
       return "<li><a href=\"".concat(category.link, "\">").concat(category.title, "</a></li>");
-    }).join(''), "\n                </ul>\n            </div>\n            ");
+    }).join(''), "\n            </ul>\n        </div>\n        ");
   };
 
   var makeTestemonialModalTemplate = function makeTestemonialModalTemplate(_ref3, index) {
-    var author_name = _ref3.author_name,
+    var testimonial_id = _ref3.testimonial_id,
+        author_name = _ref3.author_name,
         author_surname = _ref3.author_surname,
         author_image = _ref3.author_image,
         author_job_position = _ref3.author_job_position,
@@ -2114,9 +2096,9 @@ var allVideoTestimonials = function allVideoTestimonials() {
         video = _ref3.video,
         categories = _ref3.categories,
         is_video_vertical = _ref3.is_video_vertical;
-    return "\n                <div class=\"video-testimonial-modal out\" data-index=".concat(index, ">\n                    <div class=\"modal-content ").concat(is_video_vertical ? "height" : "width", "\">\n                        <button class=\"close modal-close\" data-index=").concat(index, "><i class=\"material-icons\">close</i></button>\n                        <h3 class=\"description\">\n                            ").concat(description, "\n                        </h3>\n                        <div class=\"content\">\n                            <video controls disablepictureinpicture controlsList=\"nodownload\" class=\"modal-video\">\n                                <source src=\"").concat(video, "\">\n                            </video>\n                        </div>\n                        <div class=\"author\">\n                            <img src=\"").concat(author_image, "\" alt=\"Author image\" />\n                            <div class=\"author-info\">\n                                <div class=\"name\">\n                                    ").concat(author_name, "\n                                    ").concat(author_surname, "\n                                </div>\n                                <div class=\"job-title\">").concat(author_job_position, "</div>\n                            </div>\n                        </div>\n                        <div class=\"modal-tags\">\n                        ").concat(categories.map(function (category) {
+    return "\n            <div class=\"video-testimonial-modal out\" data-index=".concat(testimonial_id, ">\n                <div class=\"modal-content ").concat(is_video_vertical ? "height" : "width", "\">\n                    <button class=\"close modal-close\" data-close-index=").concat(testimonial_id, "><i class=\"material-icons\">close</i></button>\n                    <h3 class=\"description\">\n                        ").concat(description, "\n                    </h3>\n                    <div class=\"content\">\n                        <video controls disablepictureinpicture controlsList=\"nodownload\" class=\"modal-video\" data-video-id=").concat(testimonial_id, ">\n                            <source src=\"").concat(video, "\">\n                        </video>\n                    </div>\n                    <div class=\"author\">\n                        <img src=\"").concat(author_image, "\" alt=\"Author image\" />\n                        <div class=\"author-info\">\n                            <div class=\"name\">\n                                ").concat(author_name, "\n                                ").concat(author_surname ? author_surname : "", "\n                            </div>\n                            <div class=\"job-title\">").concat(author_job_position, "</div>\n                        </div>\n                    </div>\n                    <div class=\"modal-tags\">\n                    ").concat(categories.map(function (category) {
       return "<a class=\"tag-pill\" href=\"".concat(category.link, "\">").concat(category.title, "</a>");
-    }).join(''), "\n                        </div>\n                    </div>\n                </div>\n            ");
+    }).join(''), "\n                    </div>\n                </div>\n            </div>\n        ");
   };
 
   var maketestimonialFiltersTemplate = function maketestimonialFiltersTemplate(_ref4, filterCategories) {
@@ -2124,17 +2106,11 @@ var allVideoTestimonials = function allVideoTestimonials() {
         categoryId = _ref5[0],
         categoryName = _ref5[1];
 
-    return "\n                <label class=\"checkbox\">\n                    <span class=\"checkbox-input\">\n                        <input class=\"input\" type=\"checkbox\" name=\"".concat(categoryName.toLowerCase(), "\" id=\"").concat(categoryName.toLowerCase(), "\" value=").concat(categoryId, " ").concat(filterCategories.includes(categoryId) && "checked", ">\n                        <span class=\"checkbox-control\">\n                            <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' aria-hidden=\"true\" focusable=\"false\">\n                            <path fill='none' stroke='currentColor' stroke-width='3' d='M1.73 12.91l6.37 6.37L22.79 4.59' /></svg>\n                        </span>\n                    </span>\n                    <span class=\"radio-label\">").concat(categoryName, "</span>\n                </label>\n            ");
-    /*
-    return `
-        <input class="input" type="checkbox" id="${categoryName.toLowerCase()}" name="${categoryName.toLowerCase()}" value=${categoryId} ${filterCategories.includes(categoryId) && "checked"}>
-        <label for="${categoryName.toLowerCase()}">${categoryName}</label><br>
-    `
-    */
+    return "\n            <label class=\"checkbox\">\n                <span class=\"checkbox-input\">\n                    <input class=\"input\" type=\"checkbox\" name=\"".concat(categoryName.toLowerCase(), "\" id=\"").concat(categoryName.toLowerCase(), "\" value=").concat(categoryId, " ").concat(filterCategories.includes(categoryId) && "checked", ">\n                    <span class=\"checkbox-control\">\n                        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' aria-hidden=\"true\" focusable=\"false\">\n                        <path fill='none' stroke='currentColor' stroke-width='3' d='M1.73 12.91l6.37 6.37L22.79 4.59' /></svg>\n                    </span>\n                </span>\n                <span class=\"radio-label\">").concat(categoryName, "</span>\n            </label>\n        ");
   };
 
   var pageNumbersTemplate = function pageNumbersTemplate(numberOfPage, currentPageNumber) {
-    return "\n                <button class=\"page-button ".concat(currentPageNumber === numberOfPage ? "active" : "", "\" data-page-number=").concat(numberOfPage, ">").concat(numberOfPage, "</button>\n            ");
+    return "\n            <button class=\"page-button ".concat(currentPageNumber === numberOfPage ? "active" : "", "\" data-page-number=").concat(numberOfPage, ">").concat(numberOfPage, "</button>\n        ");
   };
 
   var truncate = function truncate(string, length) {
