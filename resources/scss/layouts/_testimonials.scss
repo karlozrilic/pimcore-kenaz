@@ -121,14 +121,6 @@
                     opacity: 0.5;
                     pointer-events: none;
                 }
-                &::before {
-                    content: "Loading...";
-                    position: absolute;
-                    top: calc(25% + calc(60px + 5px));
-                    left: 50%;
-                    text-align: center;
-                    color: $black;
-                }
                 &::after {
                     content: "";
                     position: absolute;
@@ -141,13 +133,14 @@
                     width: 60px;
                     height: 60px;
                     animation: spin 2s linear infinite;
-                    &::after {
-                        content: "Loading";
-                        position: relative;
-                        width: 100px;
-                        height: 100px;
-                        background-color: red;
-                    }
+                }
+                &::before {
+                    content: "Loading...";
+                    position: absolute;
+                    top: calc(25% + calc(60px + 5px));
+                    left: 50%;
+                    text-align: center;
+                    color: $black;
                 }
             }
             .video-testimonial {
