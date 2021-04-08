@@ -2255,6 +2255,14 @@ header {
   opacity: 0.5;
   pointer-events: none;
 }
+.all-testimonials .page-list .testimonials-list.loading::before {
+  content: "Loading...";
+  position: absolute;
+  top: calc(25% + calc(60px + 5px));
+  left: 50%;
+  text-align: center;
+  color: #000000;
+}
 .all-testimonials .page-list .testimonials-list.loading::after {
   content: "";
   position: absolute;
@@ -2268,6 +2276,13 @@ header {
   height: 60px;
   -webkit-animation: spin 2s linear infinite;
           animation: spin 2s linear infinite;
+}
+.all-testimonials .page-list .testimonials-list.loading::after::after {
+  content: "Loading";
+  position: relative;
+  width: 100px;
+  height: 100px;
+  background-color: red;
 }
 .all-testimonials .page-list .testimonials-list .video-testimonial {
   height: -webkit-fit-content;
