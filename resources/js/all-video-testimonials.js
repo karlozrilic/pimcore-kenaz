@@ -33,7 +33,7 @@ const allVideoTestimonials = () => {
         $(pageButtons).each((index, element) => {
             $(element).removeClass("active");
         });
-        handleFilterChange(filterList, pageNumber);
+        handleDataChange(filterList, pageNumber);
     });
 
     $(modalContainer).on("click", ".modal-close", (event) => {
@@ -73,10 +73,10 @@ const allVideoTestimonials = () => {
     $(filters).click((event) => {
         if (event.target.checked) {
             filterList.push($(event.target).val());
-            handleFilterChange(filterList);
+            handleDataChange(filterList);
         } else {
             filterList.splice(filterList.indexOf($(event.target).val()), 1);
-            handleFilterChange(filterList);
+            handleDataChange(filterList);
         }
     })
     */
@@ -84,14 +84,15 @@ const allVideoTestimonials = () => {
     $(filters).on("click", ".input", (event) => {
         if (event.currentTarget.checked) {
             filterList.push($(event.currentTarget).val());
-            handleFilterChange(filterList);
+            handleDataChange(filterList);
         } else {
             filterList.splice(filterList.indexOf($(event.currentTarget).val()), 1);
-            handleFilterChange(filterList);
+            handleDataChange(filterList);
         }
     });
 
-    const handleFilterChange = (filterList, page = 1) => {
+    const handleDataChange = (filterList, page = 1) => {
+        $(testimonialsList).addClass("loading");
         filter(filterList, page).then((data) => {
             $(modalContainer).empty();
             $(testimonialsList).empty();
@@ -124,7 +125,7 @@ const allVideoTestimonials = () => {
             Object.entries(data.categories_data).forEach((category) => {
                 $(filters).append(maketestimonialFiltersTemplate(category, data.filter_categories));
             });
-            $(document).trigger("dataChanged");
+            $(testimonialsList).removeClass("loading");
         });
     };
 

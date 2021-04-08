@@ -1910,7 +1910,7 @@ var allVideoTestimonials = function allVideoTestimonials() {
     $(pageButtons).each(function (index, element) {
       $(element).removeClass("active");
     });
-    handleFilterChange(filterList, pageNumber);
+    handleDataChange(filterList, pageNumber);
   });
   $(modalContainer).on("click", ".modal-close", function (event) {
     var index = $(event.currentTarget).data("close-index");
@@ -1949,10 +1949,10 @@ var allVideoTestimonials = function allVideoTestimonials() {
   $(filters).click((event) => {
       if (event.target.checked) {
           filterList.push($(event.target).val());
-          handleFilterChange(filterList);
+          handleDataChange(filterList);
       } else {
           filterList.splice(filterList.indexOf($(event.target).val()), 1);
-          handleFilterChange(filterList);
+          handleDataChange(filterList);
       }
   })
   */
@@ -1961,15 +1961,16 @@ var allVideoTestimonials = function allVideoTestimonials() {
   $(filters).on("click", ".input", function (event) {
     if (event.currentTarget.checked) {
       filterList.push($(event.currentTarget).val());
-      handleFilterChange(filterList);
+      handleDataChange(filterList);
     } else {
       filterList.splice(filterList.indexOf($(event.currentTarget).val()), 1);
-      handleFilterChange(filterList);
+      handleDataChange(filterList);
     }
   });
 
-  var handleFilterChange = function handleFilterChange(filterList) {
+  var handleDataChange = function handleDataChange(filterList) {
     var page = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
+    $(testimonialsList).addClass("loading");
     filter(filterList, page).then(function (data) {
       $(modalContainer).empty();
       $(testimonialsList).empty();
@@ -2002,7 +2003,7 @@ var allVideoTestimonials = function allVideoTestimonials() {
       Object.entries(data.categories_data).forEach(function (category) {
         $(filters).append(maketestimonialFiltersTemplate(category, data.filter_categories));
       });
-      $(document).trigger("dataChanged");
+      $(testimonialsList).removeClass("loading");
     });
   };
 
