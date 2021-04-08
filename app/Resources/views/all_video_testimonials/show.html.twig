@@ -27,7 +27,7 @@
                 <p>{{ testemonial['description']|truncate(35, '...') }}</p>
                 <div class="video">
                     <video muted loop playsinline class="testimonial-video" id="{{ testemonial['testimonial_id']  }}">
-                        <source data-src="{{ testemonial['video']|raw }}">
+                        <source src="{{ testemonial['video']|raw }}">
                     </video>
                     <div class="duration">
                         {% set time = testemonial['video_settings'].duration|round(0, 'floor')|number_format(0, '.')  %}

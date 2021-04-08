@@ -21,10 +21,11 @@ const allVideoTestimonials = () => {
     $(window).scroll(function () {
         if (($(testimonialsList).position().top + $(testimonialsList).outerHeight(true)) - $(this).height() <= ($(this).scrollTop() + 200) && !scrolledToBottom) {
             currentPage += 1;
-            handleFilterChange(filterList, currentPage, true);
+            handleDataChange(filterList, currentPage, true);
             scrolledToBottom = true;
         }
     }).on("load", async () => {
+        
         for (let i = 0 ; i < $(previewVideos).length; i) {
             if ($(previewVideos).eq(i).get(0).src === "") {
                 const video_url = $(previewVideos).eq(i).data("src");
@@ -40,17 +41,22 @@ const allVideoTestimonials = () => {
             }
             
             await new Promise((resolve, reject) => {
-                setInterval(() => {
-                    if (video.readyState >= 3) {
-                        resolve(true);
-                    }
-                }, 100)       
-            }).then((res) => {
-                if (res == true) {
+                video.addEventListener("canplaythrough", () => {
+                    resolve(video);
+                });
+
+                video.addEventListener("error", () => {
+                    reject(video);
+                })    
+            }).then((video) => {
+                if (video.readyState >= 3) {
                     i++;
                 }
+            }).catch((error) => {
+                console.log(error);
             });
         }
+        
         /*
         $(previewVideos).each( async (index, element) => {
             const video_url = $(element).data("src");
@@ -76,15 +82,19 @@ const allVideoTestimonials = () => {
             }
             
             await new Promise((resolve, reject) => {
-                setInterval(() => {
-                    if (video.readyState >= 3) {
-                        resolve(true);
-                    }
-                }, 100)       
-            }).then((res) => {
-                if (res == true) {
+                video.addEventListener("canplaythrough", () => {
+                    resolve(video);
+                });
+
+                video.addEventListener("error", () => {
+                    reject(video);
+                })    
+            }).then((video) => {
+                if (video.readyState >= 3) {
                     i++;
                 }
+            }).catch((error) => {
+                console.log(error);
             });
         }
     }).on("click", (event) => {
@@ -104,7 +114,7 @@ const allVideoTestimonials = () => {
     });
 
     $(testimonialsList).on("mouseenter", ".video-testimonial", (event) => {
-        $(event.currentTarget).find("video")[0].play();
+        $(event.currentTarget).find("video")[0].play().catch(e => console.log(e));
     }).on("mouseleave", ".video-testimonial", (event) => {
         $(event.currentTarget).find("video")[0].pause();
         $(event.currentTarget).find("video")[0].currentTime = 0;
@@ -114,7 +124,7 @@ const allVideoTestimonials = () => {
         const video = $(modalContainer).find(`[data-video-id=${index}]`);
         $(modal).css("display", "block");
         $(modal).removeClass("out");
-        video.get(0).play();
+        video.get(0).play().catch(e => console.log(e));
     });
 
     window.onpopstate = () => {
@@ -138,15 +148,17 @@ const allVideoTestimonials = () => {
         currentPage = 1;
         if (event.currentTarget.checked) {
             filterList.push($(event.currentTarget).val());
-            handleFilterChange(filterList);
+            handleDataChange(filterList, null, null, true);
         } else {
             filterList.splice(filterList.indexOf($(event.currentTarget).val()), 1);
-            handleFilterChange(filterList);
+            handleDataChange(filterList, null, null, true);
         }
     });
 
-    const handleFilterChange = (filterList, page = 1, infiniteScroll = false) => {
-        $(testimonialsList).addClass("loading");
+    const handleDataChange = (filterList, page = 1, infiniteScroll = false, filterChanged = false) => {
+        if (filterChanged) {
+            $(testimonialsList).addClass("loading");
+        }
         filter(filterList, page).then((data) => {
             if (!infiniteScroll) {
                 $(modalContainer).empty();
@@ -163,9 +175,14 @@ const allVideoTestimonials = () => {
                 });
                 scrolledToBottom = false;
                 $(window).trigger("contentAdded");
-                $(testimonialsList).removeClass("loading");
+                if (filterChanged) {
+                    $(testimonialsList).removeClass("loading");
+                }
             } else {
                 $(loading).empty();
+                if (filterChanged) {
+                    $(testimonialsList).removeClass("loading");
+                }
             }
         });
     };
@@ -202,7 +219,7 @@ const allVideoTestimonials = () => {
             <p>${description.length > 35 ? truncate(description, 35) : description}</p>
             <div class="video">
                 <video muted loop playsinline class="testimonial-video" id=${testimonial_id}>
-                    <source data-src="${video}">
+                    <source src="${video}">
                 </video>
                 <div class="duration">
                     ${secondsToMinutes(Math.floor(duration))}

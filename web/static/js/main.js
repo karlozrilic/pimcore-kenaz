@@ -1897,7 +1897,7 @@ var allVideoTestimonials = function allVideoTestimonials() {
   $(window).scroll(function () {
     if ($(testimonialsList).position().top + $(testimonialsList).outerHeight(true) - $(this).height() <= $(this).scrollTop() + 200 && !scrolledToBottom) {
       currentPage += 1;
-      handleFilterChange(filterList, currentPage, true);
+      handleDataChange(filterList, currentPage, true);
       scrolledToBottom = true;
     }
   }).on("load", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
@@ -1937,15 +1937,18 @@ var allVideoTestimonials = function allVideoTestimonials() {
                     case 9:
                       _context.next = 11;
                       return new Promise(function (resolve, reject) {
-                        setInterval(function () {
-                          if (video.readyState >= 3) {
-                            resolve(true);
-                          }
-                        }, 100);
-                      }).then(function (res) {
-                        if (res == true) {
+                        video.addEventListener("canplaythrough", function () {
+                          resolve(video);
+                        });
+                        video.addEventListener("error", function () {
+                          reject(video);
+                        });
+                      }).then(function (video) {
+                        if (video.readyState >= 3) {
                           _i++;
                         }
+                      })["catch"](function (error) {
+                        console.log(error);
                       });
 
                     case 11:
@@ -2027,15 +2030,18 @@ var allVideoTestimonials = function allVideoTestimonials() {
                     case 9:
                       _context3.next = 11;
                       return new Promise(function (resolve, reject) {
-                        setInterval(function () {
-                          if (video.readyState >= 3) {
-                            resolve(true);
-                          }
-                        }, 100);
-                      }).then(function (res) {
-                        if (res == true) {
+                        video.addEventListener("canplaythrough", function () {
+                          resolve(video);
+                        });
+                        video.addEventListener("error", function () {
+                          reject(video);
+                        });
+                      }).then(function (video) {
+                        if (video.readyState >= 3) {
                           _i3++;
                         }
+                      })["catch"](function (error) {
+                        console.log(error);
                       });
 
                     case 11:
@@ -2097,7 +2103,9 @@ var allVideoTestimonials = function allVideoTestimonials() {
     });
   });
   $(testimonialsList).on("mouseenter", ".video-testimonial", function (event) {
-    $(event.currentTarget).find("video")[0].play();
+    $(event.currentTarget).find("video")[0].play()["catch"](function (e) {
+      return console.log(e);
+    });
   }).on("mouseleave", ".video-testimonial", function (event) {
     $(event.currentTarget).find("video")[0].pause();
     $(event.currentTarget).find("video")[0].currentTime = 0;
@@ -2107,7 +2115,9 @@ var allVideoTestimonials = function allVideoTestimonials() {
     var video = $(modalContainer).find("[data-video-id=".concat(index, "]"));
     $(modal).css("display", "block");
     $(modal).removeClass("out");
-    video.get(0).play();
+    video.get(0).play()["catch"](function (e) {
+      return console.log(e);
+    });
   });
 
   window.onpopstate = function () {
@@ -2131,17 +2141,22 @@ var allVideoTestimonials = function allVideoTestimonials() {
 
     if (event.currentTarget.checked) {
       filterList.push($(event.currentTarget).val());
-      handleFilterChange(filterList);
+      handleDataChange(filterList, null, null, true);
     } else {
       filterList.splice(filterList.indexOf($(event.currentTarget).val()), 1);
-      handleFilterChange(filterList);
+      handleDataChange(filterList, null, null, true);
     }
   });
 
-  var handleFilterChange = function handleFilterChange(filterList) {
+  var handleDataChange = function handleDataChange(filterList) {
     var page = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
     var infiniteScroll = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
-    $(testimonialsList).addClass("loading");
+    var filterChanged = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+
+    if (filterChanged) {
+      $(testimonialsList).addClass("loading");
+    }
+
     filter(filterList, page).then(function (data) {
       if (!infiniteScroll) {
         $(modalContainer).empty();
@@ -2159,9 +2174,16 @@ var allVideoTestimonials = function allVideoTestimonials() {
         });
         scrolledToBottom = false;
         $(window).trigger("contentAdded");
-        $(testimonialsList).removeClass("loading");
+
+        if (filterChanged) {
+          $(testimonialsList).removeClass("loading");
+        }
       } else {
         $(loading).empty();
+
+        if (filterChanged) {
+          $(testimonialsList).removeClass("loading");
+        }
       }
     });
   };
@@ -2240,7 +2262,7 @@ var allVideoTestimonials = function allVideoTestimonials() {
         video = _ref4.video,
         categories = _ref4.categories,
         duration = _ref4.video_settings.duration;
-    return "\n        <div class=\"video-testimonial\">\n            <p>".concat(description.length > 35 ? truncate(description, 35) : description, "</p>\n            <div class=\"video\">\n                <video muted loop playsinline class=\"testimonial-video\" id=").concat(testimonial_id, ">\n                    <source data-src=\"").concat(video, "\">\n                </video>\n                <div class=\"duration\">\n                    ").concat(secondsToMinutes(Math.floor(duration)), "\n                </div>\n                <div class=\"buttons\">\n                    <button class=\"video-play-button\" data-open-index=").concat(testimonial_id, ">\n                        <span class=\"fa-stack\" style=\"vertical-align: top;\">\n                            <i class=\"fas fa-circle fa-stack-2x\"></i>\n                            <i class=\"fal fa-play-circle fa-stack-1x\"></i>\n                        </span>\n                    </button>\n                </div>\n                <div class=\"about\">\n                    <img src=\"").concat(author_image, "\" alt=\"Author image\" />\n                    <div class=\"author-info\">\n                        <div class=\"name\">\n                            <span>Answered by:</span>\n                            ").concat(author_name, "\n                        </div>\n                        <div class=\"job-title\">").concat(author_job_position, "</div>\n                    </div>\n                </div>\n            </div>\n            <ul class=\"testimonial-categories\">\n                ").concat(categories.map(function (category) {
+    return "\n        <div class=\"video-testimonial\">\n            <p>".concat(description.length > 35 ? truncate(description, 35) : description, "</p>\n            <div class=\"video\">\n                <video muted loop playsinline class=\"testimonial-video\" id=").concat(testimonial_id, ">\n                    <source src=\"").concat(video, "\">\n                </video>\n                <div class=\"duration\">\n                    ").concat(secondsToMinutes(Math.floor(duration)), "\n                </div>\n                <div class=\"buttons\">\n                    <button class=\"video-play-button\" data-open-index=").concat(testimonial_id, ">\n                        <span class=\"fa-stack\" style=\"vertical-align: top;\">\n                            <i class=\"fas fa-circle fa-stack-2x\"></i>\n                            <i class=\"fal fa-play-circle fa-stack-1x\"></i>\n                        </span>\n                    </button>\n                </div>\n                <div class=\"about\">\n                    <img src=\"").concat(author_image, "\" alt=\"Author image\" />\n                    <div class=\"author-info\">\n                        <div class=\"name\">\n                            <span>Answered by:</span>\n                            ").concat(author_name, "\n                        </div>\n                        <div class=\"job-title\">").concat(author_job_position, "</div>\n                    </div>\n                </div>\n            </div>\n            <ul class=\"testimonial-categories\">\n                ").concat(categories.map(function (category) {
       return "<li><a href=\"".concat(category.link, "\">").concat(category.title, "</a></li>");
     }).join(''), "\n            </ul>\n        </div>\n        ");
   };
@@ -2483,7 +2505,9 @@ var videoTestimonialsAnimation = function videoTestimonialsAnimation(numberOftes
     testimonialVideos = $(".testimonial-video");
     $(testimonialVideos).each(function (index, element) {
       if (index == 1) {
-        element.play();
+        element.play()["catch"](function (e) {
+          return console.log(e);
+        });
       } else {
         setTimeout(function () {
           element.pause();
@@ -2547,7 +2571,9 @@ var videoTestimonialsAnimation = function videoTestimonialsAnimation(numberOftes
     var testimonialVideosMin = $(".testimonial-video-minimized");
     $(testimonialVideosMin).each(function (index, element) {
       if (index == 1) {
-        element.play();
+        element.play()["catch"](function (e) {
+          return console.log(e);
+        });
       } else {
         setTimeout(function () {
           element.pause();
@@ -2646,14 +2672,18 @@ var videoTestimonialsAnimation = function videoTestimonialsAnimation(numberOftes
     $(element).on("click", function () {
       $(modals[index]).css("display", "block");
       $(modals[index]).removeClass("out");
-      videos[index].play();
+      videos[index].play()["catch"](function (e) {
+        return console.log(e);
+      });
     });
   });
   openModalsMin.each(function (index, element) {
     $(element).on("click", function () {
       $(modals[index]).css("display", "block");
       $(modals[index]).removeClass("out");
-      videos[index].play();
+      videos[index].play()["catch"](function (e) {
+        return console.log(e);
+      });
     });
   });
   minimizeTestimonials.each(function (index, element) {

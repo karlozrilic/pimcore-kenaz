@@ -74,7 +74,7 @@ const videoTestimonialsAnimation = (numberOftestimonials) => {
         
         $(testimonialVideos).each((index, element) => {
             if (index == 1) {
-                element.play();
+                element.play().catch(e => console.log(e));
             } else {
                 setTimeout(() => {
                     element.pause();
@@ -138,7 +138,7 @@ const videoTestimonialsAnimation = (numberOftestimonials) => {
         
         $(testimonialVideosMin).each((index, element) => {
             if (index == 1) {
-                element.play();
+                element.play().catch(e => console.log(e));
             } else {
                 setTimeout(() => {
                     element.pause();
@@ -236,7 +236,7 @@ const videoTestimonialsAnimation = (numberOftestimonials) => {
         $(element).on("click", () => {
             $(modals[index]).css("display", "block");
             $(modals[index]).removeClass("out");
-            videos[index].play();
+            videos[index].play().catch(e => console.log(e));
         });
     });
 
@@ -244,7 +244,7 @@ const videoTestimonialsAnimation = (numberOftestimonials) => {
         $(element).on("click", () => {
             $(modals[index]).css("display", "block");
             $(modals[index]).removeClass("out");
-            videos[index].play();
+            videos[index].play().catch(e => console.log(e));
         });
     });
 
