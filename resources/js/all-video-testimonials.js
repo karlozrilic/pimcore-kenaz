@@ -1,4 +1,3 @@
-import { videoMkv } from '@cloudinary/base/qualifiers/format';
 import axios from 'axios';
 
 const VIDEO_TESTIMONIALS_BASE_URL = window.location.origin + "/video-testimonials";
