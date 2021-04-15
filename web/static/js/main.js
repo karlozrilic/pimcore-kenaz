@@ -2148,15 +2148,22 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
 var Filtering = /*#__PURE__*/function () {
-  function Filtering(testimonialsList, modalContainer, pageButtons, filters, video_testimonials_base_url, video_testimonials_list_url) {
+  function Filtering(_ref) {
+    var list = _ref.list,
+        container = _ref.container,
+        buttons = _ref.buttons,
+        filters = _ref.filters,
+        apiUrl = _ref.apiUrl,
+        currentUrl = _ref.currentUrl;
+
     _classCallCheck(this, Filtering);
 
-    this.testimonialsList = testimonialsList;
-    this.modalContainer = modalContainer;
-    this.pageButtons = pageButtons;
+    this.list = list;
+    this.container = container;
+    this.buttons = buttons;
     this.filters = filters;
-    this.video_testimonials_base_url = video_testimonials_base_url;
-    this.video_testimonials_list_url = video_testimonials_list_url;
+    this.apiUrl = apiUrl;
+    this.currentUrl = currentUrl;
   }
 
   _createClass(Filtering, [{
@@ -2184,7 +2191,7 @@ var Filtering = /*#__PURE__*/function () {
                 };
                 _context.prev = 2;
                 _context.next = 5;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default().get(this.video_testimonials_base_url, axiosOptions);
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().get(this.apiUrl, axiosOptions);
 
               case 5:
                 response = _context.sent;
@@ -2196,7 +2203,7 @@ var Filtering = /*#__PURE__*/function () {
 
                 /* updating URL */
                 url = axios__WEBPACK_IMPORTED_MODULE_1___default().getUri({
-                  url: this.video_testimonials_list_url,
+                  url: this.currentUrl,
                   params: {
                     categories: filterList,
                     page: page
@@ -2234,64 +2241,64 @@ var Filtering = /*#__PURE__*/function () {
       var _this = this;
 
       var page = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
-      $(this.testimonialsList).addClass("loading");
+      $(this.list).addClass("loading");
       this.filter(filterList, page).then(function (data) {
-        $(_this.modalContainer).empty();
-        $(_this.testimonialsList).empty();
+        $(_this.container).empty();
+        $(_this.list).empty();
         data.video_testimonials.forEach(function (testimonial) {
-          $(_this.testimonialsList).append(_this.maketestimonialTemplate(testimonial));
-          $(_this.modalContainer).append(_this.makeTestemonialModalTemplate(testimonial));
+          $(_this.list).append(_this.maketestimonialTemplate(testimonial));
+          $(_this.container).append(_this.makeTestemonialModalTemplate(testimonial));
         });
-        $(_this.pageButtons).empty();
+        $(_this.buttons).empty();
 
         for (var el = 1; el <= data.number_of_pages; el++) {
-          $(_this.pageButtons).append(_this.pageNumbersTemplate(el, page));
+          $(_this.buttons).append(_this.pageNumbersTemplate(el, page));
         }
 
         $(_this.filters).empty();
         Object.entries(data.categories_data).forEach(function (category) {
           $(_this.filters).append(_this.maketestimonialFiltersTemplate(category, data.filter_categories));
         });
-        $(_this.testimonialsList).removeClass("loading");
+        $(_this.list).removeClass("loading");
       });
     }
   }, {
     key: "maketestimonialTemplate",
-    value: function maketestimonialTemplate(_ref) {
-      var testimonial_id = _ref.testimonial_id,
-          author_name = _ref.author_name,
-          author_image = _ref.author_image,
-          author_job_position = _ref.author_job_position,
-          description = _ref.description,
-          video = _ref.video,
-          categories = _ref.categories,
-          duration = _ref.video_settings.duration;
+    value: function maketestimonialTemplate(_ref2) {
+      var testimonial_id = _ref2.testimonial_id,
+          author_name = _ref2.author_name,
+          author_image = _ref2.author_image,
+          author_job_position = _ref2.author_job_position,
+          description = _ref2.description,
+          video = _ref2.video,
+          categories = _ref2.categories,
+          duration = _ref2.video_settings.duration;
       return "\n        <div class=\"video-testimonial\">\n            <p>".concat(description.length > 35 ? this.truncate(description, 35) : description, "</p>\n            <div class=\"video\">\n                <video muted loop class=\"testimonial-video\">\n                    <source src=\"").concat(video, "\">\n                </video>\n                <div class=\"duration\">\n                    ").concat(this.secondsToMinutes(Math.floor(duration)), "\n                </div>\n                <div class=\"buttons\">\n                    <button class=\"video-play-button\" data-open-index=").concat(testimonial_id, ">\n                        <span class=\"fa-stack\" style=\"vertical-align: top;\">\n                            <i class=\"fas fa-circle fa-stack-2x\"></i>\n                            <i class=\"fal fa-play-circle fa-stack-1x\"></i>\n                        </span>\n                    </button>\n                </div>\n                <div class=\"about\">\n                    <img src=\"").concat(author_image, "\" alt=\"Author image\" />\n                    <div class=\"author-info\">\n                        <div class=\"name\">\n                            <span>Answered by:</span>\n                            ").concat(author_name, "\n                        </div>\n                        <div class=\"job-title\">").concat(author_job_position, "</div>\n                    </div>\n                </div>\n            </div>\n            <ul class=\"testimonial-categories\">\n                ").concat(categories.map(function (category) {
         return "<li><a href=\"".concat(category.link, "\">").concat(category.title, "</a></li>");
       }).join(''), "\n            </ul>\n        </div>\n        ");
     }
   }, {
     key: "makeTestemonialModalTemplate",
-    value: function makeTestemonialModalTemplate(_ref2) {
-      var testimonial_id = _ref2.testimonial_id,
-          author_name = _ref2.author_name,
-          author_surname = _ref2.author_surname,
-          author_image = _ref2.author_image,
-          author_job_position = _ref2.author_job_position,
-          description = _ref2.description,
-          video = _ref2.video,
-          categories = _ref2.categories,
-          is_video_vertical = _ref2.is_video_vertical;
+    value: function makeTestemonialModalTemplate(_ref3) {
+      var testimonial_id = _ref3.testimonial_id,
+          author_name = _ref3.author_name,
+          author_surname = _ref3.author_surname,
+          author_image = _ref3.author_image,
+          author_job_position = _ref3.author_job_position,
+          description = _ref3.description,
+          video = _ref3.video,
+          categories = _ref3.categories,
+          is_video_vertical = _ref3.is_video_vertical;
       return "\n            <div class=\"video-testimonial-modal out\" data-index=".concat(testimonial_id, ">\n                <div class=\"modal-content ").concat(is_video_vertical ? "height" : "width", "\">\n                    <button class=\"close modal-close\" data-close-index=").concat(testimonial_id, "><i class=\"material-icons\">close</i></button>\n                    <h3 class=\"description\">\n                        ").concat(description, "\n                    </h3>\n                    <div class=\"content\">\n                        <video controls disablepictureinpicture controlsList=\"nodownload\" class=\"modal-video\" data-video-id=").concat(testimonial_id, ">\n                            <source src=\"").concat(video, "\">\n                        </video>\n                    </div>\n                    <div class=\"author\">\n                        <img src=\"").concat(author_image, "\" alt=\"Author image\" />\n                        <div class=\"author-info\">\n                            <div class=\"name\">\n                                ").concat(author_name, "\n                                ").concat(author_surname ? author_surname : "", "\n                            </div>\n                            <div class=\"job-title\">").concat(author_job_position, "</div>\n                        </div>\n                    </div>\n                    <div class=\"modal-tags\">\n                    ").concat(categories.map(function (category) {
         return "<a class=\"tag-pill\" href=\"".concat(category.link, "\">").concat(category.title, "</a>");
       }).join(''), "\n                    </div>\n                </div>\n            </div>\n        ");
     }
   }, {
     key: "maketestimonialFiltersTemplate",
-    value: function maketestimonialFiltersTemplate(_ref3, filterCategories) {
-      var _ref4 = _slicedToArray(_ref3, 2),
-          categoryId = _ref4[0],
-          categoryName = _ref4[1];
+    value: function maketestimonialFiltersTemplate(_ref4, filterCategories) {
+      var _ref5 = _slicedToArray(_ref4, 2),
+          categoryId = _ref5[0],
+          categoryName = _ref5[1];
 
       return "\n            <label class=\"checkbox\">\n                <span class=\"checkbox-input\">\n                    <input class=\"input\" type=\"checkbox\" name=\"".concat(categoryName.toLowerCase(), "\" id=\"").concat(categoryName.toLowerCase(), "\" value=").concat(categoryId, " ").concat(filterCategories.includes(categoryId) && "checked", ">\n                    <span class=\"checkbox-control\">\n                        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' aria-hidden=\"true\" focusable=\"false\">\n                        <path fill='none' stroke='currentColor' stroke-width='3' d='M1.73 12.91l6.37 6.37L22.79 4.59' /></svg>\n                    </span>\n                </span>\n                <span class=\"radio-label\">").concat(categoryName, "</span>\n            </label>\n        ");
     }
@@ -2361,7 +2368,15 @@ var allVideoTestimonials = function allVideoTestimonials() {
   var testimonialsList = $(".testimonials-list");
   var urlParams = new URLSearchParams(window.location.search);
   var filterList = urlParams.getAll('categories[]');
-  var filtering = new _Filtering__WEBPACK_IMPORTED_MODULE_1__.default(testimonialsList, modalContainer, pageButtons, filters, VIDEO_TESTIMONIALS_BASE_URL, VIDEO_TESTIMONIALS_LIST_URL);
+  var filteringOptions = {
+    list: testimonialsList,
+    container: modalContainer,
+    buttons: pageButtons,
+    filters: filters,
+    apiUrl: VIDEO_TESTIMONIALS_BASE_URL,
+    currentUrl: VIDEO_TESTIMONIALS_LIST_URL
+  };
+  var filtering = new _Filtering__WEBPACK_IMPORTED_MODULE_1__.default(filteringOptions);
   $(testimonialsList).on("mouseenter", ".video-testimonial", function (event) {
     $(event.currentTarget).find("video")[0].play();
   }).on("mouseleave", ".video-testimonial", function (event) {

@@ -13,7 +13,16 @@ const allVideoTestimonials = () => {
     const urlParams = new URLSearchParams(window.location.search);
     let filterList = urlParams.getAll('categories[]');
 
-    let filtering = new Filtering(testimonialsList, modalContainer, pageButtons, filters, VIDEO_TESTIMONIALS_BASE_URL, VIDEO_TESTIMONIALS_LIST_URL);
+    const filteringOptions = {
+        list: testimonialsList,
+        container: modalContainer,
+        buttons: pageButtons,
+        filters: filters,
+        apiUrl: VIDEO_TESTIMONIALS_BASE_URL,
+        currentUrl: VIDEO_TESTIMONIALS_LIST_URL
+    };
+
+    const filtering = new Filtering(filteringOptions);
 
     $(testimonialsList).on("mouseenter", ".video-testimonial", (event) => {
         $(event.currentTarget).find("video")[0].play();

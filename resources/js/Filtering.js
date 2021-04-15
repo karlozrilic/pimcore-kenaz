@@ -1,13 +1,13 @@
 import axios from 'axios';
 
 export default class Filtering {
-    constructor(testimonialsList, modalContainer, pageButtons, filters, video_testimonials_base_url, video_testimonials_list_url) {
-        this.testimonialsList = testimonialsList;
-        this.modalContainer = modalContainer;
-        this.pageButtons = pageButtons;
+    constructor({list, container, buttons, filters, apiUrl, currentUrl}) {
+        this.list = list;
+        this.container = container;
+        this.buttons = buttons;
         this.filters = filters;
-        this.video_testimonials_base_url = video_testimonials_base_url;
-        this.video_testimonials_list_url = video_testimonials_list_url;
+        this.apiUrl = apiUrl;
+        this.currentUrl = currentUrl;
     };
 
     async filter(filterList, page = 1) {
@@ -19,12 +19,12 @@ export default class Filtering {
             }
         };
         try {
-            const response = await axios.get(this.video_testimonials_base_url, axiosOptions);
+            const response = await axios.get(this.apiUrl, axiosOptions);
             const data = await response.data;
 
             /* updating URL */
             const url = axios.getUri({
-                url: this.video_testimonials_list_url, 
+                url: this.currentUrl, 
                 params: {
                     categories: filterList,
                     page: page
@@ -40,25 +40,25 @@ export default class Filtering {
     };
 
     handleDataChange(filterList, page = 1) {
-        $(this.testimonialsList).addClass("loading");
+        $(this.list).addClass("loading");
         this.filter(filterList, page).then((data) => {
-            $(this.modalContainer).empty();
-            $(this.testimonialsList).empty();
+            $(this.container).empty();
+            $(this.list).empty();
             data.video_testimonials.forEach((testimonial) => {
-                $(this.testimonialsList).append(this.maketestimonialTemplate(testimonial));
-                $(this.modalContainer).append(this.makeTestemonialModalTemplate(testimonial));
+                $(this.list).append(this.maketestimonialTemplate(testimonial));
+                $(this.container).append(this.makeTestemonialModalTemplate(testimonial));
             });
 
-            $(this.pageButtons).empty();
+            $(this.buttons).empty();
             for (let el = 1; el <= data.number_of_pages; el++) {
-                $(this.pageButtons).append(this.pageNumbersTemplate(el, page));
+                $(this.buttons).append(this.pageNumbersTemplate(el, page));
             }
 
             $(this.filters).empty();
             Object.entries(data.categories_data).forEach((category) => {
                 $(this.filters).append(this.maketestimonialFiltersTemplate(category, data.filter_categories));
             });
-            $(this.testimonialsList).removeClass("loading");
+            $(this.list).removeClass("loading");
         });
     };
 

@@ -28,7 +28,7 @@ const videoTestimonialsAnimation = (numberOftestimonials) => {
         testimonials: testimonials, 
         videos: testimonialVideos, 
         delay: intervalDelay
-    }
+    };
 
     const animations = new Animations(animationSettings);
 
