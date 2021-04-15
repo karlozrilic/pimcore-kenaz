@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Filtering from './Filtering';
 
 const VIDEO_TESTIMONIALS_BASE_URL = window.location.origin + "/video-testimonials";
 const VIDEO_TESTIMONIALS_LIST_URL = window.location.origin + "/all-video-testimonials";
@@ -6,12 +7,13 @@ const VIDEO_TESTIMONIALS_LIST_URL = window.location.origin + "/all-video-testimo
 const allVideoTestimonials = () => {
     const filters = $(".filters");
     const pageButtons = $(".pages");
-    /*const filters = $(".filters :input");*/
     const modalContainer = $(".testimonial-modals");
     const testimonialsList = $(".testimonials-list");
 
     const urlParams = new URLSearchParams(window.location.search);
     let filterList = urlParams.getAll('categories[]');
+
+    let filtering = new Filtering(testimonialsList, modalContainer, pageButtons, filters, VIDEO_TESTIMONIALS_BASE_URL, VIDEO_TESTIMONIALS_LIST_URL);
 
     $(testimonialsList).on("mouseenter", ".video-testimonial", (event) => {
         $(event.currentTarget).find("video")[0].play();
@@ -25,14 +27,15 @@ const allVideoTestimonials = () => {
         $(modal).css("display", "block");
         $(modal).removeClass("out");
         video.play();
-    })
+    });
 
     $(pageButtons).on("click", ".page-button", (event) => {
         const pageNumber = $(event.currentTarget).data("page-number");
         $(pageButtons).each((index, element) => {
             $(element).removeClass("active");
         });
-        handleDataChange(filterList, pageNumber);
+        filtering.handleDataChange(filterList, pageNumber);
+        //handleDataChange(filterList, pageNumber);
     });
 
     $(modalContainer).on("click", ".modal-close", (event) => {
@@ -67,29 +70,20 @@ const allVideoTestimonials = () => {
     window.onpopstate = () => {
         location.reload();
     };
-
-    /*
-    $(filters).click((event) => {
-        if (event.target.checked) {
-            filterList.push($(event.target).val());
-            handleDataChange(filterList);
-        } else {
-            filterList.splice(filterList.indexOf($(event.target).val()), 1);
-            handleDataChange(filterList);
-        }
-    })
-    */
         
     $(filters).on("click", ".input", (event) => {
         if (event.currentTarget.checked) {
             filterList.push($(event.currentTarget).val());
-            handleDataChange(filterList);
+            filtering.handleDataChange(filterList);
+            //handleDataChange(filterList);
         } else {
             filterList.splice(filterList.indexOf($(event.currentTarget).val()), 1);
-            handleDataChange(filterList);
+            filtering.handleDataChange(filterList);
+            //handleDataChange(filterList);
         }
     });
 
+    /* 
     const handleDataChange = (filterList, page = 1) => {
         $(testimonialsList).addClass("loading");
         filter(filterList, page).then((data) => {
@@ -99,21 +93,6 @@ const allVideoTestimonials = () => {
                 $(testimonialsList).append(maketestimonialTemplate(testimonial, index));
                 $(modalContainer).append(makeTestemonialModalTemplate(testimonial, index));
             });
-
-            /*
-            $(filters).each((index, filter) => {
-                const keysArray = Object.keys(data.categories_data);
-                if (keysArray.length === 0) {
-                    $(filter).prop("disabled", false);
-                } else {
-                    if (keysArray.includes($(filter).val())) {
-                        $(filter).prop("disabled", false);
-                    } else {
-                        $(filter).prop("disabled", true);
-                    }
-                }
-            });
-            */
 
             $(pageButtons).empty();
             for (let el = 1; el <= data.number_of_pages; el++) {
@@ -140,7 +119,7 @@ const allVideoTestimonials = () => {
             const response = await axios.get(VIDEO_TESTIMONIALS_BASE_URL, axiosOptions);
             const data = await response.data;
 
-            /* updating URL */
+            // updating URL
             const url = axios.getUri({
                 url: VIDEO_TESTIMONIALS_LIST_URL, 
                 params: {
@@ -270,6 +249,7 @@ const allVideoTestimonials = () => {
         const s = Math.floor(seconds % 3600 % 60);
         return ('0' + m).slice(-2) + ":" + ('0' + s).slice(-2);
     }
+    */
 }
 
 export default allVideoTestimonials;

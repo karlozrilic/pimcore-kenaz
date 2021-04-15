@@ -1,8 +1,12 @@
+import Animations from './Animations';
+
 const videoTestimonialsAnimation = (numberOftestimonials) => {
+    /*
     let interval;
     let minimized = false;
     let minimizedByUser = false;
     let closed = false;
+    */
     const intervalDelay = 5000;
     const testimonialsContainer = $(".testimonials");
 
@@ -18,13 +22,20 @@ const videoTestimonialsAnimation = (numberOftestimonials) => {
     let testimonials = $('.video-testimonial');
     let testimonialVideos = $(".testimonial-video");
 
+    const anim = new Animations(numberOftestimonials, testimonialsContainer, testimonials, testimonialVideos, intervalDelay);
+
     if ($(window).width() <= 960) {
         $(maximizeTestimonials).css("display", "none");
-        if (!minimized) {
+        if (!anim.minimized) {
             $(testimonialsContainer).addClass("minimized");
+            anim.minimized = true;
+            anim.clearInterval();
+            anim.setInterval(anim.intervalFunctionMinimized, intervalDelay);
+            /*
             minimized = true;
             clearInterval(interval);
             interval = setInterval(intervalFunctionMinimized, intervalDelay);
+            */
         }
     }
 
@@ -33,29 +44,32 @@ const videoTestimonialsAnimation = (numberOftestimonials) => {
         testimonialVideos = $(".testimonial-video");
         if ($(window).width() <= 960) {
             $(maximizeTestimonials).css("display", "none");
-            if (!minimized && !closed) {
-                minimize();
+            if (!anim.minimized && !anim.closed) {
+                anim.minimize();
             }
         } else {
             $(maximizeTestimonials).removeAttr("style");
-            if (minimized && !minimizedByUser && !closed) {
-                maximize();
+            if (anim.minimized && !anim.minimizedByUser && !anim.closed) {
+                anim.maximize();
             }
         }
     }).focus(() => {
-        clearInterval(interval);
-        if (numberOftestimonials > 1 && !closed) {
-            interval = minimized ? setInterval(intervalFunctionMinimized, intervalDelay) : setInterval(intervalFunction, intervalDelay);
+        anim.clearInterval();
+        if (numberOftestimonials > 1 && !anim.closed) {
+            (anim.minimized ? anim.setInterval(anim.intervalFunctionMinimized, intervalDelay) : anim.setInterval(anim.intervalFunction, intervalDelay));
+            //interval = minimized ? setInterval(intervalFunctionMinimized, intervalDelay) : setInterval(intervalFunction, intervalDelay);
         }
     }).blur(() => {
-        clearInterval(interval);
+        anim.clearInterval();
     }).ready(() => {
-        clearInterval(interval);
-        if (numberOftestimonials > 1 && !closed) {
-            interval = minimized ? setInterval(intervalFunctionMinimized, intervalDelay) : setInterval(intervalFunction, intervalDelay);
+        anim.clearInterval();
+        if (numberOftestimonials > 1 && !anim.closed) {
+            (anim.minimized ? anim.setInterval(anim.intervalFunctionMinimized, intervalDelay) : anim.setInterval(anim.intervalFunction, intervalDelay));
+            //interval = minimized ? setInterval(intervalFunctionMinimized, intervalDelay) : setInterval(intervalFunction, intervalDelay);
         }
     });
 
+    /*
     const intervalFunction = () => {
         testimonials = $('.video-testimonial');
         testimonialVideos = $(".testimonial-video");
@@ -219,6 +233,7 @@ const videoTestimonialsAnimation = (numberOftestimonials) => {
             interval = setInterval(intervalFunc, intervalDelay);
         }
     };
+    */
 
     openModals.each((index, element) => {
         $(element).on("click", () => {
@@ -238,21 +253,21 @@ const videoTestimonialsAnimation = (numberOftestimonials) => {
 
     minimizeTestimonials.each((index, element) => {
         $(element).on("click", () => {
-            minimizedByUser = true;
-            minimize();
+            anim.minimizedByUser = true;
+            anim.minimize();
         });
     });
 
     maximizeTestimonials.each((index, element) => {
         $(element).on("click", () => {
-            minimizedByUser = false;
-            maximize();
+            anim.minimizedByUser = false;
+            anim.maximize();
         });
     })
 
     closeTestimonials.each((index, element) => {
         $(element).on("click", () => {
-            closeTestemonials();
+            anim.closeTestemonials();
         });
     });
 

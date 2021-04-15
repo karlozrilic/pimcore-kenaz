@@ -1845,16 +1845,274 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./resources/js/all-video-testimonials.js":
-/*!************************************************!*\
-  !*** ./resources/js/all-video-testimonials.js ***!
-  \************************************************/
+/***/ "./resources/js/Animations.js":
+/*!************************************!*\
+  !*** ./resources/js/Animations.js ***!
+  \************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */   "default": () => (/* binding */ Animations)
+/* harmony export */ });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Animations = /*#__PURE__*/function () {
+  function Animations(numberOftestimonials, testimonialsContainer, testimonials, testimonialVideos, delay) {
+    _classCallCheck(this, Animations);
+
+    this.interval = null;
+    this.minimized = false;
+    this.minimizedByUser = false;
+    this.closed = false;
+    this.numberOftestimonials = numberOftestimonials;
+    this.testimonialsContainer = testimonialsContainer;
+    this.testimonials = testimonials;
+    this.testimonialVideos = testimonialVideos;
+    this.intervalDelay = delay;
+  }
+
+  _createClass(Animations, [{
+    key: "intervalFunction",
+    value: function intervalFunction() {
+      var _this = this;
+
+      this.testimonials = $('.video-testimonial');
+      this.testimonialVideos = $(".testimonial-video");
+      $(this.testimonialVideos).each(function (index, element) {
+        if (index == 1) {
+          element.play();
+        } else {
+          setTimeout(function () {
+            element.pause();
+            element.currentTime = 0;
+          }, 2000);
+        }
+      });
+      $(this.testimonials).first().stop().animate({
+        top: "400px"
+      }, {
+        duration: 1000,
+        queue: false,
+        progress: function progress(animation, _progress, remainingMs) {
+          if (remainingMs <= 200) {
+            $(_this.testimonials).each(function (index, element) {
+              $(element).removeClass("z-ind-".concat(index + 1)).addClass("z-ind-".concat(index == 0 ? _this.numberOftestimonials : index));
+            });
+          }
+
+          if (remainingMs <= 800) {
+            $(_this.testimonials).each(function (index, element) {
+              $(element).removeClass("tab-".concat(index + 1)).addClass("tab-".concat(index == 0 ? _this.numberOftestimonials : index));
+            });
+          }
+        },
+        done: function done() {
+          var fromTop = "20px";
+
+          if (_this.numberOftestimonials == 2) {
+            fromTop = "10px";
+          }
+
+          $(_this.testimonials).first().animate({
+            top: fromTop
+          }, {
+            duration: 1000,
+            done: function done() {
+              $(_this.testimonials).each(function (index, element) {
+                $(element).removeAttr("style");
+              });
+            }
+          });
+          $(_this.testimonials).first().insertAfter($(_this.testimonials).last());
+        }
+      });
+      $(this.testimonials).eq(1).stop().animate({
+        top: "0px"
+      }, {
+        duration: 1000,
+        queue: false,
+        done: function done() {
+          $(this.testimonials).each(function (index, element) {
+            $(element).removeAttr("style");
+          });
+        }
+      });
+    }
+  }, {
+    key: "intervalFunctionMinimized",
+    value: function intervalFunctionMinimized() {
+      var _this2 = this;
+
+      var testimonialsMin = $('.video-testimonial-minimized');
+      var testimonialVideosMin = $(".testimonial-video-minimized");
+      $(testimonialVideosMin).each(function (index, element) {
+        if (index == 1) {
+          element.play();
+        } else {
+          setTimeout(function () {
+            element.pause();
+            element.currentTime = 0;
+          }, 2000);
+        }
+      });
+      $(this.testimonialsContainer).first().stop().animate({
+        bottom: "-150px"
+      }, {
+        duration: 1000,
+        done: function done() {
+          $(testimonialsMin).first().removeClass("visible");
+
+          if (_this2.numberOftestimonials > 2) {
+            $(testimonialsMin).eq(1).addClass("visible");
+          } else {
+            $(testimonialsMin).last().addClass("visible");
+          }
+
+          $(_this2.testimonialsContainer).first().animate({
+            bottom: "0px"
+          }, {
+            duration: 1000,
+            done: function done() {
+              $(_this2.testimonials).first().insertAfter($(_this2.testimonials).last());
+              $(testimonialsMin).first().insertAfter($(testimonialsMin).last());
+              $(_this2.testimonialsContainer).removeAttr("style");
+            }
+          });
+        }
+      });
+    }
+  }, {
+    key: "minimize",
+    value: function minimize() {
+      var _this3 = this;
+
+      clearInterval(this.interval);
+      console.log("minimize");
+      console.log(this.testimonialsContainer);
+      $(this.testimonialsContainer).stop().animate({
+        bottom: "-400px"
+      }, {
+        duration: 500,
+        done: function done() {
+          $(_this3.testimonialsContainer).addClass("minimized");
+          _this3.minimized = true;
+          $(_this3.testimonialsContainer).animate({
+            bottom: "0px"
+          }, {
+            duration: 1000,
+            done: function done() {
+              _this3.changeInterval(_this3.intervalFunctionMinimized);
+            }
+          });
+        }
+      });
+    }
+  }, {
+    key: "maximize",
+    value: function maximize() {
+      var _this4 = this;
+
+      clearInterval(this.interval);
+      $(this.testimonialsContainer).stop().animate({
+        bottom: "-400px"
+      }, {
+        duration: 1000,
+        done: function done() {
+          $(_this4.testimonialsContainer).removeClass("minimized");
+          _this4.minimized = false;
+          $(_this4.testimonialsContainer).animate({
+            bottom: "50px"
+          }, {
+            duration: 500,
+            done: function done() {
+              _this4.changeInterval(_this4.intervalFunction);
+            }
+          });
+        }
+      });
+    }
+  }, {
+    key: "closeTestemonials",
+    value: function closeTestemonials() {
+      var _this5 = this;
+
+      this.closed = true;
+      $(this.testimonialsContainer).stop().animate({
+        bottom: "-400px"
+      }, {
+        duration: 500,
+        done: function done() {
+          $(_this5.testimonialsContainer).css("display", "none");
+        }
+      });
+    }
+  }, {
+    key: "changeInterval",
+    value: function changeInterval(intervalFunc) {
+      if (this.numberOftestimonials > 1 && !this.closed) {
+        this.interval = setInterval(intervalFunc.bind(this), this.intervalDelay);
+      }
+    }
+  }, {
+    key: "setInterval",
+    value: function (_setInterval) {
+      function setInterval(_x, _x2) {
+        return _setInterval.apply(this, arguments);
+      }
+
+      setInterval.toString = function () {
+        return _setInterval.toString();
+      };
+
+      return setInterval;
+    }(function (intervalFunc, intervalDelay) {
+      this.interval = setInterval(intervalFunc.bind(this), intervalDelay);
+    })
+  }, {
+    key: "clearInterval",
+    value: function (_clearInterval) {
+      function clearInterval() {
+        return _clearInterval.apply(this, arguments);
+      }
+
+      clearInterval.toString = function () {
+        return _clearInterval.toString();
+      };
+
+      return clearInterval;
+    }(function () {
+      clearInterval(this.interval);
+    })
+  }, {
+    key: "minimized",
+    set: function set(value) {
+      this._minimized = value;
+    }
+  }]);
+
+  return Animations;
+}();
+
+
+
+/***/ }),
+
+/***/ "./resources/js/Filtering.js":
+/*!***********************************!*\
+  !*** ./resources/js/Filtering.js ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Filtering)
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
@@ -1878,6 +2136,217 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+
+
+var Filtering = /*#__PURE__*/function () {
+  function Filtering(testimonialsList, modalContainer, pageButtons, filters, video_testimonials_base_url, video_testimonials_list_url) {
+    _classCallCheck(this, Filtering);
+
+    this.testimonialsList = testimonialsList;
+    this.modalContainer = modalContainer;
+    this.pageButtons = pageButtons;
+    this.filters = filters;
+    this.video_testimonials_base_url = video_testimonials_base_url;
+    this.video_testimonials_list_url = video_testimonials_list_url;
+  }
+
+  _createClass(Filtering, [{
+    key: "filter",
+    value: function () {
+      var _filter = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(filterList) {
+        var page,
+            axiosOptions,
+            response,
+            data,
+            url,
+            values,
+            _args = arguments;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                page = _args.length > 1 && _args[1] !== undefined ? _args[1] : 1;
+                axiosOptions = {
+                  params: {
+                    json: true,
+                    categories: filterList,
+                    page: page
+                  }
+                };
+                _context.prev = 2;
+                _context.next = 5;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().get(this.video_testimonials_base_url, axiosOptions);
+
+              case 5:
+                response = _context.sent;
+                _context.next = 8;
+                return response.data;
+
+              case 8:
+                data = _context.sent;
+
+                /* updating URL */
+                url = axios__WEBPACK_IMPORTED_MODULE_1___default().getUri({
+                  url: this.video_testimonials_list_url,
+                  params: {
+                    categories: filterList,
+                    page: page
+                  }
+                });
+                values = Object.values(response.data.filter_categories);
+                window.history.pushState(values, "", url);
+                return _context.abrupt("return", data);
+
+              case 15:
+                _context.prev = 15;
+                _context.t0 = _context["catch"](2);
+                console.log(_context.t0);
+
+              case 18:
+                ;
+
+              case 19:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this, [[2, 15]]);
+      }));
+
+      function filter(_x) {
+        return _filter.apply(this, arguments);
+      }
+
+      return filter;
+    }()
+  }, {
+    key: "handleDataChange",
+    value: function handleDataChange(filterList) {
+      var _this = this;
+
+      var page = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
+      $(this.testimonialsList).addClass("loading");
+      this.filter(filterList, page).then(function (data) {
+        $(_this.modalContainer).empty();
+        $(_this.testimonialsList).empty();
+        data.video_testimonials.forEach(function (testimonial) {
+          $(_this.testimonialsList).append(_this.maketestimonialTemplate(testimonial));
+          $(_this.modalContainer).append(_this.makeTestemonialModalTemplate(testimonial));
+        });
+        $(_this.pageButtons).empty();
+
+        for (var el = 1; el <= data.number_of_pages; el++) {
+          $(_this.pageButtons).append(_this.pageNumbersTemplate(el, page));
+        }
+
+        $(_this.filters).empty();
+        Object.entries(data.categories_data).forEach(function (category) {
+          $(_this.filters).append(_this.maketestimonialFiltersTemplate(category, data.filter_categories));
+        });
+        $(_this.testimonialsList).removeClass("loading");
+      });
+    }
+  }, {
+    key: "maketestimonialTemplate",
+    value: function maketestimonialTemplate(_ref) {
+      var testimonial_id = _ref.testimonial_id,
+          author_name = _ref.author_name,
+          author_image = _ref.author_image,
+          author_job_position = _ref.author_job_position,
+          description = _ref.description,
+          video = _ref.video,
+          categories = _ref.categories,
+          duration = _ref.video_settings.duration;
+      return "\n        <div class=\"video-testimonial\">\n            <p>".concat(description.length > 35 ? this.truncate(description, 35) : description, "</p>\n            <div class=\"video\">\n                <video muted loop class=\"testimonial-video\">\n                    <source src=\"").concat(video, "\">\n                </video>\n                <div class=\"duration\">\n                    ").concat(this.secondsToMinutes(Math.floor(duration)), "\n                </div>\n                <div class=\"buttons\">\n                    <button class=\"video-play-button\" data-open-index=").concat(testimonial_id, ">\n                        <span class=\"fa-stack\" style=\"vertical-align: top;\">\n                            <i class=\"fas fa-circle fa-stack-2x\"></i>\n                            <i class=\"fal fa-play-circle fa-stack-1x\"></i>\n                        </span>\n                    </button>\n                </div>\n                <div class=\"about\">\n                    <img src=\"").concat(author_image, "\" alt=\"Author image\" />\n                    <div class=\"author-info\">\n                        <div class=\"name\">\n                            <span>Answered by:</span>\n                            ").concat(author_name, "\n                        </div>\n                        <div class=\"job-title\">").concat(author_job_position, "</div>\n                    </div>\n                </div>\n            </div>\n            <ul class=\"testimonial-categories\">\n                ").concat(categories.map(function (category) {
+        return "<li><a href=\"".concat(category.link, "\">").concat(category.title, "</a></li>");
+      }).join(''), "\n            </ul>\n        </div>\n        ");
+    }
+  }, {
+    key: "makeTestemonialModalTemplate",
+    value: function makeTestemonialModalTemplate(_ref2) {
+      var testimonial_id = _ref2.testimonial_id,
+          author_name = _ref2.author_name,
+          author_surname = _ref2.author_surname,
+          author_image = _ref2.author_image,
+          author_job_position = _ref2.author_job_position,
+          description = _ref2.description,
+          video = _ref2.video,
+          categories = _ref2.categories,
+          is_video_vertical = _ref2.is_video_vertical;
+      return "\n            <div class=\"video-testimonial-modal out\" data-index=".concat(testimonial_id, ">\n                <div class=\"modal-content ").concat(is_video_vertical ? "height" : "width", "\">\n                    <button class=\"close modal-close\" data-close-index=").concat(testimonial_id, "><i class=\"material-icons\">close</i></button>\n                    <h3 class=\"description\">\n                        ").concat(description, "\n                    </h3>\n                    <div class=\"content\">\n                        <video controls disablepictureinpicture controlsList=\"nodownload\" class=\"modal-video\" data-video-id=").concat(testimonial_id, ">\n                            <source src=\"").concat(video, "\">\n                        </video>\n                    </div>\n                    <div class=\"author\">\n                        <img src=\"").concat(author_image, "\" alt=\"Author image\" />\n                        <div class=\"author-info\">\n                            <div class=\"name\">\n                                ").concat(author_name, "\n                                ").concat(author_surname ? author_surname : "", "\n                            </div>\n                            <div class=\"job-title\">").concat(author_job_position, "</div>\n                        </div>\n                    </div>\n                    <div class=\"modal-tags\">\n                    ").concat(categories.map(function (category) {
+        return "<a class=\"tag-pill\" href=\"".concat(category.link, "\">").concat(category.title, "</a>");
+      }).join(''), "\n                    </div>\n                </div>\n            </div>\n        ");
+    }
+  }, {
+    key: "maketestimonialFiltersTemplate",
+    value: function maketestimonialFiltersTemplate(_ref3, filterCategories) {
+      var _ref4 = _slicedToArray(_ref3, 2),
+          categoryId = _ref4[0],
+          categoryName = _ref4[1];
+
+      return "\n            <label class=\"checkbox\">\n                <span class=\"checkbox-input\">\n                    <input class=\"input\" type=\"checkbox\" name=\"".concat(categoryName.toLowerCase(), "\" id=\"").concat(categoryName.toLowerCase(), "\" value=").concat(categoryId, " ").concat(filterCategories.includes(categoryId) && "checked", ">\n                    <span class=\"checkbox-control\">\n                        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' aria-hidden=\"true\" focusable=\"false\">\n                        <path fill='none' stroke='currentColor' stroke-width='3' d='M1.73 12.91l6.37 6.37L22.79 4.59' /></svg>\n                    </span>\n                </span>\n                <span class=\"radio-label\">").concat(categoryName, "</span>\n            </label>\n        ");
+    }
+  }, {
+    key: "pageNumbersTemplate",
+    value: function pageNumbersTemplate(numberOfPage, currentPageNumber) {
+      return "\n            <button class=\"page-button ".concat(currentPageNumber === numberOfPage ? "active" : "", "\" data-page-number=").concat(numberOfPage, ">").concat(numberOfPage, "</button>\n        ");
+    }
+  }, {
+    key: "truncate",
+    value: function truncate(string, length) {
+      var trimmedString = "";
+
+      if (string.length > trimmedString.length) {
+        trimmedString = string.substr(0, length);
+        var spaceIndex = string.replace(trimmedString, "").indexOf(" ");
+
+        if (spaceIndex < 0) {
+          trimmedString = string;
+        } else {
+          trimmedString += string.substr(trimmedString.length, spaceIndex) + "...";
+        }
+      }
+
+      return trimmedString;
+    }
+  }, {
+    key: "secondsToMinutes",
+    value: function secondsToMinutes(seconds) {
+      seconds = Number(seconds);
+      var m = Math.floor(seconds % 3600 / 60);
+      var s = Math.floor(seconds % 3600 % 60);
+      return ('0' + m).slice(-2) + ":" + ('0' + s).slice(-2);
+    }
+  }]);
+
+  return Filtering;
+}();
+
+
+
+/***/ }),
+
+/***/ "./resources/js/all-video-testimonials.js":
+/*!************************************************!*\
+  !*** ./resources/js/all-video-testimonials.js ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Filtering__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Filtering */ "./resources/js/Filtering.js");
+
 
 var VIDEO_TESTIMONIALS_BASE_URL = window.location.origin + "/video-testimonials";
 var VIDEO_TESTIMONIALS_LIST_URL = window.location.origin + "/all-video-testimonials";
@@ -1885,12 +2354,11 @@ var VIDEO_TESTIMONIALS_LIST_URL = window.location.origin + "/all-video-testimoni
 var allVideoTestimonials = function allVideoTestimonials() {
   var filters = $(".filters");
   var pageButtons = $(".pages");
-  /*const filters = $(".filters :input");*/
-
   var modalContainer = $(".testimonial-modals");
   var testimonialsList = $(".testimonials-list");
   var urlParams = new URLSearchParams(window.location.search);
   var filterList = urlParams.getAll('categories[]');
+  var filtering = new _Filtering__WEBPACK_IMPORTED_MODULE_1__.default(testimonialsList, modalContainer, pageButtons, filters, VIDEO_TESTIMONIALS_BASE_URL, VIDEO_TESTIMONIALS_LIST_URL);
   $(testimonialsList).on("mouseenter", ".video-testimonial", function (event) {
     $(event.currentTarget).find("video")[0].play();
   }).on("mouseleave", ".video-testimonial", function (event) {
@@ -1909,7 +2377,7 @@ var allVideoTestimonials = function allVideoTestimonials() {
     $(pageButtons).each(function (index, element) {
       $(element).removeClass("active");
     });
-    handleDataChange(filterList, pageNumber);
+    filtering.handleDataChange(filterList, pageNumber); //handleDataChange(filterList, pageNumber);
   });
   $(modalContainer).on("click", ".modal-close", function (event) {
     var index = $(event.currentTarget).data("close-index");
@@ -1944,198 +2412,172 @@ var allVideoTestimonials = function allVideoTestimonials() {
   window.onpopstate = function () {
     location.reload();
   };
-  /*
-  $(filters).click((event) => {
-      if (event.target.checked) {
-          filterList.push($(event.target).val());
-          handleDataChange(filterList);
-      } else {
-          filterList.splice(filterList.indexOf($(event.target).val()), 1);
-          handleDataChange(filterList);
-      }
-  })
-  */
-
 
   $(filters).on("click", ".input", function (event) {
     if (event.currentTarget.checked) {
       filterList.push($(event.currentTarget).val());
-      handleDataChange(filterList);
+      filtering.handleDataChange(filterList); //handleDataChange(filterList);
     } else {
       filterList.splice(filterList.indexOf($(event.currentTarget).val()), 1);
-      handleDataChange(filterList);
+      filtering.handleDataChange(filterList); //handleDataChange(filterList);
     }
   });
-
-  var handleDataChange = function handleDataChange(filterList) {
-    var page = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
-    $(testimonialsList).addClass("loading");
-    filter(filterList, page).then(function (data) {
-      $(modalContainer).empty();
-      $(testimonialsList).empty();
-      data.video_testimonials.forEach(function (testimonial, index) {
-        $(testimonialsList).append(maketestimonialTemplate(testimonial, index));
-        $(modalContainer).append(makeTestemonialModalTemplate(testimonial, index));
+  /* 
+  const handleDataChange = (filterList, page = 1) => {
+      $(testimonialsList).addClass("loading");
+      filter(filterList, page).then((data) => {
+          $(modalContainer).empty();
+          $(testimonialsList).empty();
+          data.video_testimonials.forEach((testimonial, index) => {
+              $(testimonialsList).append(maketestimonialTemplate(testimonial, index));
+              $(modalContainer).append(makeTestemonialModalTemplate(testimonial, index));
+          });
+           $(pageButtons).empty();
+          for (let el = 1; el <= data.number_of_pages; el++) {
+              $(pageButtons).append(pageNumbersTemplate(el, page));
+          }
+           $(filters).empty();
+          Object.entries(data.categories_data).forEach((category) => {
+              $(filters).append(maketestimonialFiltersTemplate(category, data.filter_categories));
+          });
+          $(testimonialsList).removeClass("loading");
       });
-      /*
-      $(filters).each((index, filter) => {
-          const keysArray = Object.keys(data.categories_data);
-          if (keysArray.length === 0) {
-              $(filter).prop("disabled", false);
-          } else {
-              if (keysArray.includes($(filter).val())) {
-                  $(filter).prop("disabled", false);
-              } else {
-                  $(filter).prop("disabled", true);
+  };
+   const filter = async (filterList, page = 1) => {
+      const axiosOptions = {
+          params: {
+              json: true,
+              categories: filterList,
+              page: page
+          }
+      };
+      try {
+          const response = await axios.get(VIDEO_TESTIMONIALS_BASE_URL, axiosOptions);
+          const data = await response.data;
+           // updating URL
+          const url = axios.getUri({
+              url: VIDEO_TESTIMONIALS_LIST_URL, 
+              params: {
+                  categories: filterList,
+                  page: page
               }
+          });
+          const values = Object.values(response.data.filter_categories);
+          window.history.pushState(values, "", url);
+           return data;
+      } catch (error) {
+          console.log(error);
+      };
+  };
+   const maketestimonialTemplate = ({testimonial_id, author_name, author_image, author_job_position, description, video, categories, video_settings: { duration }}, index) => {
+      return `
+      <div class="video-testimonial">
+          <p>${description.length > 35 ? truncate(description, 35) : description}</p>
+          <div class="video">
+              <video muted loop class="testimonial-video">
+                  <source src="${video}">
+              </video>
+              <div class="duration">
+                  ${secondsToMinutes(Math.floor(duration))}
+              </div>
+              <div class="buttons">
+                  <button class="video-play-button" data-open-index=${testimonial_id}>
+                      <span class="fa-stack" style="vertical-align: top;">
+                          <i class="fas fa-circle fa-stack-2x"></i>
+                          <i class="fal fa-play-circle fa-stack-1x"></i>
+                      </span>
+                  </button>
+              </div>
+              <div class="about">
+                  <img src="${author_image}" alt="Author image" />
+                  <div class="author-info">
+                      <div class="name">
+                          <span>Answered by:</span>
+                          ${author_name}
+                      </div>
+                      <div class="job-title">${author_job_position}</div>
+                  </div>
+              </div>
+          </div>
+          <ul class="testimonial-categories">
+              ${categories.map((category) => {
+                  return `<li><a href="${category.link}">${category.title}</a></li>`;
+              }).join('')}
+          </ul>
+      </div>
+      `
+  };
+   const makeTestemonialModalTemplate = ({testimonial_id, author_name, author_surname, author_image, author_job_position, description, video, categories, is_video_vertical}, index) => {
+      return `
+          <div class="video-testimonial-modal out" data-index=${testimonial_id}>
+              <div class="modal-content ${is_video_vertical ? "height" : "width" }">
+                  <button class="close modal-close" data-close-index=${testimonial_id}><i class="material-icons">close</i></button>
+                  <h3 class="description">
+                      ${description}
+                  </h3>
+                  <div class="content">
+                      <video controls disablepictureinpicture controlsList="nodownload" class="modal-video" data-video-id=${testimonial_id}>
+                          <source src="${video}">
+                      </video>
+                  </div>
+                  <div class="author">
+                      <img src="${author_image}" alt="Author image" />
+                      <div class="author-info">
+                          <div class="name">
+                              ${author_name}
+                              ${author_surname ? author_surname : ""}
+                          </div>
+                          <div class="job-title">${author_job_position}</div>
+                      </div>
+                  </div>
+                  <div class="modal-tags">
+                  ${categories.map((category) => {
+                      return `<a class="tag-pill" href="${category.link}">${category.title}</a>`;
+                  }).join('')}
+                  </div>
+              </div>
+          </div>
+      `
+  };
+   const maketestimonialFiltersTemplate = ([categoryId, categoryName], filterCategories) => {
+      return `
+          <label class="checkbox">
+              <span class="checkbox-input">
+                  <input class="input" type="checkbox" name="${categoryName.toLowerCase()}" id="${categoryName.toLowerCase()}" value=${categoryId} ${filterCategories.includes(categoryId) && "checked"}>
+                  <span class="checkbox-control">
+                      <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' aria-hidden="true" focusable="false">
+                      <path fill='none' stroke='currentColor' stroke-width='3' d='M1.73 12.91l6.37 6.37L22.79 4.59' /></svg>
+                  </span>
+              </span>
+              <span class="radio-label">${categoryName}</span>
+          </label>
+      `
+  };
+   const pageNumbersTemplate = (numberOfPage, currentPageNumber) => {
+      return `
+          <button class="page-button ${currentPageNumber === numberOfPage ? "active" : ""}" data-page-number=${numberOfPage}>${numberOfPage}</button>
+      `
+  }
+   const truncate = (string, length) => {
+      let trimmedString = "";
+      if (string.length > trimmedString.length) {
+          trimmedString = string.substr(0, length);
+          const spaceIndex = string.replace(trimmedString, "").indexOf(" ");
+          if (spaceIndex < 0) {
+              trimmedString = string;
+          } else {
+              trimmedString += string.substr(trimmedString.length, spaceIndex) + "...";
           }
-      });
-      */
-
-      $(pageButtons).empty();
-
-      for (var el = 1; el <= data.number_of_pages; el++) {
-        $(pageButtons).append(pageNumbersTemplate(el, page));
       }
-
-      $(filters).empty();
-      Object.entries(data.categories_data).forEach(function (category) {
-        $(filters).append(maketestimonialFiltersTemplate(category, data.filter_categories));
-      });
-      $(testimonialsList).removeClass("loading");
-    });
+      return trimmedString;
   };
-
-  var filter = /*#__PURE__*/function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(filterList) {
-      var page,
-          axiosOptions,
-          response,
-          data,
-          url,
-          values,
-          _args = arguments;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              page = _args.length > 1 && _args[1] !== undefined ? _args[1] : 1;
-              axiosOptions = {
-                params: {
-                  json: true,
-                  categories: filterList,
-                  page: page
-                }
-              };
-              _context.prev = 2;
-              _context.next = 5;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default().get(VIDEO_TESTIMONIALS_BASE_URL, axiosOptions);
-
-            case 5:
-              response = _context.sent;
-              _context.next = 8;
-              return response.data;
-
-            case 8:
-              data = _context.sent;
-
-              /* updating URL */
-              url = axios__WEBPACK_IMPORTED_MODULE_1___default().getUri({
-                url: VIDEO_TESTIMONIALS_LIST_URL,
-                params: {
-                  categories: filterList,
-                  page: page
-                }
-              });
-              values = Object.values(response.data.filter_categories);
-              window.history.pushState(values, "", url);
-              return _context.abrupt("return", data);
-
-            case 15:
-              _context.prev = 15;
-              _context.t0 = _context["catch"](2);
-              console.log(_context.t0);
-
-            case 18:
-              ;
-
-            case 19:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee, null, [[2, 15]]);
-    }));
-
-    return function filter(_x) {
-      return _ref.apply(this, arguments);
-    };
-  }();
-
-  var maketestimonialTemplate = function maketestimonialTemplate(_ref2, index) {
-    var testimonial_id = _ref2.testimonial_id,
-        author_name = _ref2.author_name,
-        author_image = _ref2.author_image,
-        author_job_position = _ref2.author_job_position,
-        description = _ref2.description,
-        video = _ref2.video,
-        categories = _ref2.categories,
-        duration = _ref2.video_settings.duration;
-    return "\n        <div class=\"video-testimonial\">\n            <p>".concat(description.length > 35 ? truncate(description, 35) : description, "</p>\n            <div class=\"video\">\n                <video muted loop class=\"testimonial-video\">\n                    <source src=\"").concat(video, "\">\n                </video>\n                <div class=\"duration\">\n                    ").concat(secondsToMinutes(Math.floor(duration)), "\n                </div>\n                <div class=\"buttons\">\n                    <button class=\"video-play-button\" data-open-index=").concat(testimonial_id, ">\n                        <span class=\"fa-stack\" style=\"vertical-align: top;\">\n                            <i class=\"fas fa-circle fa-stack-2x\"></i>\n                            <i class=\"fal fa-play-circle fa-stack-1x\"></i>\n                        </span>\n                    </button>\n                </div>\n                <div class=\"about\">\n                    <img src=\"").concat(author_image, "\" alt=\"Author image\" />\n                    <div class=\"author-info\">\n                        <div class=\"name\">\n                            <span>Answered by:</span>\n                            ").concat(author_name, "\n                        </div>\n                        <div class=\"job-title\">").concat(author_job_position, "</div>\n                    </div>\n                </div>\n            </div>\n            <ul class=\"testimonial-categories\">\n                ").concat(categories.map(function (category) {
-      return "<li><a href=\"".concat(category.link, "\">").concat(category.title, "</a></li>");
-    }).join(''), "\n            </ul>\n        </div>\n        ");
-  };
-
-  var makeTestemonialModalTemplate = function makeTestemonialModalTemplate(_ref3, index) {
-    var testimonial_id = _ref3.testimonial_id,
-        author_name = _ref3.author_name,
-        author_surname = _ref3.author_surname,
-        author_image = _ref3.author_image,
-        author_job_position = _ref3.author_job_position,
-        description = _ref3.description,
-        video = _ref3.video,
-        categories = _ref3.categories,
-        is_video_vertical = _ref3.is_video_vertical;
-    return "\n            <div class=\"video-testimonial-modal out\" data-index=".concat(testimonial_id, ">\n                <div class=\"modal-content ").concat(is_video_vertical ? "height" : "width", "\">\n                    <button class=\"close modal-close\" data-close-index=").concat(testimonial_id, "><i class=\"material-icons\">close</i></button>\n                    <h3 class=\"description\">\n                        ").concat(description, "\n                    </h3>\n                    <div class=\"content\">\n                        <video controls disablepictureinpicture controlsList=\"nodownload\" class=\"modal-video\" data-video-id=").concat(testimonial_id, ">\n                            <source src=\"").concat(video, "\">\n                        </video>\n                    </div>\n                    <div class=\"author\">\n                        <img src=\"").concat(author_image, "\" alt=\"Author image\" />\n                        <div class=\"author-info\">\n                            <div class=\"name\">\n                                ").concat(author_name, "\n                                ").concat(author_surname ? author_surname : "", "\n                            </div>\n                            <div class=\"job-title\">").concat(author_job_position, "</div>\n                        </div>\n                    </div>\n                    <div class=\"modal-tags\">\n                    ").concat(categories.map(function (category) {
-      return "<a class=\"tag-pill\" href=\"".concat(category.link, "\">").concat(category.title, "</a>");
-    }).join(''), "\n                    </div>\n                </div>\n            </div>\n        ");
-  };
-
-  var maketestimonialFiltersTemplate = function maketestimonialFiltersTemplate(_ref4, filterCategories) {
-    var _ref5 = _slicedToArray(_ref4, 2),
-        categoryId = _ref5[0],
-        categoryName = _ref5[1];
-
-    return "\n            <label class=\"checkbox\">\n                <span class=\"checkbox-input\">\n                    <input class=\"input\" type=\"checkbox\" name=\"".concat(categoryName.toLowerCase(), "\" id=\"").concat(categoryName.toLowerCase(), "\" value=").concat(categoryId, " ").concat(filterCategories.includes(categoryId) && "checked", ">\n                    <span class=\"checkbox-control\">\n                        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' aria-hidden=\"true\" focusable=\"false\">\n                        <path fill='none' stroke='currentColor' stroke-width='3' d='M1.73 12.91l6.37 6.37L22.79 4.59' /></svg>\n                    </span>\n                </span>\n                <span class=\"radio-label\">").concat(categoryName, "</span>\n            </label>\n        ");
-  };
-
-  var pageNumbersTemplate = function pageNumbersTemplate(numberOfPage, currentPageNumber) {
-    return "\n            <button class=\"page-button ".concat(currentPageNumber === numberOfPage ? "active" : "", "\" data-page-number=").concat(numberOfPage, ">").concat(numberOfPage, "</button>\n        ");
-  };
-
-  var truncate = function truncate(string, length) {
-    var trimmedString = "";
-
-    if (string.length > trimmedString.length) {
-      trimmedString = string.substr(0, length);
-      var spaceIndex = string.replace(trimmedString, "").indexOf(" ");
-
-      if (spaceIndex < 0) {
-        trimmedString = string;
-      } else {
-        trimmedString += string.substr(trimmedString.length, spaceIndex) + "...";
-      }
-    }
-
-    return trimmedString;
-  };
-
-  var secondsToMinutes = function secondsToMinutes(seconds) {
-    seconds = Number(seconds);
-    var m = Math.floor(seconds % 3600 / 60);
-    var s = Math.floor(seconds % 3600 % 60);
-    return ('0' + m).slice(-2) + ":" + ('0' + s).slice(-2);
-  };
+   const secondsToMinutes = (seconds) => {
+      seconds = Number(seconds);
+      const m = Math.floor(seconds % 3600 / 60);
+      const s = Math.floor(seconds % 3600 % 60);
+      return ('0' + m).slice(-2) + ":" + ('0' + s).slice(-2);
+  }
+  */
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (allVideoTestimonials);
@@ -2249,11 +2691,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _Animations__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Animations */ "./resources/js/Animations.js");
+
+
 var videoTestimonialsAnimation = function videoTestimonialsAnimation(numberOftestimonials) {
-  var interval;
-  var minimized = false;
-  var minimizedByUser = false;
-  var closed = false;
+  /*
+  let interval;
+  let minimized = false;
+  let minimizedByUser = false;
+  let closed = false;
+  */
   var intervalDelay = 5000;
   var testimonialsContainer = $(".testimonials");
   var modals = $(".video-testimonial-modal");
@@ -2266,15 +2713,21 @@ var videoTestimonialsAnimation = function videoTestimonialsAnimation(numberOftes
   var closeTestimonials = $(".close-testimonial");
   var testimonials = $('.video-testimonial');
   var testimonialVideos = $(".testimonial-video");
+  var anim = new _Animations__WEBPACK_IMPORTED_MODULE_0__.default(numberOftestimonials, testimonialsContainer, testimonials, testimonialVideos, intervalDelay);
 
   if ($(window).width() <= 960) {
     $(maximizeTestimonials).css("display", "none");
 
-    if (!minimized) {
+    if (!anim.minimized) {
       $(testimonialsContainer).addClass("minimized");
+      anim.minimized = true;
+      anim.clearInterval();
+      anim.setInterval(anim.intervalFunctionMinimized, intervalDelay);
+      /*
       minimized = true;
       clearInterval(interval);
       interval = setInterval(intervalFunctionMinimized, intervalDelay);
+      */
     }
   }
 
@@ -2285,195 +2738,188 @@ var videoTestimonialsAnimation = function videoTestimonialsAnimation(numberOftes
     if ($(window).width() <= 960) {
       $(maximizeTestimonials).css("display", "none");
 
-      if (!minimized && !closed) {
-        minimize();
+      if (!anim.minimized && !anim.closed) {
+        anim.minimize();
       }
     } else {
       $(maximizeTestimonials).removeAttr("style");
 
-      if (minimized && !minimizedByUser && !closed) {
-        maximize();
+      if (anim.minimized && !anim.minimizedByUser && !anim.closed) {
+        anim.maximize();
       }
     }
   }).focus(function () {
-    clearInterval(interval);
+    anim.clearInterval();
 
-    if (numberOftestimonials > 1 && !closed) {
-      interval = minimized ? setInterval(intervalFunctionMinimized, intervalDelay) : setInterval(intervalFunction, intervalDelay);
+    if (numberOftestimonials > 1 && !anim.closed) {
+      anim.minimized ? anim.setInterval(anim.intervalFunctionMinimized, intervalDelay) : anim.setInterval(anim.intervalFunction, intervalDelay); //interval = minimized ? setInterval(intervalFunctionMinimized, intervalDelay) : setInterval(intervalFunction, intervalDelay);
     }
   }).blur(function () {
-    clearInterval(interval);
+    anim.clearInterval();
   }).ready(function () {
-    clearInterval(interval);
+    anim.clearInterval();
 
-    if (numberOftestimonials > 1 && !closed) {
-      interval = minimized ? setInterval(intervalFunctionMinimized, intervalDelay) : setInterval(intervalFunction, intervalDelay);
+    if (numberOftestimonials > 1 && !anim.closed) {
+      anim.minimized ? anim.setInterval(anim.intervalFunctionMinimized, intervalDelay) : anim.setInterval(anim.intervalFunction, intervalDelay); //interval = minimized ? setInterval(intervalFunctionMinimized, intervalDelay) : setInterval(intervalFunction, intervalDelay);
     }
   });
-
-  var intervalFunction = function intervalFunction() {
-    testimonials = $('.video-testimonial');
-    testimonialVideos = $(".testimonial-video");
-    $(testimonialVideos).each(function (index, element) {
-      if (index == 1) {
-        element.play();
-      } else {
-        setTimeout(function () {
-          element.pause();
-          element.currentTime = 0;
-        }, 2000);
-      }
-    });
-    $(testimonials).first().stop().animate({
-      top: "400px"
-    }, {
-      duration: 1000,
-      queue: false,
-      progress: function progress(animation, _progress, remainingMs) {
-        if (remainingMs <= 200) {
-          $(testimonials).each(function (index, element) {
-            $(element).removeClass("z-ind-".concat(index + 1)).addClass("z-ind-".concat(index == 0 ? numberOftestimonials : index));
-          });
-        }
-
-        if (remainingMs <= 800) {
-          $(testimonials).each(function (index, element) {
-            $(element).removeClass("tab-".concat(index + 1)).addClass("tab-".concat(index == 0 ? numberOftestimonials : index));
-          });
-        }
-      },
-      done: function done() {
-        var fromTop = "20px";
-
-        if (numberOftestimonials == 2) {
-          fromTop = "10px";
-        }
-
-        $(this).animate({
-          top: fromTop
-        }, {
-          duration: 1000,
-          done: function done() {
-            $(testimonials).each(function (index, element) {
-              $(element).removeAttr("style");
-            });
+  /*
+  const intervalFunction = () => {
+      testimonials = $('.video-testimonial');
+      testimonialVideos = $(".testimonial-video");
+      
+      $(testimonialVideos).each((index, element) => {
+          if (index == 1) {
+              element.play();
+          } else {
+              setTimeout(() => {
+                  element.pause();
+                  element.currentTime = 0;
+              }, 2000)
           }
-        });
-        $(testimonials).first().insertAfter($(testimonials).last());
-      }
-    });
-    $(testimonials).eq(1).stop().animate({
-      top: "0px"
-    }, {
-      duration: 1000,
-      queue: false,
-      done: function done() {
-        $(testimonials).each(function (index, element) {
-          $(element).removeAttr("style");
-        });
-      }
-    });
-  };
-
-  var intervalFunctionMinimized = function intervalFunctionMinimized() {
-    var testimonialsMin = $('.video-testimonial-minimized');
-    var testimonialVideosMin = $(".testimonial-video-minimized");
-    $(testimonialVideosMin).each(function (index, element) {
-      if (index == 1) {
-        element.play();
-      } else {
-        setTimeout(function () {
-          element.pause();
-          element.currentTime = 0;
-        }, 2000);
-      }
-    });
-    $(testimonialsContainer).first().stop().animate({
-      bottom: "-150px"
-    }, {
-      duration: 1000,
-      done: function done() {
-        $(testimonialsMin).first().removeClass("visible");
-
-        if (numberOftestimonials > 2) {
-          $(testimonialsMin).eq(1).addClass("visible");
-        } else {
-          $(testimonialsMin).last().addClass("visible");
-        }
-
-        $(testimonialsContainer).first().animate({
-          bottom: "0px"
-        }, {
+      });
+       $(testimonials).first().stop().animate({
+          top: "400px"
+      }, {
           duration: 1000,
-          done: function done() {
-            $(testimonials).first().insertAfter($(testimonials).last());
-            $(testimonialsMin).first().insertAfter($(testimonialsMin).last());
-            $(testimonialsContainer).removeAttr("style");
+          queue: false,
+          progress: (animation, progress, remainingMs) => {
+              if (remainingMs <= 200) {
+                  $(testimonials).each((index, element) => {
+                      $(element).removeClass(`z-ind-${index+1}`).addClass(`z-ind-${index == 0 ? numberOftestimonials : index}`);
+                  });
+              }
+              if (remainingMs <= 800) {
+                  $(testimonials).each((index, element) => {
+                      $(element).removeClass(`tab-${index+1}`).addClass(`tab-${index == 0 ? numberOftestimonials : index}`);
+                  });
+              }
+          },
+          done: function() {
+              let fromTop = "20px";
+              if (numberOftestimonials == 2) {
+                  fromTop = "10px"
+              }      
+              $(this).animate({
+                  top: fromTop
+              }, {
+                  duration: 1000,
+                  done: function() {
+                      $(testimonials).each((index, element) => {
+                          $(element).removeAttr("style");
+                      });
+                  }
+              });
+               $(testimonials).first().insertAfter($(testimonials).last());
           }
-        });
-      }
-    });
-  };
-
-  var minimize = function minimize() {
-    clearInterval(interval);
-    $(testimonialsContainer).stop().animate({
-      bottom: "-400px"
-    }, {
-      duration: 500,
-      done: function done() {
-        $(testimonialsContainer).addClass("minimized");
-        minimized = true;
-        $(testimonialsContainer).animate({
-          bottom: "0px"
-        }, {
+      });
+      $(testimonials).eq(1).stop().animate({
+          top: "0px"
+      }, {
           duration: 1000,
-          done: function done() {
-            changeInterval(intervalFunctionMinimized);
+          queue: false,
+          done: function() {
+              $(testimonials).each((index, element) => {
+                  $(element).removeAttr("style");
+              });
           }
-        });
-      }
-    });
+      })
   };
-
-  var maximize = function maximize() {
-    clearInterval(interval);
-    $(testimonialsContainer).stop().animate({
-      bottom: "-400px"
-    }, {
-      duration: 1000,
-      done: function done() {
-        $(testimonialsContainer).removeClass("minimized");
-        minimized = false;
-        $(testimonialsContainer).animate({
-          bottom: "50px"
-        }, {
+   const intervalFunctionMinimized = () => {
+      const testimonialsMin = $('.video-testimonial-minimized');
+      const testimonialVideosMin = $(".testimonial-video-minimized");
+      
+      $(testimonialVideosMin).each((index, element) => {
+          if (index == 1) {
+              element.play();
+          } else {
+              setTimeout(() => {
+                  element.pause();
+                  element.currentTime = 0;
+              }, 2000)
+          }
+      });
+       $(testimonialsContainer).first().stop().animate({
+          bottom: "-150px"
+      }, {
+          duration: 1000,
+          done: () => {
+              $(testimonialsMin).first().removeClass("visible");
+              if (numberOftestimonials > 2) {
+                  $(testimonialsMin).eq(1).addClass("visible");
+              } else {
+                  $(testimonialsMin).last().addClass("visible");
+              }
+              $(testimonialsContainer).first().animate({
+                  bottom: "0px"
+              }, {
+                  duration: 1000,
+                  done: () => {
+                      $(testimonials).first().insertAfter($(testimonials).last());
+                      $(testimonialsMin).first().insertAfter($(testimonialsMin).last());
+                      $(testimonialsContainer).removeAttr("style");
+                  }
+              })
+          }
+      });
+  };
+   const minimize = () => {
+      clearInterval(interval);
+      $(testimonialsContainer).stop().animate({
+          bottom: "-400px"
+      }, {
           duration: 500,
-          done: function done() {
-            changeInterval(intervalFunction);
+          done: () => {
+              $(testimonialsContainer).addClass("minimized");
+              minimized = true;
+              $(testimonialsContainer).animate({
+                  bottom: "0px"
+              }, {
+                  duration: 1000,
+                  done: () => {
+                      changeInterval(intervalFunctionMinimized);
+                  }
+              });
           }
-        });
+      });
+  };
+   const maximize = () => {
+      clearInterval(interval);
+      $(testimonialsContainer).stop().animate({
+          bottom: "-400px"
+      }, {
+          duration: 1000,
+          done: () => {
+              $(testimonialsContainer).removeClass("minimized");
+              minimized = false;
+              $(testimonialsContainer).animate({
+                  bottom: "50px"
+              }, {
+                  duration: 500,
+                  done: () => {
+                      changeInterval(intervalFunction);
+                  }
+              });
+          }
+      });
+  };
+   const closeTestemonials = () => {
+      closed = true;
+      $(testimonialsContainer).stop().animate({
+          bottom: "-400px"
+      }, {
+          duration: 500,
+          done: () => {
+              $(testimonialsContainer).css("display", "none");
+          }
+      });
+  };
+   const changeInterval = (intervalFunc) => {
+      if (numberOftestimonials > 1 && !closed) {
+          interval = setInterval(intervalFunc, intervalDelay);
       }
-    });
   };
-
-  var closeTestemonials = function closeTestemonials() {
-    closed = true;
-    $(testimonialsContainer).stop().animate({
-      bottom: "-400px"
-    }, {
-      duration: 500,
-      done: function done() {
-        $(testimonialsContainer).css("display", "none");
-      }
-    });
-  };
-
-  var changeInterval = function changeInterval(intervalFunc) {
-    if (numberOftestimonials > 1 && !closed) {
-      interval = setInterval(intervalFunc, intervalDelay);
-    }
-  };
+  */
 
   openModals.each(function (index, element) {
     $(element).on("click", function () {
@@ -2491,19 +2937,19 @@ var videoTestimonialsAnimation = function videoTestimonialsAnimation(numberOftes
   });
   minimizeTestimonials.each(function (index, element) {
     $(element).on("click", function () {
-      minimizedByUser = true;
-      minimize();
+      anim.minimizedByUser = true;
+      anim.minimize();
     });
   });
   maximizeTestimonials.each(function (index, element) {
     $(element).on("click", function () {
-      minimizedByUser = false;
-      maximize();
+      anim.minimizedByUser = false;
+      anim.maximize();
     });
   });
   closeTestimonials.each(function (index, element) {
     $(element).on("click", function () {
-      closeTestemonials();
+      anim.closeTestemonials();
     });
   });
   modalsClose.each(function (index, element) {
