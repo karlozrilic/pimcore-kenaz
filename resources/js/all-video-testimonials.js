@@ -1,8 +1,8 @@
 import axios from 'axios';
 import Filtering from './Filtering';
 
-const VIDEO_TESTIMONIALS_BASE_URL = window.location.origin + "/video-testimonials";
-const VIDEO_TESTIMONIALS_LIST_URL = window.location.origin + "/all-video-testimonials";
+const API_URL = window.location.origin + "/video-testimonials";
+const CURRENT_URL = window.location.origin + window.location.pathname;
 
 const allVideoTestimonials = () => {
     const filters = $(".filters");
@@ -18,8 +18,8 @@ const allVideoTestimonials = () => {
         container: modalContainer,
         buttons: pageButtons,
         filters: filters,
-        apiUrl: VIDEO_TESTIMONIALS_BASE_URL,
-        currentUrl: VIDEO_TESTIMONIALS_LIST_URL
+        apiUrl: API_URL,
+        currentUrl: CURRENT_URL
     };
 
     const filtering = new Filtering(filteringOptions);
@@ -125,12 +125,12 @@ const allVideoTestimonials = () => {
             }
         };
         try {
-            const response = await axios.get(VIDEO_TESTIMONIALS_BASE_URL, axiosOptions);
+            const response = await axios.get(API_URL, axiosOptions);
             const data = await response.data;
 
             // updating URL
             const url = axios.getUri({
-                url: VIDEO_TESTIMONIALS_LIST_URL, 
+                url: CURRENT_URL, 
                 params: {
                     categories: filterList,
                     page: page

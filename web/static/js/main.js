@@ -2358,8 +2358,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Filtering__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Filtering */ "./resources/js/Filtering.js");
 
 
-var VIDEO_TESTIMONIALS_BASE_URL = window.location.origin + "/video-testimonials";
-var VIDEO_TESTIMONIALS_LIST_URL = window.location.origin + "/all-video-testimonials";
+var API_URL = window.location.origin + "/video-testimonials";
+var CURRENT_URL = window.location.origin + window.location.pathname;
 
 var allVideoTestimonials = function allVideoTestimonials() {
   var filters = $(".filters");
@@ -2373,8 +2373,8 @@ var allVideoTestimonials = function allVideoTestimonials() {
     container: modalContainer,
     buttons: pageButtons,
     filters: filters,
-    apiUrl: VIDEO_TESTIMONIALS_BASE_URL,
-    currentUrl: VIDEO_TESTIMONIALS_LIST_URL
+    apiUrl: API_URL,
+    currentUrl: CURRENT_URL
   };
   var filtering = new _Filtering__WEBPACK_IMPORTED_MODULE_1__.default(filteringOptions);
   $(testimonialsList).on("mouseenter", ".video-testimonial", function (event) {
@@ -2470,11 +2470,11 @@ var allVideoTestimonials = function allVideoTestimonials() {
           }
       };
       try {
-          const response = await axios.get(VIDEO_TESTIMONIALS_BASE_URL, axiosOptions);
+          const response = await axios.get(API_URL, axiosOptions);
           const data = await response.data;
            // updating URL
           const url = axios.getUri({
-              url: VIDEO_TESTIMONIALS_LIST_URL, 
+              url: CURRENT_URL, 
               params: {
                   categories: filterList,
                   page: page
