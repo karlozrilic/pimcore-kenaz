@@ -1,21 +1,21 @@
 export default class Animations{
-    constructor(numberOftestimonials, testimonialsContainer, testimonials, testimonialVideos, delay) {
-        this.interval = null;
+    constructor({numberOftestimonials, container, testimonials, videos, delay}) {
+        this.interval;
         this.minimized = false;
         this.minimizedByUser = false;
         this.closed = false;
         this.numberOftestimonials = numberOftestimonials;
-        this.testimonialsContainer = testimonialsContainer;
+        this.container = container;
         this.testimonials = testimonials;
-        this.testimonialVideos = testimonialVideos;
-        this.intervalDelay = delay;
+        this.videos = videos;
+        this.delay = delay;
     };
 
     intervalFunction() {
         this.testimonials = $('.video-testimonial');
-        this.testimonialVideos = $(".testimonial-video");
+        this.videos = $(".testimonial-video");
         
-        $(this.testimonialVideos).each((index, element) => {
+        $(this.videos).each((index, element) => {
             if (index == 1) {
                 element.play();
             } else {
@@ -91,7 +91,7 @@ export default class Animations{
             }
         });
 
-        $(this.testimonialsContainer).first().stop().animate({
+        $(this.container).first().stop().animate({
             bottom: "-150px"
         }, {
             duration: 1000,
@@ -102,32 +102,29 @@ export default class Animations{
                 } else {
                     $(testimonialsMin).last().addClass("visible");
                 }
-                $(this.testimonialsContainer).first().animate({
+                $(this.container).first().animate({
                     bottom: "0px"
                 }, {
                     duration: 1000,
                     done: () => {
-                        $(this.testimonials).first().insertAfter($(this.testimonials).last());
                         $(testimonialsMin).first().insertAfter($(testimonialsMin).last());
-                        $(this.testimonialsContainer).removeAttr("style");
+                        $(this.container).removeAttr("style");
                     }
-                })
+                });
             }
         });
     };
 
     minimize() {
         clearInterval(this.interval);
-        console.log("minimize");
-        console.log(this.testimonialsContainer)
-        $(this.testimonialsContainer).stop().animate({
+        $(this.container).stop().animate({
             bottom: "-400px"
         }, {
             duration: 500,
             done: () => {
-                $(this.testimonialsContainer).addClass("minimized");
+                $(this.container).addClass("minimized");
                 this.minimized = true;
-                $(this.testimonialsContainer).animate({
+                $(this.container).stop().animate({
                     bottom: "0px"
                 }, {
                     duration: 1000,
@@ -141,14 +138,14 @@ export default class Animations{
 
     maximize() {
         clearInterval(this.interval);
-        $(this.testimonialsContainer).stop().animate({
+        $(this.container).stop().animate({
             bottom: "-400px"
         }, {
             duration: 1000,
             done: () => {
-                $(this.testimonialsContainer).removeClass("minimized");
+                $(this.container).removeClass("minimized");
                 this.minimized = false;
-                $(this.testimonialsContainer).animate({
+                $(this.container).stop().animate({
                     bottom: "50px"
                 }, {
                     duration: 500,
@@ -162,32 +159,32 @@ export default class Animations{
 
     closeTestemonials() {
         this.closed = true;
-        $(this.testimonialsContainer).stop().animate({
+        $(this.container).stop().animate({
             bottom: "-400px"
         }, {
             duration: 500,
             done: () => {
-                $(this.testimonialsContainer).css("display", "none");
+                $(this.container).css("display", "none");
             }
         });
     };
 
     changeInterval(intervalFunc) {
         if (this.numberOftestimonials > 1 && !this.closed) {
-            this.interval = setInterval(intervalFunc.bind(this), this.intervalDelay);
+            this.interval = setInterval(intervalFunc.bind(this), this.delay);
         }
     };
 
-    setInterval(intervalFunc, intervalDelay) {
-        this.interval = setInterval(intervalFunc.bind(this), intervalDelay);
+    setInterval(intervalFunc) {
+        this.interval = setInterval(intervalFunc.bind(this), this.delay);
     }
 
     clearInterval() {
         clearInterval(this.interval);
     };
 
-    set minimized(value) {
-        this._minimized = value;
+    set setMinimized(value) {
+        this.minimized = value;
     }
 
 }

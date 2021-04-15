@@ -1863,18 +1863,24 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 var Animations = /*#__PURE__*/function () {
-  function Animations(numberOftestimonials, testimonialsContainer, testimonials, testimonialVideos, delay) {
+  function Animations(_ref) {
+    var numberOftestimonials = _ref.numberOftestimonials,
+        container = _ref.container,
+        testimonials = _ref.testimonials,
+        videos = _ref.videos,
+        delay = _ref.delay;
+
     _classCallCheck(this, Animations);
 
-    this.interval = null;
+    this.interval;
     this.minimized = false;
     this.minimizedByUser = false;
     this.closed = false;
     this.numberOftestimonials = numberOftestimonials;
-    this.testimonialsContainer = testimonialsContainer;
+    this.container = container;
     this.testimonials = testimonials;
-    this.testimonialVideos = testimonialVideos;
-    this.intervalDelay = delay;
+    this.videos = videos;
+    this.delay = delay;
   }
 
   _createClass(Animations, [{
@@ -1883,8 +1889,8 @@ var Animations = /*#__PURE__*/function () {
       var _this = this;
 
       this.testimonials = $('.video-testimonial');
-      this.testimonialVideos = $(".testimonial-video");
-      $(this.testimonialVideos).each(function (index, element) {
+      this.videos = $(".testimonial-video");
+      $(this.videos).each(function (index, element) {
         if (index == 1) {
           element.play();
         } else {
@@ -1961,7 +1967,7 @@ var Animations = /*#__PURE__*/function () {
           }, 2000);
         }
       });
-      $(this.testimonialsContainer).first().stop().animate({
+      $(this.container).first().stop().animate({
         bottom: "-150px"
       }, {
         duration: 1000,
@@ -1974,14 +1980,13 @@ var Animations = /*#__PURE__*/function () {
             $(testimonialsMin).last().addClass("visible");
           }
 
-          $(_this2.testimonialsContainer).first().animate({
+          $(_this2.container).first().animate({
             bottom: "0px"
           }, {
             duration: 1000,
             done: function done() {
-              $(_this2.testimonials).first().insertAfter($(_this2.testimonials).last());
               $(testimonialsMin).first().insertAfter($(testimonialsMin).last());
-              $(_this2.testimonialsContainer).removeAttr("style");
+              $(_this2.container).removeAttr("style");
             }
           });
         }
@@ -1993,16 +1998,14 @@ var Animations = /*#__PURE__*/function () {
       var _this3 = this;
 
       clearInterval(this.interval);
-      console.log("minimize");
-      console.log(this.testimonialsContainer);
-      $(this.testimonialsContainer).stop().animate({
+      $(this.container).stop().animate({
         bottom: "-400px"
       }, {
         duration: 500,
         done: function done() {
-          $(_this3.testimonialsContainer).addClass("minimized");
+          $(_this3.container).addClass("minimized");
           _this3.minimized = true;
-          $(_this3.testimonialsContainer).animate({
+          $(_this3.container).stop().animate({
             bottom: "0px"
           }, {
             duration: 1000,
@@ -2019,14 +2022,14 @@ var Animations = /*#__PURE__*/function () {
       var _this4 = this;
 
       clearInterval(this.interval);
-      $(this.testimonialsContainer).stop().animate({
+      $(this.container).stop().animate({
         bottom: "-400px"
       }, {
         duration: 1000,
         done: function done() {
-          $(_this4.testimonialsContainer).removeClass("minimized");
+          $(_this4.container).removeClass("minimized");
           _this4.minimized = false;
-          $(_this4.testimonialsContainer).animate({
+          $(_this4.container).stop().animate({
             bottom: "50px"
           }, {
             duration: 500,
@@ -2043,12 +2046,12 @@ var Animations = /*#__PURE__*/function () {
       var _this5 = this;
 
       this.closed = true;
-      $(this.testimonialsContainer).stop().animate({
+      $(this.container).stop().animate({
         bottom: "-400px"
       }, {
         duration: 500,
         done: function done() {
-          $(_this5.testimonialsContainer).css("display", "none");
+          $(_this5.container).css("display", "none");
         }
       });
     }
@@ -2056,13 +2059,13 @@ var Animations = /*#__PURE__*/function () {
     key: "changeInterval",
     value: function changeInterval(intervalFunc) {
       if (this.numberOftestimonials > 1 && !this.closed) {
-        this.interval = setInterval(intervalFunc.bind(this), this.intervalDelay);
+        this.interval = setInterval(intervalFunc.bind(this), this.delay);
       }
     }
   }, {
     key: "setInterval",
     value: function (_setInterval) {
-      function setInterval(_x, _x2) {
+      function setInterval(_x) {
         return _setInterval.apply(this, arguments);
       }
 
@@ -2071,8 +2074,8 @@ var Animations = /*#__PURE__*/function () {
       };
 
       return setInterval;
-    }(function (intervalFunc, intervalDelay) {
-      this.interval = setInterval(intervalFunc.bind(this), intervalDelay);
+    }(function (intervalFunc) {
+      this.interval = setInterval(intervalFunc.bind(this), this.delay);
     })
   }, {
     key: "clearInterval",
@@ -2090,9 +2093,9 @@ var Animations = /*#__PURE__*/function () {
       clearInterval(this.interval);
     })
   }, {
-    key: "minimized",
+    key: "setMinimized",
     set: function set(value) {
-      this._minimized = value;
+      this.minimized = value;
     }
   }]);
 
@@ -2713,16 +2716,23 @@ var videoTestimonialsAnimation = function videoTestimonialsAnimation(numberOftes
   var closeTestimonials = $(".close-testimonial");
   var testimonials = $('.video-testimonial');
   var testimonialVideos = $(".testimonial-video");
-  var anim = new _Animations__WEBPACK_IMPORTED_MODULE_0__.default(numberOftestimonials, testimonialsContainer, testimonials, testimonialVideos, intervalDelay);
+  var animationSettings = {
+    numberOftestimonials: numberOftestimonials,
+    container: testimonialsContainer,
+    testimonials: testimonials,
+    videos: testimonialVideos,
+    delay: intervalDelay
+  };
+  var animations = new _Animations__WEBPACK_IMPORTED_MODULE_0__.default(animationSettings);
 
   if ($(window).width() <= 960) {
     $(maximizeTestimonials).css("display", "none");
 
-    if (!anim.minimized) {
+    if (!animations.minimized) {
       $(testimonialsContainer).addClass("minimized");
-      anim.minimized = true;
-      anim.clearInterval();
-      anim.setInterval(anim.intervalFunctionMinimized, intervalDelay);
+      animations.setMinimized = true;
+      animations.clearInterval();
+      animations.setInterval(animations.intervalFunctionMinimized);
       /*
       minimized = true;
       clearInterval(interval);
@@ -2738,29 +2748,29 @@ var videoTestimonialsAnimation = function videoTestimonialsAnimation(numberOftes
     if ($(window).width() <= 960) {
       $(maximizeTestimonials).css("display", "none");
 
-      if (!anim.minimized && !anim.closed) {
-        anim.minimize();
+      if (!animations.minimized && !animations.closed) {
+        animations.minimize();
       }
     } else {
       $(maximizeTestimonials).removeAttr("style");
 
-      if (anim.minimized && !anim.minimizedByUser && !anim.closed) {
-        anim.maximize();
+      if (animations.minimized && !animations.minimizedByUser && !animations.closed) {
+        animations.maximize();
       }
     }
   }).focus(function () {
-    anim.clearInterval();
+    animations.clearInterval();
 
-    if (numberOftestimonials > 1 && !anim.closed) {
-      anim.minimized ? anim.setInterval(anim.intervalFunctionMinimized, intervalDelay) : anim.setInterval(anim.intervalFunction, intervalDelay); //interval = minimized ? setInterval(intervalFunctionMinimized, intervalDelay) : setInterval(intervalFunction, intervalDelay);
+    if (numberOftestimonials > 1 && !animations.closed) {
+      animations.minimized ? animations.setInterval(animations.intervalFunctionMinimized) : animations.setInterval(animations.intervalFunction); //interval = minimized ? setInterval(intervalFunctionMinimized, intervalDelay) : setInterval(intervalFunction, intervalDelay);
     }
   }).blur(function () {
-    anim.clearInterval();
+    animations.clearInterval();
   }).ready(function () {
-    anim.clearInterval();
+    animations.clearInterval();
 
-    if (numberOftestimonials > 1 && !anim.closed) {
-      anim.minimized ? anim.setInterval(anim.intervalFunctionMinimized, intervalDelay) : anim.setInterval(anim.intervalFunction, intervalDelay); //interval = minimized ? setInterval(intervalFunctionMinimized, intervalDelay) : setInterval(intervalFunction, intervalDelay);
+    if (numberOftestimonials > 1 && !animations.closed) {
+      animations.minimized ? animations.setInterval(animations.intervalFunctionMinimized) : animations.setInterval(animations.intervalFunction); //interval = minimized ? setInterval(intervalFunctionMinimized, intervalDelay) : setInterval(intervalFunction, intervalDelay);
     }
   });
   /*
@@ -2937,19 +2947,19 @@ var videoTestimonialsAnimation = function videoTestimonialsAnimation(numberOftes
   });
   minimizeTestimonials.each(function (index, element) {
     $(element).on("click", function () {
-      anim.minimizedByUser = true;
-      anim.minimize();
+      animations.minimizedByUser = true;
+      animations.minimize();
     });
   });
   maximizeTestimonials.each(function (index, element) {
     $(element).on("click", function () {
-      anim.minimizedByUser = false;
-      anim.maximize();
+      animations.minimizedByUser = false;
+      animations.maximize();
     });
   });
   closeTestimonials.each(function (index, element) {
     $(element).on("click", function () {
-      anim.closeTestemonials();
+      animations.closeTestemonials();
     });
   });
   modalsClose.each(function (index, element) {

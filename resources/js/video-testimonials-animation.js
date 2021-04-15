@@ -22,15 +22,23 @@ const videoTestimonialsAnimation = (numberOftestimonials) => {
     let testimonials = $('.video-testimonial');
     let testimonialVideos = $(".testimonial-video");
 
-    const anim = new Animations(numberOftestimonials, testimonialsContainer, testimonials, testimonialVideos, intervalDelay);
+    const animationSettings = {
+        numberOftestimonials: numberOftestimonials, 
+        container: testimonialsContainer, 
+        testimonials: testimonials, 
+        videos: testimonialVideos, 
+        delay: intervalDelay
+    }
+
+    const animations = new Animations(animationSettings);
 
     if ($(window).width() <= 960) {
         $(maximizeTestimonials).css("display", "none");
-        if (!anim.minimized) {
+        if (!animations.minimized) {
             $(testimonialsContainer).addClass("minimized");
-            anim.minimized = true;
-            anim.clearInterval();
-            anim.setInterval(anim.intervalFunctionMinimized, intervalDelay);
+            animations.setMinimized = true;
+            animations.clearInterval();
+            animations.setInterval(animations.intervalFunctionMinimized);
             /*
             minimized = true;
             clearInterval(interval);
@@ -44,27 +52,27 @@ const videoTestimonialsAnimation = (numberOftestimonials) => {
         testimonialVideos = $(".testimonial-video");
         if ($(window).width() <= 960) {
             $(maximizeTestimonials).css("display", "none");
-            if (!anim.minimized && !anim.closed) {
-                anim.minimize();
+            if (!animations.minimized && !animations.closed) {
+                animations.minimize();
             }
         } else {
             $(maximizeTestimonials).removeAttr("style");
-            if (anim.minimized && !anim.minimizedByUser && !anim.closed) {
-                anim.maximize();
+            if (animations.minimized && !animations.minimizedByUser && !animations.closed) {
+                animations.maximize();
             }
         }
     }).focus(() => {
-        anim.clearInterval();
-        if (numberOftestimonials > 1 && !anim.closed) {
-            (anim.minimized ? anim.setInterval(anim.intervalFunctionMinimized, intervalDelay) : anim.setInterval(anim.intervalFunction, intervalDelay));
+        animations.clearInterval();
+        if (numberOftestimonials > 1 && !animations.closed) {
+            (animations.minimized ? animations.setInterval(animations.intervalFunctionMinimized) : animations.setInterval(animations.intervalFunction));
             //interval = minimized ? setInterval(intervalFunctionMinimized, intervalDelay) : setInterval(intervalFunction, intervalDelay);
         }
     }).blur(() => {
-        anim.clearInterval();
+        animations.clearInterval();
     }).ready(() => {
-        anim.clearInterval();
-        if (numberOftestimonials > 1 && !anim.closed) {
-            (anim.minimized ? anim.setInterval(anim.intervalFunctionMinimized, intervalDelay) : anim.setInterval(anim.intervalFunction, intervalDelay));
+        animations.clearInterval();
+        if (numberOftestimonials > 1 && !animations.closed) {
+            (animations.minimized ? animations.setInterval(animations.intervalFunctionMinimized) : animations.setInterval(animations.intervalFunction));
             //interval = minimized ? setInterval(intervalFunctionMinimized, intervalDelay) : setInterval(intervalFunction, intervalDelay);
         }
     });
@@ -253,21 +261,21 @@ const videoTestimonialsAnimation = (numberOftestimonials) => {
 
     minimizeTestimonials.each((index, element) => {
         $(element).on("click", () => {
-            anim.minimizedByUser = true;
-            anim.minimize();
+            animations.minimizedByUser = true;
+            animations.minimize();
         });
     });
 
     maximizeTestimonials.each((index, element) => {
         $(element).on("click", () => {
-            anim.minimizedByUser = false;
-            anim.maximize();
+            animations.minimizedByUser = false;
+            animations.maximize();
         });
     })
 
     closeTestimonials.each((index, element) => {
         $(element).on("click", () => {
-            anim.closeTestemonials();
+            animations.closeTestemonials();
         });
     });
 
